@@ -1,4 +1,9 @@
 # proyecto_1
 Desarrollo web - frontend -backend
 
-- Haremos un TODO
+1. Fronted
+- REKY
+- sebb
+2. Backend
+- GunpowderGuy
+- grnkx
