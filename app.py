@@ -20,11 +20,11 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-class Usuario(db.Model):
-  __tablename__ = 'usuario'
+class User(db.Model):
+  __tablename__ = 'user'
 
   id = db.Column(db.Integer, primary_key=True)
-  todos = db.relationship('Todo', backref='usuario', lazy=True)
+  todos = db.relationship('Todo', backref='user', lazy=True)
   user_name = db.Column(db.String(), unique=True, nullable=False)
   email = db.Column(db.String(), unique=True, nullable=False)
   password = db.Column(db.String(), nullable=False)
@@ -32,17 +32,16 @@ class Usuario(db.Model):
   def __repr__(self):  # optional
     return f'Forma {self.name}'
 
-
 class Todo(db.Model):
   __tablename__ = 'todo'
   id = db.Column(db.Integer, primary_key=True)
-  usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'),nullable=False)
+  usuario_id = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
 	category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
 	category = db.relationship('Category', backref=db.backref('todo', lazy=True))
   descripcion = db.Column(db.String(), nullable=False)
 	pub_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-  fecha = db.Column(db.DateTime, unique=True, nullable=False)
-  is_done = db.Column(db.Boolean, unique=False, default=True)
+  end_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  is_done = db.Column(db.Boolean, default=True)
 
   # https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/
   def __repr__(self):  # optional
@@ -56,8 +55,8 @@ class Category(db.Model):
 	def __repr__(self):
 		return '<Category %r>' % self.name
 
-# diego = Usuario(user_name = "nicanorjkjhkj", email = "correo1jkhjkhkj",password = "123456")    
-# limpiar = Todo(descripcion = "limpiar cuarto", fecha = "ayerjhhjj ",usuario = diego) 
+# diego = User(user_name = "nicanorjkjhkj", email = "correo1jkhjkhkj",password = "123456")    
+# limpiar = Todo(descripcion = "limpiar cuarto", fecha = "ayerjhhjj ", user = diego) 
 
 # db.create_all()
 
@@ -65,18 +64,18 @@ class Category(db.Model):
 # db.session.add(limpiar)
 # db.session.commit() 
 
-@app.route('/todos/create', methods=['GET'])
-def get_todos():
-  print("get_todos")
+@app.route('/user/create', methods=['GET'])
+def get_user():
+  print("get_user")
   description = request.args.get('description', '')
   todo = Todo(description=description)
   db.session.add(todo)
   db.session.commit()
   return redirect(url_for('index'))
 
-@app.route('/todos/create', methods=['POST'])
-def post_todos():
-  print('post_todos')
+@app.route('/user/create', methods=['POST'])
+def post_user():
+  print('post_user')
   try:
     description = request.get_json()['description']
     todo = Todo(description=description)
@@ -92,8 +91,8 @@ def post_todos():
 
 @app.route('/')
 def index():
-  todos = Todo.query.all()
-  return render_template('index.html', data=todos)
+  user = Todo.query.all()
+  return render_template('index.html', data=user)
 
 if __name__ == '__main__':
   app.run(debug=True, port=5001)

@@ -1,18 +1,105 @@
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
+  <head>
+    <title>
+      ToDo Manager
+    </title>
+    <link rel="icon" type="image/png" href="img/test.png" >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+    <style> 
+      body {font-family: 'Roboto', sans-serif;}
+    </style>
+  </head>
 
-    <head>
-        <title>Title</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/uikit.min.css" />
-        <script src="js/uikit.min.js"></script>
-        <script src="js/uikit-icons.min.js"></script>
-    </head>
-
-    <body>
+  <body class="uk-height-1-1">
+    <div class="uk-vertical-align uk-text-center uk-height-1-1">
+      <div class="uk-vertical-align uk-text-center uk-height-1-1">
+        <div class="uk-background-primary uk-light uk-padding uk-panel">
+          <p class="uk-h4"><span>ToDo Manager Login</span></p>
+        </div>
         
-        
-
-    </body>
+        <form class="uk-padding" id="form">
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <span class="uk-form-icon" uk-icon="icon: user"></span>
+							<input 
+								placeholder="Nombre de Usuario" 
+								class="uk-input" 
+								type="text" 
+								id="username"
+								name="username"
+							>
+            </div>
+          </div>
+					<div class="uk-margin">
+            <div class="uk-inline">
+              <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+							<input 
+								placeholder="Correo" 
+								class="uk-input" 
+								type="text" 
+								autofocus 
+								id="email"
+								name="email"
+							/>
+            </div>
+          </div>
+          <div class="uk-margin">
+            <div class="uk-inline">
+              <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+							<input 
+								placeholder="Contraseña" 
+								class="uk-input" 
+								type="password" 
+								autofocus 
+								name="password"
+							/>
+            </div>
+          </div>
+					<input 
+						type="submit" 
+						class="uk-button uk-button-secondary" 
+						value="Registrarse"
+					/> 
+        </form>
+      </div>
+    </div>
+	</body>
+	<script>
+		document.getElementById('form').onsubmit = function(e) {
+				e.preventDefault();
+				
+				fetch('/user/create', {
+						method: 'POST',
+						body: JSON.stringify({
+							'username': document.getElementById('username').value,
+							'email': document.getElementById('email').value,
+							'password': document.getElementById('password').value
+						}),
+						headers: {
+								'Content-Type': 'application/json'
+						}
+				})
+				.then(function(response){
+						return response.json();
+				})
+				.then(function(jsonResponse) {
+						console.log(jsonResponse);
+						/* json object: {"description" : "tarea500"} */
+				
+						const liItem = document.createElement('li');
+						liItem.innerHTML = jsonResponse['description'];
+						document.getElementById('todos').appendChild(liItem);
+						document.getElementById('error').className = 'hidden';
+				})
+				.catch(function(error){
+						document.getElementById('error').className = '';
+				});
+		} 
+</script>
 </html>
