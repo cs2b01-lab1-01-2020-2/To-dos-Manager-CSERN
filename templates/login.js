@@ -30,7 +30,6 @@ document.getElementById('login').onsubmit = function(e){
         })
         .catch(function(error){
             document.getElementById('baduser').className = '';
-        })
-    ;
+        });
 }
 
