@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>TODOS</title>
+        <link rel="stylesheet" href="stylestodo.css">
+    </head>
+    <body>
+        <header>
+            <h1 class="title">TODOS</h1>
+        </header>
+        <main>
+            <form class="ftodo" id="ftodo">
+                <input type="text" id="description" name="description">
+                <input id ="add" type="submit" value="Add">
+            </form>
+            <button class="b" id="all">All</button>
+            <button class="b" id="incomplete">Incomplete</button>
+            <button class="b" id="complete">Complete</button>
+            <div class="error" id="error">That TODO already exists</div>
+            <div class = 'todosli' id='todosli'></div>
+        </main>
+        <script src="todos.js"></script>
+    </body>
+</html>
