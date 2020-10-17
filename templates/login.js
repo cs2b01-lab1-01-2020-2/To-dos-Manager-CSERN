@@ -7,29 +7,51 @@ const user = {
 document.getElementById('login').onsubmit = function(e){
     e.preventDefault();
 
-    fetch('todos/login',{
-        method: 'POST',
+    fetch('/user/login',{
+			method: 'POST',
 
-        body: JSON.stringify({
-            // Este es el javascript object
-            'user': document.getElementById('user').value,
-            'password': document.getElementById('password').value
-        }),
+			body: JSON.stringify({
+			'user': document.getElementById('user').value,
+			'password': document.getElementById('password').value
+			}),
 
-        headers: {
-            'content-type': 'application/json'
-        }
+			headers: {
+				'content-type': 'application/json'
+			}
 
     })
-        
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(jsonResponse){
-            
-        })
-        .catch(function(error){
-            document.getElementById('baduser').className = '';
-        });
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(jsonResponse){
+			console.log(jsonResponse);
+		})
+		.catch(function(error){
+			document.getElementById('baduser').className = '';
+		});
 }
 
+document.getElementById('createuser').onsubmit = function(e){
+	e.preventDefault();
+
+	fetch('/user/create',{
+		method: 'POST',
+		body: JSON.stringify({
+			'username': document.getElementById('username').value,
+			'email': document.getElementById('email').value,
+			'password': document.getElementById('password').value
+		}),
+		headers: {
+			'content-type': 'application/json'
+		}
+	})
+	.then(function(response){
+		return response.json();
+	})
+	.then(function(jsonResponse){
+		console.log(jsonResponse);
+	})
+	.catch(function(error){
+		document.getElementById('baduser').className = '';
+	});
+}
