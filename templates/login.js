@@ -14,13 +14,14 @@ function validEmail(element) {
 document.getElementById('login').onsubmit = function(e){
   e.preventDefault();
 
-  fetch('XXXXXX',{
+  fetch('/user/create',{
 	  method: 'POST',
 	  // Capturamos la data del form
 	  body: JSON.stringify({
 		  // Este es el javascript object
-		  'user': document.getElementById('user').value,
-		  'password': document.getElementById('password').value
+		  'user': document.getElementById('username_reg').value,
+		  'email': document.getElementById('email').value,
+		  'password': document.getElementById('password_reg').value
 	  }),
 	  headers: {
 		  'content-type': 'application/json'
@@ -50,72 +51,27 @@ document.getElementById('login').onsubmit = function(e){
 		  document.getElementById('baduser').className = '';
 	  });
 }
-
-/*
-  try:
-	  user = db_session.query(entities.User
-		  ).filter(entities.User.username == username
-		  ).filter(entities.User.password == password
-		  ).one()
-	  return Response(json.dumps(user,cls=connector.AlchemyEncoder), status=200, mimetype='application/json')
-  except Exception:
-	  message = {'message': 'Unauthorized'}
-	  return Response(message, status=401, mimetype='application/json')
-*/
-/*const form = new FormData(form)
-const user = {
-    user,
-    password
-};
-
-document.getElementById('login').onsubmit = function(e){
+document.getElementById('createuser').onsubmit = function(e){
     e.preventDefault();
 
-    fetch('/user/login',{
-			method: 'POST',
-
-			body: JSON.stringify({
-			'user': document.getElementById('user').value,
-			'password': document.getElementById('password').value
-			}),
-
-			headers: {
-				'content-type': 'application/json'
-			}
-
+    fetch('/user/create',{
+        method: 'POST',
+        body: JSON.stringify({
+            'username': document.getElementById('username_reg').value,
+            'email': document.getElementById('email').value,
+            'password': document.getElementById('password_reg').value
+        }),
+        headers: {
+            'content-type': 'application/json'
+        }
     })
-		.then(function(response){
-			return response.json();
-		})
-		.then(function(jsonResponse){
-			console.log(jsonResponse);
-		})
-		.catch(function(error){
-			document.getElementById('baduser').className = '';
-		});
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(jsonResponse){
+        console.log(jsonResponse);
+    })
+    .catch(function(error){
+        document.getElementById('baduser').className = '';
+    });
 }
-
-document.getElementById('createuser').onsubmit = function(e){
-	e.preventDefault();
-
-	fetch('/user/create',{
-		method: 'POST',
-		body: JSON.stringify({
-			'username': document.getElementById('username').value,
-			'email': document.getElementById('email').value,
-			'password': document.getElementById('password').value
-		}),
-		headers: {
-			'content-type': 'application/json'
-		}
-	})
-	.then(function(response){
-		return response.json();
-	})
-	.then(function(jsonResponse){
-		console.log(jsonResponse);
-	})
-	.catch(function(error){
-		document.getElementById('baduser').className = '';
-	});
-}*/
