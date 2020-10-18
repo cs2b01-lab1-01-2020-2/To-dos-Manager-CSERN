@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:pvta@localhost:5432/todosdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://rrodriguez:neoscience30@localhost:5432/todosdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -49,6 +49,7 @@ def get_user():
 	db.session.commit()
 	
 	return redirect(url_for('login'))
+
 
 @app.route('/user/create', methods=['POST'])
 def post_user():
