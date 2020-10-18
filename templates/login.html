@@ -35,8 +35,8 @@
 								<div class="uk-inline">
 									<span class="uk-form-icon" uk-icon="icon: user"></span>
 										<input 
-											id="username" 
-											name="username" 
+											id="username_login" 
+											name="username_login" 
 											placeholder="Nombre de Usuario" 
 											class="uk-input" 
 											type="text"
@@ -47,8 +47,8 @@
 								<div class="uk-inline">
 									<span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
 										<input 
-											id="password" 
-											name="password" 
+											id="password_login" 
+											name="password_login" 
 											placeholder='Contraseña' 
 											class="uk-input" 
 											type="password" 
@@ -71,8 +71,8 @@
 							<div class="uk-inline">
 								<span class="uk-form-icon" uk-icon="icon: user"></span>
 									<input 
-										id="username" 
-										name="username"
+										id="username_reg" 
+										name="username"_reg
 										placeholder="Nombre de Usuario" 
 										class="uk-input" 
 										type="text"
@@ -96,8 +96,8 @@
 							<div class="uk-inline">
 								<span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
 									<input 
-										id="password" 
-										name="placeholder"
+										id="password_reg" 
+										name="password_reg"
 										placeholder='Contraseña' 
 										class="uk-input" 
 										type="password" 
@@ -114,31 +114,5 @@
     	</div>
   	</div>
 	</body>
-<!-- <script src="login.js"> </script> -->
-<script>
-	document.getElementById('createuser').onsubmit = function(e){
-		e.preventDefault();
-
-		fetch('/user/create',{
-			method: 'POST',
-			body: JSON.stringify({
-				'username': document.getElementById('username').value,
-				'email': document.getElementById('email').value,
-				'password': document.getElementById('password').value
-			}),
-			headers: {
-				'content-type': 'application/json'
-			}
-		})
-		.then(function(response){
-			return response.json();
-		})
-		.then(function(jsonResponse){
-			console.log(jsonResponse);
-		})
-		.catch(function(error){
-			document.getElementById('baduser').className = '';
-		});
-	}
-</script>
+<script src="login.js"> </script>
 </html>

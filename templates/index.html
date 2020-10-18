@@ -19,36 +19,4 @@
   <body class="uk-height-1-1">
     <h1>Estas en el index :D</h1>
 	</body>
-	<script>
-		document.getElementById('form').onsubmit = function(e) {
-				e.preventDefault();
-				
-				fetch('/user/create', {
-						method: 'POST',
-						body: JSON.stringify({
-							'username': document.getElementById('username').value,
-							'email': document.getElementById('email').value,
-							'password': document.getElementById('password').value
-						}),
-						headers: {
-								'Content-Type': 'application/json'
-						}
-				})
-				.then(function(response){
-						return response.json();
-				})
-				.then(function(jsonResponse) {
-						console.log(jsonResponse);
-						/* json object: {"description" : "tarea500"} */
-				
-						const liItem = document.createElement('li');
-						liItem.innerHTML = jsonResponse['description'];
-						document.getElementById('todos').appendChild(liItem);
-						document.getElementById('error').className = 'hidden';
-				})
-				.catch(function(error){
-						document.getElementById('error').className = '';
-				});
-		} 
-</script>
 </html>

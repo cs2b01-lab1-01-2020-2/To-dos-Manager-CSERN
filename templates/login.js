@@ -37,9 +37,9 @@ document.getElementById('createuser').onsubmit = function(e){
 	fetch('/user/create',{
 		method: 'POST',
 		body: JSON.stringify({
-			'username': document.getElementById('username').value,
+			'username': document.getElementById('username_reg').value,
 			'email': document.getElementById('email').value,
-			'password': document.getElementById('password').value
+			'password': document.getElementById('password_reg').value
 		}),
 		headers: {
 			'content-type': 'application/json'
