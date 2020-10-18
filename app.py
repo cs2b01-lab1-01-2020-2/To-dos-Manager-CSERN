@@ -11,10 +11,10 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 class User(db.Model):
-	__tablename__ = 'user'
+	__tablename__ = 'usr'
 
 	id = db.Column(db.Integer, primary_key=True)
-	todos = db.relationship('Todo', backref='user', lazy=True)
+	todos = db.relationship('Todo', backref='usr', lazy=True)
 	username = db.Column(db.String(), unique=True, nullable=False)
 	email = db.Column(db.String(), unique=True, nullable=False)
 	password = db.Column(db.String(), nullable=False)
@@ -49,6 +49,7 @@ def get_user():
 	db.session.commit()
 	
 	return redirect(url_for('login'))
+
 
 @app.route('/user/create', methods=['POST'])
 def post_user():

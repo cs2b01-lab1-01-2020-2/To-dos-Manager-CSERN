@@ -1,14 +1,16 @@
 function validEmail(element) {
 	var text = document.getElementById(element.id).value;
 	var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-
+	
 	if (!regex.test(text)) {
-		document.getElementById("bademail").className = "error uk-animation-shake";
+	  document.getElementById("bademail").className = "uk-animation-shake"
+	  document.getElementById("bademail").classList.add("error")
+	  //document.getElementById("bademail").classList.add("error")
 	}
 	else{
 	  document.getElementById("bademail").className = "hidden";
 	}
-};
+  };
 
 
 document.getElementById('login').onsubmit = function(e){
@@ -51,27 +53,28 @@ document.getElementById('login').onsubmit = function(e){
 		  document.getElementById('baduser').className = '';
 	  });
 }
+
 document.getElementById('createuser').onsubmit = function(e){
     e.preventDefault();
 
-    fetch('/user/create',{
-        method: 'POST',
-        body: JSON.stringify({
-            'username': document.getElementById('username_reg').value,
-            'email': document.getElementById('email').value,
-            'password': document.getElementById('password_reg').value
-        }),
-        headers: {
-            'content-type': 'application/json'
-        }
-    })
-    .then(function(response){
-        return response.json();
-    })
-    .then(function(jsonResponse){
-        console.log(jsonResponse);
-    })
-    .catch(function(error){
-        document.getElementById('baduser').className = '';
-    });
+	fetch('/user/create',{
+		method: 'POST',
+		body: JSON.stringify({
+			'username': document.getElementById('username_reg').value,
+			'email': document.getElementById('email').value,
+			'password': document.getElementById('password_reg').value
+		}),
+		headers: {
+			'content-type': 'application/json'
+		}
+	})
+	.then(function(response){
+		return response.json();
+	})
+	.then(function(jsonResponse){
+		console.log(jsonResponse);
+	})
+	.catch(function(error){
+		document.getElementById('baduser').className = '';
+	});
 }
