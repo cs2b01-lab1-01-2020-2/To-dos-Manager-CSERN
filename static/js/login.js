@@ -57,6 +57,9 @@ document.getElementById('createuser').onsubmit = function(e){
   .then(function(jsonResponse){
     document.getElementById('sucesscreate').className = '';
     document.getElementById('baduser_register').className = 'hidden';
+    document.getElementById('username_reg').value = '';
+    document.getElementById('password_reg').value = '';
+    document.getElementById('email').value = '';
     console.log(jsonResponse);
   })
   .catch(function(error){
