@@ -9,12 +9,12 @@ function validEmail(element) {
   var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
   
   if (!regex.test(text)) {
-    document.getElementById("bademail").className = "uk-animation-shake"
-    document.getElementById("bademail").classList.add("error")
+    document.getElementById("bademail_register").className = "uk-animation-shake"
+    document.getElementById("bademail_register").classList.add("error")
     //document.getElementById("bademail").classList.add("error")
   }
   else{
-    document.getElementById("bademail").className = "hidden";
+    document.getElementById("bademail_register").className = "hidden"
   }
   };
 
@@ -64,6 +64,6 @@ document.getElementById('createuser').onsubmit = function(e){
     console.log(jsonResponse);
   })
   .catch(function(error){
-    document.getElementById('baduser').className = '';
+    document.getElementById('baduser_register').className = 'error ';
   });
 }
