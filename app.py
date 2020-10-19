@@ -64,7 +64,7 @@ def post_user():
 		return jsonify({
 			'username': user.username,
 			'email': user.email,
-			'password': user.password,
+			'password': user.password
 		})
 	except Exception as e:
 		db.session.rollback()
@@ -74,7 +74,6 @@ def post_user():
 @app.route('/')
 def index():
 	user = User.query.all()
-	return render_template('login.html', data=user)
 
 if __name__ == '__main__':
   app.run(debug=True, port=5001)

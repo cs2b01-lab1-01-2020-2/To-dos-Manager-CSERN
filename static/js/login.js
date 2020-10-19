@@ -1,3 +1,9 @@
+
+   function myFunc(vars) {
+	return vars
+}
+
+
 function validEmail(element) {
 	var text = document.getElementById(element.id).value;
 	var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -5,7 +11,6 @@ function validEmail(element) {
 	if (!regex.test(text)) {
 	  document.getElementById("bademail").className = "uk-animation-shake"
 	  document.getElementById("bademail").classList.add("error")
-	  //document.getElementById("bademail").classList.add("error")
 	}
 	else{
 	  document.getElementById("bademail").className = "hidden";
@@ -56,7 +61,7 @@ document.getElementById('login').onsubmit = function(e){
 
 document.getElementById('createuser').onsubmit = function(e){
     e.preventDefault();
-
+	
 	fetch('/user/create',{
 		method: 'POST',
 		body: JSON.stringify({
