@@ -64,5 +64,6 @@ document.getElementById('createuser').onsubmit = function(e){
   })
   .catch(function(error){
     document.getElementById('baduser_register').className = 'error';
+    document.getElementById('sucesscreate').className = 'hidden';
   });
 }
