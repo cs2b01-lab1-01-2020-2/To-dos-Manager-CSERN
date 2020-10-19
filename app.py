@@ -3,7 +3,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
-from wtforms_fields import *
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:pvta@localhost:5432/todosdb'
@@ -43,8 +42,6 @@ class Category(db.Model):
 # Register
 @app.route('/auth/signup', methods=['POST'])
 def signup():
-
-	reg_form = RegistrationForm()
 
 	print('signup')
 	try:
