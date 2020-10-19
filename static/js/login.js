@@ -55,9 +55,11 @@ document.getElementById('createuser').onsubmit = function(e){
     return response.json();
   })
   .then(function(jsonResponse){
+    document.getElementById('sucesscreate').className = '';
+    document.getElementById('baduser_register').className = 'hidden';
     console.log(jsonResponse);
   })
   .catch(function(error){
-    document.getElementById('baduser_register').className = 'error ';
+    document.getElementById('baduser_register').className = 'error';
   });
 }
