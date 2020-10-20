@@ -15,7 +15,7 @@ function validEmail(element) {
 document.getElementById('login').onsubmit = function(e){
   e.preventDefault();
 
-  fetch('/autth/login',{
+  fetch('/auth/login',{
     method: 'POST',
     body: JSON.stringify({
       'username': document.getElementById('username_login').value,
@@ -30,7 +30,10 @@ document.getElementById('login').onsubmit = function(e){
   })
   .then(function(jsonResponse){
 		console.log(jsonResponse);
-    console.log("logeadooo!")
+		console.log(jsonResponse['response']);
+		if (jsonResponse['response'] == 'true') {
+			location.replace(window.location.href + "todos")
+		}
   })
   .catch(function(error){
     document.getElementById('baduser').className = '';

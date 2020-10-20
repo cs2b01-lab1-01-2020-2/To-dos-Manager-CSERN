@@ -72,33 +72,41 @@ def signup():
 	finally:
 		db.session.close()
 
-
-# Login
-# @app.route('/autth/login', methods=['GET'])
-# def login():
-# 	print('login')
-# 	try:
-# 		description = request.args.get('description', '')
-# 		password = request.get_json()['password']
-
-# 		usxr = User.query.filter_by(username=username).first()
-# 		pwd = User.query.filter_by(password=password).first()
-
-# 		print(usxr)
-# 		print(pwd)
-	
-# 		if usxr and pwd:
-# 			return render_template('index.html')
-# 		else:
-# 			return 'no logeado'
-# 	except Exception as e:
-# 		return 'no logeado'
-
-
 @app.route('/todos')
 def todos():
-	#todos = Todos.query.all()
+	#todos = Todos.query.all()``
 	return render_template('todos.html')
+
+# Login
+@app.route('/auth/login', methods=['GET','POST'])
+def login():
+	if request.method == 'POST':
+		username = request.get_json()['username']
+		password = request.get_json()['password']
+
+		print(username)
+		print(password)
+		print("----")
+
+		usxr = User.query.filter_by(username=username).first()
+
+		print(usxr.username)
+		print(usxr.password)
+
+		if usxr.username == username and usxr.password == password:
+			print("LOGEADOOOOOOOOOO")
+			return jsonify({
+				'response': 'true'
+			})
+		else:
+			print("NOOOOOOOO LOGEADOOOOOOOOOO")
+			return jsonify({
+				'response': 'false'
+			})
+
+	elif request.method == 'GET':
+		print("Estas en el GET")
+		return "GET Method"
 
 @app.route('/')
 def index():
