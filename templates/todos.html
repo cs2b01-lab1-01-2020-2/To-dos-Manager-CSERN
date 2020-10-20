@@ -1,25 +1,54 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8"/>
-        <title>TODOS</title>
-        <link rel="stylesheet" href="stylestodo.css">
+        <title>
+            To dos Manager
+            </title>
+            <!-- <link href="{{url_for('static', filename = 'css/styles.css')}}" rel="stylesheet"> -->
+            <!-- <link href="{{url_for('static', filename = 'img/test.png')}}" rel="icon" type="image/png"> -->
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            
+            <link href="css/styles.css" rel="stylesheet">
+            <link href="img/test.png" rel="icon" type="image/png">
+            <!-- Fonts-->
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+            
+            <!-- UIkit CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
+        
+            <!-- UIkit JS -->
+            <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
+        
     </head>
-    <body>
-        <header>
-            <h1 class="title">TODOS</h1>
-        </header>
-        <main>
-            <form class="ftodo" id="ftodo">
-                <input type="text" id="description" name="description">
-                <input id ="add" type="submit" value="Add">
-            </form>
-            <button class="b" id="all">All</button>
-            <button class="b" id="incomplete">Incomplete</button>
-            <button class="b" id="complete">Complete</button>
-            <div class="error" id="error">That TODO already exists</div>
-            <div class = 'todosli' id='todosli'></div>
-        </main>
-        <script src="todos.js"></script>
+    <body class="uk-height-1-1">
+        <div class="uk-vertical-align uk-text-center uk-height-1-1">
+            <div class="uk-vertical-align uk-text-center uk-height-1-1">
+                <div class="uk-background-primary uk-light uk-padding uk-panel">
+                    <p class="uk-h4"><span>Your To dos!</span></p>
+                </div>
+
+
+                <form class="ftodo" id="ftodo">
+                    <input type="text" id="description" name="description">
+                    <input id ="add" type="submit" value="Add">
+                </form>
+                <button class="b" id="all">All</button>
+                <button class="b" id="incomplete">Incomplete</button>
+                <button class="b" id="complete">Complete</button>
+                <div class="error" id="error">That TODO already exists</div>
+                
+                <div class="uk-panel uk-panel-scrollable">
+                    <ul class="uk-list">
+                        <li><label><input class="uk-checkbox" type="checkbox" > this task</label></li>
+                    </ul>
+                
+                </div>
+                <div class = 'todosli' id='todosli'></div>
+                
+            </div>
+        </div>
     </body>
+    <script src="todos.js"></script>
 </html>
