@@ -9,7 +9,7 @@ def inicializar():
 
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:pvta@localhost:5432/todosdb'
-    #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test6.db'
+    #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test14.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db = SQLAlchemy(app)
@@ -38,8 +38,8 @@ class Todo(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('usr.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey(
         'category.id'), nullable=False)
-    category = db.relationship(
-        'Category', backref=db.backref('todo', lazy=True))
+    # category = db.relationship(
+    #    'Category', backref=db.backref('todo', lazy=True))
     description = db.Column(db.String(), nullable=False)
     pub_date = db.Column(db.DateTime, default=datetime.utcnow)
     end_date = db.Column(db.DateTime, default=datetime.utcnow)
@@ -51,3 +51,4 @@ class Category(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    todos = db.relationship('Todo', backref='category', lazy=True)
