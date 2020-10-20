@@ -1,10 +1,8 @@
 from modelos import *
 
-
-db, app, migrate = inicializar()
-
-
 # Register
+
+
 @app.route('/auth/signup', methods=['POST'])
 def signup():
     try:
@@ -67,9 +65,9 @@ def todos(id_user):
     return render_template('todos.html', data=id_user)
 
 
-#cat = Category(name="general")
-# db.session.add(cat)
-# db.session.commit()
+cat = Category(name="general")
+db.session.add(cat)
+db.session.commit()
 
 
 @app.route('/<id_user>/add/todo', methods=['POST'])
