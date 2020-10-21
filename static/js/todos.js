@@ -38,64 +38,65 @@ document.getElementById('all').onclick = function(){
     listAll();
 }
 
-document.getElementById('incomplete').onsubmit = function(){
+document.getElementById('incomplete').onclick= function(){
     listIncomplete();
 }
 
-document.getElementById('complete').onsubmit = function(){
+document.getElementById('complete').onclick = function(){
     listComplete();
 }
 
 function listAll() {
-    todosElement.innerHTML = '';
-    fetch('todos/displayall')
+    fetch('/todos/displayall')
     .then(response => response.json())
     .then(todos => {
         console.log(todos);
         todos.forEach(todo => {
-            const div = document.createElement('div');
-            const name = document.createElement('h3');
-            header.textContent = todo.description;
-
-            div.appendChild(name);
-
-            todosElement.appendChild(div);
+            const li = document.createElement('li');
+            li.innerHTML = jsonResponse['description']
+            document.getElementById("alltasks").appendChild(li)
         })
     })
 }
 
 function listIncomplete() {
     todosElement.innerHTML = '';
-    fetch('todos/displayincomplete')
+    fetch('/todos/displayincomplete')
     .then(response => response.json())
     .then(todos => {
         console.log(todos);
         todos.forEach(todo => {
-            const div = document.createElement('div');
-            const name = document.createElement('h3');
-            header.textContent = todo.description;
+            // const div = document.createElement('div');
+            // const name = document.createElement('h3');
+            // header.textContent = todo.description;
             
-            div.appendChild(name);
+            // div.appendChild(name);
 
-            todosElement.appendChild(div);
+            // todosElement.appendChild(div);
+            const li = document.createElement('li');
+            li.innerHTML = jsonResponse['description']
+            document.getElementById("alltasks").appendChild(li)
         })
     })
 }
 
 function listComplete() {
     todosElement.innerHTML = '';
-    fetch('todos/displaycomplete')
+    fetch('/todos/displaycomplete')
     .then(response => response.json())
     .then(todos => {
         console.log(todos);
         todos.forEach(todo => {
-            const div = document.createElement('div');
-            const name = document.createElement('h3');
-            header.textContent = todo.description;
+            // const div = document.createElement('div');
+            // const name = document.createElement('h3');
+            // header.textContent = todo.description;
 
-            div.appendChild(name);
+            // div.appendChild(name);
 
-            todosElement.appendChild(div);
+            // todosElement.appendChild(div);
+            const li = document.createElement('li');
+            li.innerHTML = jsonResponse['description']
+            document.getElementById("alltasks").appendChild(li)
         })
     })
 }

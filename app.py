@@ -28,8 +28,8 @@ class Todo(db.Model):
 	category_id = db.Column(db.Integer, db.ForeignKey('category.id'),nullable=False)
 	category = db.relationship('Category', backref=db.backref('todo',lazy=True))
 	description = db.Column(db.String(), nullable=False)
-	pub_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-	end_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	pub_date = db.Column(db.DateTime, default=datetime.utcnow)
+	end_date = db.Column(db.DateTime, default=datetime.utcnow)
 	is_done = db.Column(db.Boolean, default=True)
 
 class Category(db.Model):
@@ -42,8 +42,6 @@ class Category(db.Model):
 # Register
 @app.route('/auth/signup', methods=['POST'])
 def signup():
-
-	print('signup')
 	try:
 		username = request.get_json()['username']
 		email = request.get_json()['email']
@@ -72,26 +70,14 @@ def signup():
 	finally:
 		db.session.close()
 
-@app.route('/todos')
-def todos():
-	#todos = Todos.query.all()``
-	return render_template('todos.html')
-
 # Login
-@app.route('/auth/login', methods=['GET','POST'])
+@app.route('/auth/login', methods=['POST'])
 def login():
 	if request.method == 'POST':
 		username = request.get_json()['username']
 		password = request.get_json()['password']
 
-		print(username)
-		print(password)
-		print("----")
-
 		usxr = User.query.filter_by(username=username).first()
-
-		print(usxr.username)
-		print(usxr.password)
 
 		if usxr.username == username and usxr.password == password:
 			print("LOGEADOOOOOOOOOO")
@@ -104,9 +90,22 @@ def login():
 				'response': 'false'
 			})
 
-	elif request.method == 'GET':
-		print("Estas en el GET")
-		return "GET Method"
+# Todos Route
+@app.route('/todos')
+def todos():
+	return render_template('todos.html')
+
+@app.route('/todos/displayall')
+def display_all():
+	todos = Todo.query.all()
+	data = []
+	for todo in todos:
+		todos.append(todo)
+	return json.dumps(todos)
+
+# @app.route('userAAA/todos', methods=['POST'])
+# def todos():
+# 	return render_template('todos.html')
 
 @app.route('/')
 def index():
