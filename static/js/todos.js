@@ -27,10 +27,9 @@ document.getElementById('ftodo').onsubmit = function(e){
   .then(res => {
 		console.log(res)
 		if(res['status'] == 'true') {
+      document.getElementById("description").value = ""
 			console.log("TODO creado!!!")
 		}
-    // listAll();
-    // errormsg.style.display = 'none';
   })
   .catch(function(error) {
     //errormsg.style.display = '';
@@ -38,20 +37,53 @@ document.getElementById('ftodo').onsubmit = function(e){
   });
 }
 
-document.getElementById('all').onclick = function(){
-  listAll();
+document.getElementById('all').onclick = function(e){
+  e.preventDefault();
+	let user_name = document.getElementById('description').dataset.id_user;
+  fetch('/'+ user_name + '/todos/displayall')
+    .then(response => response.json())
+    .then(todos => {
+        document.getElementById("alltasks").innerHTML = ""
+        todos.forEach(todo => {
+            const li = document.createElement('li');
+            li.innerHTML = todo['description']
+            document.getElementById("alltasks").appendChild(li)
+        })
+    })
 }
 
-document.getElementById('incomplete').onclick= function(){
-    listIncomplete();
+document.getElementById('incomplete').onclick= function(e){
+  e.preventDefault();
+	let user_name = document.getElementById('description').dataset.id_user;
+  fetch('/'+ user_name + '/todos/displayincompleted')
+    .then(response => response.json())
+    .then(todos => {
+        document.getElementById("incompletedtasks").innerHTML = ""
+        todos.forEach(todo => {
+            const li = document.createElement('li');
+            li.innerHTML = todo['description']
+            document.getElementById("incompletedtasks").appendChild(li)
+        })
+    })
 }
 
-document.getElementById('complete').onclick = function(){
-    listComplete();
+document.getElementById('complete').onclick = function(e){
+  e.preventDefault();
+	let user_name = document.getElementById('description').dataset.id_user;
+  fetch('/'+ user_name + '/todos/displaycompleted')
+    .then(response => response.json())
+    .then(todos => {
+        document.getElementById("completedtasks").innerHTML = ""
+        todos.forEach(todo => {
+            const li = document.createElement('li');
+            li.innerHTML = todo['description']
+            document.getElementById("completedtasks").appendChild(li)
+        })
+    })
 }
 
-function listAll() {
-    fetch('/todos/displayall')
+/*function listAll() {
+    fetch('<user_name>/todos/displayall')
     .then(response => response.json())
     .then(todos => {
         console.log(todos);
@@ -78,11 +110,13 @@ function listIncomplete() {
 
             // todosElement.appendChild(div);
             const li = document.createElement('li');
+            const check = document.createElement('buttom')
             li.innerHTML = jsonResponse['description']
             document.getElementById("alltasks").appendChild(li)
+            document.getElementById("alltasks").appendChild(check)
         })
     })
-  }
+}
 
 function listComplete() {
     todosElement.innerHTML = '';
@@ -104,3 +138,4 @@ function listComplete() {
         })
     })
 }
+*/

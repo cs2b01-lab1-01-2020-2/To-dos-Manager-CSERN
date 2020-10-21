@@ -8,7 +8,7 @@ from datetime import datetime
 def inicializar():
 
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:robior123@localhost:5432/todosdb'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://rrodriguez:neoscience30@localhost:5432/todosdb'
     #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test17.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

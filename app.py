@@ -3,6 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
+from dataclasses import dataclass
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://rrodriguez:neoscience30@localhost:5432/todosdb'
@@ -12,30 +14,46 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # User
+@dataclass
 class User(db.Model):
-	__tablename__ = 'usr'
+    __tablename__ = 'usr'
+    id: int
+    username: str
+    email: str
+    password: str
 
-	id = db.Column(db.Integer, primary_key=True)
-	username = db.Column(db.String(), unique=True, nullable=False)
-	email = db.Column(db.String(), unique=True, nullable=False)
-	password = db.Column(db.String(), nullable=False)
-
-# Todo
-class Todo(db.Model):
-	__tablename__ = 'todo'
-
-	id = db.Column(db.Integer, primary_key=True)
-	user_id = db.Column(db.Integer, db.ForeignKey('usr.id'),nullable=False)
-	category_id = db.Column(db.Integer, db.ForeignKey('category.id'),nullable=False)
-	description = db.Column(db.String(), nullable=False)
-	is_done = db.Column(db.Boolean, default=False)
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(), unique=True, nullable=False)
+    email = db.Column(db.String(), unique=True, nullable=False)
+    password = db.Column(db.String(), nullable=False)
 
 # Category
+@dataclass
 class Category(db.Model):
-	__tablename__ = 'category'
-	
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(50), nullable=False)
+    __tablename__ = 'category'
+    id: int
+    name: str
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+
+# Todo
+@dataclass
+class Todo(db.Model):
+    __tablename__ = 'todo'
+    id: int
+    user_id: User
+    category_id: Category
+    description: str
+    is_done: bool
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'),nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'),nullable=False)
+    description = db.Column(db.String(), nullable=False)
+    is_done = db.Column(db.Boolean, default=False)
+
+
 
 
 # Register
@@ -88,6 +106,29 @@ def login():
 				'response': 'false'
 			})
 
+# Display all
+@app.route('/<user_name>/todos/displayall')
+def display_all(user_name):
+    user = User.query.filter_by(username=user_name).first()
+    todo = Todo.query.filter_by(user_id=user.id).all()
+    return(jsonify(todo))
+
+# Display incompleted
+@app.route('/<user_name>/todos/displayincompleted')
+def display_imcompleted(user_name):
+    user = User.query.filter_by(username=user_name).first()
+    status = False
+    todo = Todo.query.filter((Todo.user_id == user.id) & (Todo.is_done == status)).all()
+    return(jsonify(todo))
+
+# Display completed
+@app.route('/<user_name>/todos/displaycompleted')
+def display_completed(user_name):
+    user = User.query.filter_by(username=user_name).first()
+    status = True
+    todo = Todo.query.filter((Todo.user_id == user.id) & (Todo.is_done == status)).all()
+    return(jsonify(todo))
+
 # Todos Route
 @app.route('/<user_name>/todos')
 def todos(user_name):
@@ -123,4 +164,4 @@ def index():
 	return render_template('login.html')
 
 if __name__ == '__main__':
-  app.run(debug=True, port=5001)
+    app.run(debug=True, port=5001)
