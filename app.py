@@ -103,8 +103,9 @@ def addtodo(id_user):
         })
     except Exception as e:
         db.session.rollback()
+        print("falso")
         return jsonify({
-            'status': 'true'
+            'status': 'false'
         })
     finally:
         db.session.close()
