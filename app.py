@@ -77,18 +77,25 @@ def addtodo(id_user):
         print("ABAAAA1")
         description1 = request.get_json()['description']
         # usuario2 = User.query.filter_by(id=id_user).first()
-        usuario2 = User.query.filter_by(username='rcho3').first()
-        print(id_user)
+        usuario2 = User.query.filter_by(username=id_user).first()
+        print(id_user)#js envia username, no el id
 
         print(description1)
         print(usuario2.username)
-        todo = Todo(user=usuario2, description=description1,
-                    category=cat)
+        
+
+        #todo = Todo(usr=usuario2, description=description1,category=cat)
+        todo2 = Todo( description=description1)
+       
+        cat.todos.append(todo2)
+      
+        usuario2.todos.append(todo2)
+        print(cat.name)
         print("AAAAAA4")
 
-        db.session.add(todo)
+        db.session.add(todo2)
         print("AAAAAA123213")
-        print(todo)
+        #print(todo2)
         db.session.commit()
         print("exitos")
         return jsonify({
