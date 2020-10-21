@@ -1,61 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            To dos Manager
-            </title>
-            <link href="{{url_for('static', filename = 'css/styles.css')}}" rel="stylesheet"> 
-            <link href="{{url_for('static', filename = 'img/test.png')}}" rel="icon" type="image/png">
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            
-            <!-- Fonts-->
-            <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
-            
-            <!-- UIkit CSS -->
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
-        
-            <!-- UIkit JS -->
-            <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
-        
-    </head>
-    <body class="uk-height-1-1">
-        <div class="uk-vertical-align uk-text-center uk-height-1-1">
-            <div class="uk-vertical-align uk-text-center uk-height-1-1">
-                <div class="uk-background-primary uk-light uk-padding uk-panel">
-                    <p class="uk-h4"><span>Your To dos!</span></p>
-                </div>
-                    
-                <form class="ftodo" id="ftodo">
-                    <input type="text" id="description" name="description" placeholder="Task">
-                    <input type="text" id="category" name="category" placeholder="Categoría">
-                    <input type="date" id="end_date" name="end_date">
-                    <input id ="add" type="submit" value="Add">
-                </form>
-                <div class="error" id="error">That TODO already exists</div>
-                
-                <ul class="uk-subnav uk-subnav-pill" uk-switcher>
-                    <li><button id="all"><a href="#">All</a></button></li>
-                    <li><button id="incomplete"><a href="#">Activate</a></button></li>
-                    <li><button id="complete"><a href="#">Completed</a></button></li>
-                </ul>
-                
-                <ul class="uk-switcher uk-margin header">
-                    <div id="alltasks">
-                        <li>alls</li>
-                    </div>
-                    <div id="activatedtasks">
-                        <li>activateddds</li>
-                    </div>
-                    <div id="completedtasks">
-                        <li>completedddd</li>
-                    </div>
-                </ul>
-                <div class = 'todosli' id='todosli'></div>
-                
-            </div>
+  <head>
+    <title>
+      To dos Manager
+      </title>
+      <link href="{{url_for('static', filename = 'css/styles.css')}}" rel="stylesheet"> 
+      <link href="{{url_for('static', filename = 'img/test.png')}}" rel="icon" type="image/png">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      
+      <!-- Fonts-->
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+      
+      <!-- UIkit CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
+    
+      <!-- UIkit JS -->
+      <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
+    
+  </head>
+  <body class="uk-height-1-1">
+    <div class="uk-vertical-align uk-text-center uk-height-1-1">
+      <div class="uk-vertical-align uk-text-center uk-height-1-1">
+        <div class="uk-background-primary uk-light uk-padding uk-panel">
+          <p class="uk-h4"><span>Your To dos!</span></p>
         </div>
-    </body>
-    <script src="todos.js"></script>
+          
+        <form class="ftodo" id="ftodo">
+          <input type="text" id="description" data-id_user="{{data}}" name="description" placeholder="Task">
+          <!-- <input type="text" id="category" name="category" placeholder="Categoría"> -->
+					<!-- <input type="date" id="end_date" name="end_date"> -->
+          <input id ="add" type="submit" value="Add">
+				</form>
+				
+        <div class="error" id="error">That TODO already exists</div>
+        
+        <ul class="uk-subnav uk-subnav-pill" uk-switcher>
+          <li><button id="all"><a href="#">All</a></button></li>
+          <li><button id="incomplete"><a href="#">Activate</a></button></li>
+          <li><button id="complete"><a href="#">Completed</a></button></li>
+        </ul>
+        
+        <ul class="uk-switcher uk-margin header">
+          <div id="alltasks">
+            <li>alls</li>
+          </div>
+          <div id="activatedtasks">
+            <li>activateddds</li>
+          </div>
+          <div id="completedtasks">
+            <li>completedddd</li>
+          </div>
+        </ul>
+        <div class = 'todosli' id='todosli'></div>
+        
+      </div>
+    </div>
+  </body>
+  <script src="{{url_for('static', filename = 'js/todos.js')}}"></script>
 </html>

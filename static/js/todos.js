@@ -4,38 +4,42 @@ const todosElement = document.getElementById('todosli');
 
 errormsg.style.display = 'none';
 
-listAll();
-listIncomplete();
-listComplete();
+// listAll();
+// listIncomplete();
+// listComplete();
+
+let user_name = ''
 
 document.getElementById('ftodo').onsubmit = function(e){
-    e.preventDefault();
-    const formData = new FormData(form);
-    const description = formData.get('description')
-    const todo = {
-        description
-    };
-    console.log(todo);
-    fetch('todos/add', {
-        method: 'POST',
-        body: JSON.stringify(todo),
-        headers: {
-            'content-type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(createdTODO => {
-        form.reset();
-        listAll();
-        errormsg.style.display = 'none';
-    })
-    .catch(function(error) {
-        errormsg.style.display = '';
-    });
+  e.preventDefault();
+	let user_name = document.getElementById('description').dataset.id_user;
+	console.log(user_name)
+  fetch('/' + user_name + '/add/todo', {
+    method: 'POST',
+    body: JSON.stringify({
+      'description': document.getElementById('description').value
+    }),
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(res => {
+		console.log(res)
+		if(res['status'] == 'true') {
+			console.log("TODO creado!!!")
+		}
+    // listAll();
+    // errormsg.style.display = 'none';
+  })
+  .catch(function(error) {
+    //errormsg.style.display = '';
+    console.log("Error: " + error.message)
+  });
 }
 
 document.getElementById('all').onclick = function(){
-    listAll();
+  listAll();
 }
 
 document.getElementById('incomplete').onclick= function(){

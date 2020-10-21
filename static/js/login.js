@@ -10,7 +10,7 @@ function validEmail(element) {
   else{
     document.getElementById("bademail_register").className = "hidden"
   }
-  };
+};
 
 document.getElementById('login').onsubmit = function(e){
   e.preventDefault();
@@ -28,11 +28,11 @@ document.getElementById('login').onsubmit = function(e){
   .then(function(response){
     return response.json();
   })
-  .then(function(jsonResponse){
-		console.log(jsonResponse);
-		console.log(jsonResponse['response']);
-		if (jsonResponse['response'] == 'true') {
-			location.replace(window.location.href + "todos")
+  .then(function(res){
+		console.log(res);
+		console.log(res['response']);
+		if (res['response'] == 'true') {
+			location.replace(window.location.href + res['user'] + "/todos")
 		}
   })
   .catch(function(error){
@@ -57,13 +57,13 @@ document.getElementById('createuser').onsubmit = function(e){
   .then(function(response){
     return response.json();
   })
-  .then(function(jsonResponse){
+  .then(function(res){
     document.getElementById('sucesscreate').className = '';
     document.getElementById('baduser_register').className = 'hidden';
     document.getElementById('username_reg').value = '';
     document.getElementById('password_reg').value = '';
     document.getElementById('email').value = '';
-    console.log(jsonResponse);
+    console.log(res);
   })
   .catch(function(error){
     document.getElementById('baduser_register').className = 'error';
