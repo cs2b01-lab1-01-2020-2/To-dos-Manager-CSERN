@@ -12,6 +12,7 @@ function validEmail(element) {
   }
 };
 
+
 document.getElementById('login').onsubmit = function(e){
   e.preventDefault();
 
@@ -36,7 +37,7 @@ document.getElementById('login').onsubmit = function(e){
 		}
   })
   .catch(function(error){
-    document.getElementById('baduser').className = '';
+    document.getElementById('baduser_login').className = 'error';
   });
 }
 
