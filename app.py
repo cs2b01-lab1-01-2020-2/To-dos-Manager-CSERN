@@ -23,6 +23,7 @@ def signup():
             user = User(username=username, email=email, password=password)
             db.session.add(user)
             db.session.commit()
+            print(user.username)
             return jsonify({
                 'username': user.username,
                 'email': user.email,
@@ -75,10 +76,12 @@ def addtodo(id_user):
     try:
         print("ABAAAA1")
         description1 = request.get_json()['description']
-        usuario2 = User.query.filter_by(id=id_user).first()
+        # usuario2 = User.query.filter_by(id=id_user).first()
+        usuario2 = User.query.filter_by(username='rcho3').first()
+        print(id_user)
 
         print(description1)
-        print(usuario2.email)
+        print(usuario2.username)
         todo = Todo(user=usuario2, description=description1,
                     category=cat)
         print("AAAAAA4")
