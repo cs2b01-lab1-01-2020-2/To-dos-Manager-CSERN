@@ -78,7 +78,7 @@ def addtodo(id_user):
         description1 = request.get_json()['description']
         # usuario2 = User.query.filter_by(id=id_user).first()
         usuario2 = User.query.filter_by(username=id_user).first()
-        print(id_user)#js envia username, no el id
+        #print(id_user)#js envia username, no el id
 
         print(description1)
         print(usuario2.username)
