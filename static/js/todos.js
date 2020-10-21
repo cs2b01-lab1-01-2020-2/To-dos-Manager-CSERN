@@ -82,7 +82,7 @@ function listIncomplete() {
             document.getElementById("alltasks").appendChild(li)
         })
     })
-}
+  }
 
 function listComplete() {
     todosElement.innerHTML = '';

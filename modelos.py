@@ -53,4 +53,4 @@ class Category(db.Model):
     name = db.Column(db.String, nullable=False)
     todos = db.relationship('Todo', backref='category', lazy=True)
 
-
+# db.create_all()
