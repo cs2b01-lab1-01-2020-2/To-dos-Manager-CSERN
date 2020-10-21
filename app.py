@@ -3,6 +3,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
+import psycopg2
+
+connection = psycopg2.connect('dbname=todosdb')
+cursor = connection.cursor()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:pvta@localhost:5432/todosdb'
@@ -94,18 +98,22 @@ def todos(user_name):
 	return render_template('todos.html', data=user_name)
 
 
-# cat = Category(name="general")
-# db.session.add(cat)
-# db.session.commit()
-
 @app.route('/<user_name>/add/todo', methods=['POST'])
 def addtodo(user_name):
 	try:
-		desc = request.get_json()['description']
-		cat = Category.query.filter_by(name="general").first()
-		usx = User.query.filter_by(username=user_name).first() 
+		cursor.execute("select count(name) from category where name ='general'")
+		contGenCat = cursor.fetchone()[0]
 
-		todo = Todo(user_id=usx.id, description=desc, category_id=cat.id)
+		if(contGenCat == 0):
+			cat = Category(name="general")
+			db.session.add(cat)
+			db.session.commit()
+
+		desc = request.get_json()['description']
+		cat_id = Category.query.filter_by(name="general").first().id
+		usx_id = User.query.filter_by(username=user_name).first().id
+
+		todo = Todo(user_id=usx_id, description=desc, category_id=cat_id)
 
 		db.session.add(todo)
 		db.session.commit()
