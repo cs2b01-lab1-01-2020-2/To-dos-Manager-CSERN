@@ -4,17 +4,17 @@ const todosElement = document.getElementById('todosli');
 
 errormsg.style.display = 'none';
 
-listAll();
-listIncomplete();
-listComplete();
+// listAll();
+// listIncomplete();
+// listComplete();
 
-let user_id = ''
+let user_name = ''
 
 document.getElementById('ftodo').onsubmit = function(e){
   e.preventDefault();
-	let user_id = document.getElementById('description').dataset.id_user;
-	console.log(user_id)
-  fetch('/' + user_id + '/add/todo', {
+	let user_name = document.getElementById('description').dataset.id_user;
+	console.log(user_name)
+  fetch('/' + user_name + '/add/todo', {
     method: 'POST',
     body: JSON.stringify({
       'description': document.getElementById('description').value

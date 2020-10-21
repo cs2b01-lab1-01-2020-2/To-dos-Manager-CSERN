@@ -1,8 +1,6 @@
 from modelos import *
 
 # Register
-
-
 @app.route('/auth/signup', methods=['POST'])
 def signup():
     try:
@@ -35,8 +33,6 @@ def signup():
         db.session.close()
 
 # Login
-
-
 @app.route('/auth/login', methods=['POST'])
 def login():
     if request.method == 'POST':
@@ -58,34 +54,32 @@ def login():
             })
 
 # Todos Route
+@app.route('/<user_name>/todos')
+def todos(user_name):
+    print(user_name)
+    return render_template('todos.html', data=user_name)
 
 
-@app.route('/<id_user>/todos')
-def todos(id_user):
-    print(id_user)
-    return render_template('todos.html', data=id_user)
+# cat = Category(name="general")
+# db.session.add(cat)
+# db.session.commit()
 
 
-cat = Category(name="general")
-db.session.add(cat)
-db.session.commit()
-
-
-@app.route('/<id_user>/add/todo', methods=['POST'])
-def addtodo(id_user):
+@app.route('/<user_name>/add/todo', methods=['POST'])
+def addtodo(user_name):
     try:
         print("ABAAAA1")
         description1 = request.get_json()['description']
-        # usuario2 = User.query.filter_by(id=id_user).first()
-        usuario2 = User.query.filter_by(username=id_user).first()
-        #print(id_user)#js envia username, no el id
+        # usuario2 = User.query.filter_by(id=user_name).first()
+        usuario2 = User.query.filter_by(username=user_name).first()
+        #print(user_name)#js envia username, no el id
 
         print(description1)
         print(usuario2.username)
         
 
         #todo = Todo(usr=usuario2, description=description1,category=cat)
-        todo2 = Todo( description=description1)
+        todo2 = Todo(description=description1)
        
         cat.todos.append(todo2)
       

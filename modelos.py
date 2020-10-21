@@ -8,8 +8,8 @@ from datetime import datetime
 def inicializar():
 
     app = Flask(__name__)
-    #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:pvta@localhost:5432/todosdb'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test17.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:pvta@localhost:5432/todosdb'
+    #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test17.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db = SQLAlchemy(app)
