@@ -97,7 +97,7 @@ def login():
 def todos(user_name):
 	return render_template('todos.html', data=user_name)
 
-
+# Add Todo - C
 @app.route('/<user_name>/add/todo', methods=['POST'])
 def addtodo(user_name):
 	try:
@@ -124,6 +124,10 @@ def addtodo(user_name):
 		db.session.rollback()
 	finally:
 		db.session.close()
+
+# Update Todo -	U
+
+# Delete Todo -	D
 
 @app.route('/')
 def index():
