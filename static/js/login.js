@@ -33,7 +33,8 @@ document.getElementById('login').onsubmit = function(e){
 		console.log(res);
 		console.log(res['response']);
 		if (res['response'] == 'true') {
-			location.replace(window.location.href + res['user'] + "/todos")
+      console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAAs")
+			location.replace(window.location.href + '/' + res['user'] + "/todos")
 		}
   })
   .catch(function(error){
