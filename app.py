@@ -73,25 +73,29 @@ db.session.commit()
 @app.route('/<id_user>/add/todo', methods=['POST'])
 def addtodo(id_user):
     try:
-        print("AAAAAA1")
-        description = request.get_json()['description']
-        categoria = Category.query.filter_by(name="general").first()
+        print("ABAAAA1")
+        description1 = request.get_json()['description']
+        usuario2 = User.query.filter_by(id=id_user).first()
 
-        print("AAAAAA3")
-        todo = Todo(user_id=id_user, description=description,
-                    category_id=categoria.id)
+        print(description1)
+        print(usuario2.email)
+        todo = Todo(user=usuario2, description=description1,
+                    category=cat)
         print("AAAAAA4")
 
         db.session.add(todo)
         print("AAAAAA123213")
         print(todo)
         db.session.commit()
-        print("AAAAAA5")
+        print("exitos")
         return jsonify({
             'status': 'true'
         })
     except Exception as e:
         db.session.rollback()
+        return jsonify({
+            'status': 'true'
+        })
     finally:
         db.session.close()
 
