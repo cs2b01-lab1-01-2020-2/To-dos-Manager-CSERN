@@ -99,12 +99,6 @@ def login():
 		usxr = User.query.filter_by(username=username).first()
 
 		passwd_validate = check_password_hash(usxr.password, password)
-		print ("PASSWORD ENCRIPTADA")
-		print(usxr.password)
-		print ("PASSWORD del input")
-		print(password)
-		print ("PASSWD")
-		print(passwd)
 
 		if usxr.username == username and passwd_validate:
 			return jsonify({
