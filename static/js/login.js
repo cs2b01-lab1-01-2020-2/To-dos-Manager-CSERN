@@ -4,10 +4,12 @@ function validEmail(element) {
   
   if (!regex.test(text)) {
     document.getElementById("bademail_register").className = "uk-animation-shake"
-    document.getElementById("bademail_register").classList.add("error")
+		document.getElementById("bademail_register").classList.add("error")
+		return false;
   }
   else{
 		document.getElementById("bademail_register").className = "hidden"
+		return true;
   }
 };
 
@@ -50,41 +52,43 @@ document.getElementById('login').onsubmit = function(e){
 }
 
 document.getElementById('createuser').onsubmit = function(e){
-  e.preventDefault();
+	e.preventDefault();
 
-  fetch('/auth/signup',{
-    method: 'POST',
-    body: JSON.stringify({
-      'username': document.getElementById('username_reg').value,
-      'email': document.getElementById('email').value,
-      'password': document.getElementById('password_reg').value
-    }),
-    headers: {
-      'content-type': 'application/json'
-    }
-  })
-  .then(function(response){
-    return response.json();
-  })
-  .then(function(res){
-		UIkit.notification({
-			message: 'User created!',
-			status: 'success',
-			timeout: 3000
+	if(document.getElementById("bademail_register").classList.contains("hidden")) { 
+		fetch('/auth/signup',{
+			method: 'POST',
+			body: JSON.stringify({
+				'username': document.getElementById('username_reg').value,
+				'email': document.getElementById('email').value,
+				'password': document.getElementById('password_reg').value
+			}),
+			headers: {
+				'content-type': 'application/json'
+			}
+		})
+		.then(function(response){
+			return response.json();
+		})
+		.then(function(res){
+			UIkit.notification({
+				message: 'User created!',
+				status: 'success',
+				timeout: 3000
+			});
+			document.getElementById('sucesscreate').className = '';
+			document.getElementById('baduser_register').className = 'hidden';
+			document.getElementById('username_reg').value = '';
+			document.getElementById('password_reg').value = '';
+			document.getElementById('email').value = '';
+		})
+		.catch(function(error){
+			UIkit.notification({
+				message: 'User could not be created!',
+				status: 'danger',
+				timeout: 3000
+			});
+			document.getElementById('baduser_register').className = 'error';
+			document.getElementById('sucesscreate').className = 'hidden';
 		});
-    document.getElementById('sucesscreate').className = '';
-    document.getElementById('baduser_register').className = 'hidden';
-    document.getElementById('username_reg').value = '';
-    document.getElementById('password_reg').value = '';
-    document.getElementById('email').value = '';
-  })
-  .catch(function(error){
-		UIkit.notification({
-			message: 'User could not be created!',
-			status: 'danger',
-			timeout: 3000
-		});
-    document.getElementById('baduser_register').className = 'error';
-    document.getElementById('sucesscreate').className = 'hidden';
-  });
+	}
 }

@@ -3,7 +3,7 @@ from datetime import datetime
 import json
 from modelos import * 
 
-connection = connection = psycopg2.connect(dbname="todosdb")
+connection = psycopg2.connect(dbname="todosdb")
 cursor = connection.cursor()
 
 # Register
@@ -23,8 +23,6 @@ def signup():
 			return render_template('login.html')
 		else:
 			encrypt_pass = generate_password_hash(password, "sha256")
-			print ("PASSWORD ENCRIPTADA")
-			print(encrypt_pass)
 			user = User(username=username, email=email, password=encrypt_pass)
 			db.session.add(user)
 			db.session.commit()
@@ -172,7 +170,6 @@ def delete_todo(user_name):
 		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
 		db.session.delete(todo)
 		db.session.commit()
-		print('funciono')
 		return jsonify({
 			'status': 'true'
 		})
