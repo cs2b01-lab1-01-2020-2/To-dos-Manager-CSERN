@@ -3,7 +3,7 @@ from datetime import datetime
 import json
 from modelos import * 
 
-connection = connection = psycopg2.connect(dbname="todosdb")
+connection = connection = psycopg2.connect(database = "todosdb", user = "postgres", password = "robior123",)
 cursor = connection.cursor()
 
 # Register
