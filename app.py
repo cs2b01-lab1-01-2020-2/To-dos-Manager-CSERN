@@ -11,7 +11,7 @@ connection = psycopg2.connect('dbname=todosdb')
 cursor = connection.cursor()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://rrodriguez:neoscience30@localhost:5432/todosdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:xxxx@localhost:5432/todosdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
