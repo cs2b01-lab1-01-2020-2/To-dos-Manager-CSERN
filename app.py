@@ -11,7 +11,7 @@ connection = psycopg2.connect('dbname=todosdb')
 cursor = connection.cursor()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:xxxx@localhost:5432/todosdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:pvta@localhost:5432/todosdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -70,19 +70,19 @@ def signup():
 		eml = User.query.filter_by(email=email).first()
 	
 		if usxr:
-			flash('User already exists')
 			return render_template('login.html')
 		elif eml:
-			flash('Email address already exists')
 			return render_template('login.html')
 		else:
-			user = User(username=username, email=email, password=password)
+			encrypt_pass = generate_password_hash(password, "sha256")
+			print ("PASSWORD ENCRIPTADA")
+			print(encrypt_pass)
+			user = User(username=username, email=email, password=encrypt_pass)
 			db.session.add(user)
 			db.session.commit()
 			return jsonify({
 				'username': user.username,
-				'email': user.email,
-				'password': user.password,
+				'email': user.email
 			})
 	except Exception as e:
 		db.session.rollback()
@@ -98,7 +98,15 @@ def login():
 
 		usxr = User.query.filter_by(username=username).first()
 
-		if usxr.username == username and usxr.password == password:
+		passwd_validate = check_password_hash(usxr.password, password)
+		print ("PASSWORD ENCRIPTADA")
+		print(usxr.password)
+		print ("PASSWORD del input")
+		print(password)
+		print ("PASSWD")
+		print(passwd)
+
+		if usxr.username == username and passwd_validate:
 			return jsonify({
 				'response': 'true',
 				'user': usxr.username
