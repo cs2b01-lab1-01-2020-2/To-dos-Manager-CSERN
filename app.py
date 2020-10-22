@@ -11,7 +11,7 @@ connection = psycopg2.connect('dbname=todosdb')
 cursor = connection.cursor()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:xxxx@localhost:5432/todosdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://rrodriguez:neoscience30@localhost:5432/todosdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -222,7 +222,7 @@ def delete_todo(user_name):
 		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
 		db.session.delete(todo)
 		db.session.commit()
-		print('funciono')
+		
 		return jsonify({
 			'status': 'true'
 		})
