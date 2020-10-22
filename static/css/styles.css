@@ -1,0 +1,33 @@
+.error {
+	color: red;
+}
+
+.body {
+	font-family: "Roboto", sans-serif;
+	height: 100%;
+}
+
+.hidden {
+	display: none;
+}
+
+.header {
+	text-align: center;
+}
+
+.susy_navbar {
+	background: black;
+}
+
+.uk-button-default.susy_white, .susy_white {
+	color: white;
+}
+
+.ftodo {
+	margin-top: 2rem;
+}
+
+.uk-button-default.susy_white:focus, .uk-button-default.susy_white:hover{
+    color: white;
+
+}

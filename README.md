@@ -1,9 +1,2 @@
-# proyecto_1
-Desarrollo web - frontend -backend
+##  Todos Manager - Susy
 
-1. Fronted
-- REKY
-- sebb
-2. Backend
-- GunpowderGuy
-- grnkx
