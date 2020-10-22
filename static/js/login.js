@@ -12,7 +12,6 @@ function validEmail(element) {
   }
 };
 
-
 document.getElementById('login').onsubmit = function(e){
   e.preventDefault();
 

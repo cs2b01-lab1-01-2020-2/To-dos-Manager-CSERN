@@ -3,11 +3,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
+import psycopg2
 from dataclasses import dataclass
 import json
 
+connection = psycopg2.connect('dbname=todosdb')
+cursor = connection.cursor()
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://rrodriguez:neoscience30@localhost:5432/todosdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:pvta@localhost:5432/todosdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -49,7 +53,7 @@ class Todo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('usr.id'),nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'),nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     description = db.Column(db.String(), nullable=False)
     is_done = db.Column(db.Boolean, default=False)
 
@@ -132,19 +136,23 @@ def display_completed(user_name):
 def todos(user_name):
 	return render_template('todos.html', data=user_name)
 
-
-# cat = Category(name="general")
-# db.session.add(cat)
-# db.session.commit()
-
+# Add Todo - C
 @app.route('/<user_name>/add/todo', methods=['POST'])
-def addtodo(user_name):
+def add_todo(user_name):
 	try:
-		desc = request.get_json()['description']
-		cat = Category.query.filter_by(name="general").first()
-		usx = User.query.filter_by(username=user_name).first() 
+		cursor.execute("select count(name) from category where name ='general'")
+		contGenCat = cursor.fetchone()[0]
 
-		todo = Todo(user_id=usx.id, description=desc, category_id=cat.id)
+		if(contGenCat == 0):
+			cat = Category(name="general")
+			db.session.add(cat)
+			db.session.commit()
+
+		desc = request.get_json()['description']
+		cat_id = Category.query.filter_by(name="general").first().id
+		user_id = User.query.filter_by(username=user_name).first().id
+
+		todo = Todo(user_id=user_id, description=desc, category_id=cat_id)
 
 		db.session.add(todo)
 		db.session.commit()
@@ -153,6 +161,57 @@ def addtodo(user_name):
 		})
 	except Exception as e:
 		db.session.rollback()
+		return jsonify({
+			'status': 'false'
+		})
+	finally:
+		db.session.close()
+
+# Update Todo -	U
+@app.route('/<user_name>/update/todo', methods=['POST'])
+def update_todo(user_name):
+	try: 
+		user_id = request.get_json()['user_id']
+		todo_id = request.get_json()['todo_id']
+		desc = request.get_json()['description']
+
+		cursor.execute(
+			"update todo set description=(%s)"
+			"where id=(%s) and user_id=(%s)",
+			(desc, todo_id, usr_id)
+		)
+		return jsonify({
+			'status': 'true'
+		})
+	except Exception as e:
+		db.session.rollback()
+		return jsonify({
+			'status': 'false'
+		})
+	finally:
+		db.session.close()
+
+
+# Delete Todo -	D
+@app.route('/<user_name>/delete/todo', methods=['POST'])
+def delete_todo(user_name):
+	try: 
+		user_id = request.get_json()['user_id']
+		todo_id = request.get_json()['todo_id']
+
+		cursor.execute(
+			"delete from todo"
+			"where id=(%s) and user_id=(%s)",
+			(todo_id, usr_id)
+		)
+		return jsonify({
+			'status': 'true'
+		})
+	except Exception as e:
+		db.session.rollback()
+		return jsonify({
+			'status': 'false'
+		})
 	finally:
 		db.session.close()
 

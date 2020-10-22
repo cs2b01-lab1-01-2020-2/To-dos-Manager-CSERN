@@ -64,8 +64,6 @@ function listAll() {
     })
 }
 
-
-
 function listIncomplete() {
   let user_name = document.getElementById('description').dataset.id_user;
   fetch('/'+ user_name + '/todos/displayincompleted')
