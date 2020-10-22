@@ -119,7 +119,8 @@ function fillTodolist(divTask, todo){
 
 function removeTodo(divAlltasks,liTodo){
   divAlltasks.removeChild(liTodo);
-  fetch
+  let userdocument.getElementById('description').dataset.id_user;
+  fetch()
 }
 function editTodo(inputTodo){
   inputTodo.disabled = !inputTodo.disabled; 
