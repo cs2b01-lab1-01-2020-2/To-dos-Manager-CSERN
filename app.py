@@ -11,7 +11,7 @@ connection = psycopg2.connect('dbname=todosdb')
 cursor = connection.cursor()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:pvta@localhost:5432/todosdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://rrodriguez:neoscience30@localhost:5432/todosdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -171,15 +171,14 @@ def add_todo(user_name):
 @app.route('/<user_name>/update/todo', methods=['POST'])
 def update_todo(user_name):
 	try: 
-		user_id = request.get_json()['user_id']
+		user_name = request.get_json()['user_name']
 		todo_id = request.get_json()['todo_id']
 		desc = request.get_json()['description']
-
-		cursor.execute(
-			"update todo set description=(%s)"
-			"where id=(%s) and user_id=(%s)",
-			(desc, todo_id, usr_id)
-		)
+		user = User.query.filter_by(username=user_name).first()
+		user_id = user.id
+		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
+		todo.description = desc
+		db.session.commit()
 		return jsonify({
 			'status': 'true'
 		})
@@ -191,7 +190,27 @@ def update_todo(user_name):
 	finally:
 		db.session.close()
 
-
+# Update Todo is_done -	U
+@app.route('/<user_name>/update_is_done/todo', methods=['POST'])
+def update_todo_is_done(user_name):
+	try: 
+		user_name = request.get_json()['user_name']
+		todo_id = request.get_json()['todo_id']
+		user = User.query.filter_by(username=user_name).first()
+		user_id = user.id
+		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
+		todo.is_done = True
+		db.session.commit()
+		return jsonify({
+			'status': 'true'
+		})
+	except Exception as e:
+		db.session.rollback()
+		return jsonify({
+			'status': 'false'
+		})
+	finally:
+		db.session.close()
 # Delete Todo -	D
 @app.route('/<user_name>/delete/todo', methods=['POST'])
 def delete_todo(user_name):
@@ -199,11 +218,11 @@ def delete_todo(user_name):
 		user_name = request.get_json()['user_name']
 		todo_id = request.get_json()['todo_id']
 		user = User.query.filter_by(username=user_name).first()
-		cursor.execute(
-			"delete from todo"
-			"where id=(%s) and user_id=(%s)",
-			(todo_id, user.id)
-		)
+		user_id = user.id
+		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
+		db.session.delete(todo)
+		db.session.commit()
+		print('funciono')
 		return jsonify({
 			'status': 'true'
 		})
@@ -229,8 +248,6 @@ def page_not_found(error):
 @app.errorhandler(500)
 def error_ocurred(error):
   return render_template('page_not_found.html'), 500
-
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

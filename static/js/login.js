@@ -5,7 +5,6 @@ function validEmail(element) {
   if (!regex.test(text)) {
     document.getElementById("bademail_register").className = "uk-animation-shake"
     document.getElementById("bademail_register").classList.add("error")
-    //document.getElementById("bademail").classList.add("error")
   }
   else{
     document.getElementById("bademail_register").className = "hidden"
@@ -14,7 +13,8 @@ function validEmail(element) {
 
 document.getElementById('login').onsubmit = function(e){
   e.preventDefault();
-
+  document.getElementById("baduser_login").className = "hidden";
+  document.getElementById("badpass_login").className = "hidden";
   fetch('/auth/login',{
     method: 'POST',
     body: JSON.stringify({
@@ -29,14 +29,18 @@ document.getElementById('login').onsubmit = function(e){
     return response.json();
   })
   .then(function(res){
-		console.log(res);
 		console.log(res['response']);
 		if (res['response'] == 'true') {
 			location.replace(window.location.href + res['user'] + "/todos")
-		}
+    }
+    else if(res['response'] == 'false') {
+      document.getElementById("badpass_login").className = "uk-animation-shake";
+      document.getElementById("badpass_login").classList.add('error');
+    }
   })
   .catch(function(error){
-    document.getElementById('baduser_login').className = 'error';
+    document.getElementById("baduser_login").className = "uk-animation-shake";
+    document.getElementById("baduser_login").classList.add('error');
   });
 }
 

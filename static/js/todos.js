@@ -1,15 +1,12 @@
 const form = document.getElementById('ftodo');
 const errormsg = document.getElementById('error');
 const todosElement = document.getElementById('todosli');
+const user_name = document.getElementById('description').dataset.id_user;
 
-//errormsg.style.display = 'none';
-
-let user_name = ''
+listAll();
 
 document.getElementById('ftodo').onsubmit = function(e){
   e.preventDefault();
-	let user_name = document.getElementById('description').dataset.id_user;
-	console.log(user_name)
   fetch('/' + user_name + '/add/todo', {
     method: 'POST',
     body: JSON.stringify({
@@ -21,7 +18,6 @@ document.getElementById('ftodo').onsubmit = function(e){
   })
   .then(response => response.json())
   .then(res => {
-		console.log(res)
 		if(res['status'] == 'true') {
       listAll(); 
       listComplete();
@@ -52,20 +48,18 @@ document.getElementById('complete').onclick = function(e){
 }
 
 function listAll() {
-  let user_name = document.getElementById('description').dataset.id_user;
   fetch('/'+ user_name + '/todos/displayall')
     .then(response => response.json())
     .then(todos => {
         let divAll = document.getElementById("alltasks");
         divAll.innerHTML = ""
         todos.forEach(todo => {
-            fillTodolist(divAll,todo);
+            fillTodoall(divAll,todo);
         })
     })
 }
 
 function listIncomplete() {
-  let user_name = document.getElementById('description').dataset.id_user;
   fetch('/'+ user_name + '/todos/displayincompleted')
     .then(response => response.json())
     .then(todos => {
@@ -91,37 +85,186 @@ function listComplete() {
 }
 
 function fillTodolist(divTask, todo){
-  let inputTodo = document.createElement('input');
-  inputTodo.value = todo['description'];
-  inputTodo.disabled = true;
-  inputTodo.type = "text"; 
-  inputTodo.classList.add("uk-form-blank");
+  if(todo.is_done == false){
+    let inputTodo = document.createElement('input');
+    inputTodo.value = todo['description'];
+    inputTodo.disabled = true;
+    inputTodo.type = "text"; 
+    inputTodo.classList.add("uk-form-blank");
+    
 
-  let liTodo = document.createElement('li');
-  liTodo.dataset.todoid = todo['id'];
-  let editButton = document.createElement('i');
-	editButton.setAttribute("class", "far fa-edit");
-	editButton.style.margin = '0 5px 0 2px';
+    let checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.classList.add("uk-checkbox");
+    
+    let liTodo = document.createElement('li');
+    liTodo.dataset.todoid = todo['id'];
 
-  let removeButton = document.createElement('i');
-	removeButton.setAttribute("class", "far fa-trash-alt");
-	removeButton.style.margin = '0 5px 0 2px';
+    let editButton = document.createElement('i');
+    editButton.setAttribute("class", "far fa-edit");
+    editButton.style.margin = '0 5px 0 2px';
 
-  divTask.appendChild(liTodo);
-  liTodo.appendChild(inputTodo);
-  liTodo.appendChild(editButton);
-  liTodo.appendChild(removeButton);
-  
+    let removeButton = document.createElement('i');
+    removeButton.setAttribute("class", "far fa-trash-alt");
+    removeButton.style.margin = '0 5px 0 2px';
 
-  editButton.addEventListener('click', () => this.editTodo(inputTodo));
-  removeButton.addEventListener('click', () => this.removeTodo(divTask,liTodo));
+
+    divTask.appendChild(liTodo);
+    liTodo.appendChild(checkbox);
+    liTodo.appendChild(inputTodo);
+    liTodo.appendChild(editButton);
+    liTodo.appendChild(removeButton);
+
+    checkbox.addEventListener('click', () => this.updateTodo_activated(liTodo,divTask))
+    editButton.addEventListener('click', () => this.editTodo(inputTodo,liTodo));
+    removeButton.addEventListener('click', () => this.removeTodo(divTask,liTodo));
+  }
+  else if(todo.is_done == true){
+    let inputTodo = document.createElement('input');
+    inputTodo.value = todo['description'];
+    inputTodo.disabled = true;
+    inputTodo.type = "text"; 
+    inputTodo.classList.add("uk-form-blank");
+    inputTodo.style.textDecoration = "line-through";
+    let liTodo = document.createElement('li');
+    liTodo.dataset.todoid = todo['id'];
+
+    let removeButton = document.createElement('i');
+    removeButton.setAttribute("class", "far fa-trash-alt");
+    removeButton.style.margin = '0 5px 0 2px';
+
+    divTask.appendChild(liTodo);
+    liTodo.appendChild(inputTodo);
+    liTodo.appendChild(removeButton);
+    
+    removeButton.addEventListener('click', () => this.removeTodo(divTask,liTodo));
+  }
+}
+
+function fillTodoall(divTask,todo){
+  if(todo.is_done == false){
+    let inputTodo = document.createElement('input');
+    inputTodo.value = todo['description'];
+    inputTodo.disabled = true;
+    inputTodo.type = "text"; 
+    inputTodo.classList.add("uk-form-blank");
+    
+
+    let checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.classList.add("uk-checkbox");
+    
+    let liTodo = document.createElement('li');
+    liTodo.dataset.todoid = todo['id'];
+
+    let editButton = document.createElement('i');
+    editButton.setAttribute("class", "far fa-edit");
+    editButton.style.margin = '0 5px 0 2px';
+
+    let removeButton = document.createElement('i');
+    removeButton.setAttribute("class", "far fa-trash-alt");
+    removeButton.style.margin = '0 5px 0 2px';
+
+
+    divTask.appendChild(liTodo);
+    liTodo.appendChild(checkbox);
+    liTodo.appendChild(inputTodo);
+    liTodo.appendChild(editButton);
+    liTodo.appendChild(removeButton);
+
+    checkbox.addEventListener('click', () => this.updateTodo_all(liTodo,editButton,checkbox,inputTodo));
+    editButton.addEventListener('click', () => this.editTodo(inputTodo,liTodo));
+    removeButton.addEventListener('click', () => this.removeTodo(divTask,liTodo));
+  }
+  else if(todo.is_done == true){
+    let inputTodo = document.createElement('input');
+    inputTodo.value = todo['description'];
+    inputTodo.disabled = true;
+    inputTodo.type = "text"; 
+    inputTodo.classList.add("uk-form-blank");
+    inputTodo.style.textDecoration = "line-through";
+    let liTodo = document.createElement('li');
+    liTodo.dataset.todoid = todo['id'];
+
+    let removeButton = document.createElement('i');
+    removeButton.setAttribute("class", "far fa-trash-alt");
+    removeButton.style.margin = '0 5px 0 2px';
+
+    divTask.appendChild(liTodo);
+    liTodo.appendChild(inputTodo);
+    liTodo.appendChild(removeButton);
+    
+    removeButton.addEventListener('click', () => this.removeTodo(divTask,liTodo));
+  }
 }
 
 function removeTodo(divAlltasks,liTodo){
-  divAlltasks.removeChild(liTodo);
-  let userdocument.getElementById('description').dataset.id_user;
-  fetch()
+  fetch('/' + user_name + '/delete/todo',{
+    method: 'POST',
+    body: JSON.stringify({
+      'user_name': user_name,
+      'todo_id': liTodo.dataset.todoid
+    }),
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(res => {
+    divAlltasks.removeChild(liTodo);
+  })
 }
-function editTodo(inputTodo){
+function editTodo(inputTodo, liTodo){
   inputTodo.disabled = !inputTodo.disabled; 
+  inputTodo.addEventListener('keydown', function(event){
+    if(event.which == 13){
+      inputTodo.disabled = !inputTodo.disabled;
+      let todo_val = inputTodo.value;
+      fetch('/' + user_name + '/update/todo',{
+        method: 'POST',
+        body: JSON.stringify({
+          'user_name': user_name,
+          'todo_id': liTodo.dataset.todoid,
+          'description': todo_val
+        }),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+    }
+  })
+}
+
+function updateTodo_activated(liTodo,divTask){
+    divTask.removeChild(liTodo);
+    fetch('/' + user_name + '/update_is_done/todo',{
+      method: 'POST',
+      body: JSON.stringify({
+        'user_name': user_name,
+        'todo_id': liTodo.dataset.todoid
+      }),
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+}
+
+function updateTodo_all(liTodo,editButton,checkbox,inputTodo){
+  liTodo.removeChild(checkbox);
+  liTodo.removeChild(editButton);
+  inputTodo.classList.remove("uk-text-danger");
+  inputTodo.style.textDecoration = "line-through";
+  fetch('/' + user_name + '/update_is_done/todo',{
+    method: 'POST',
+    body: JSON.stringify({
+      'user_name': user_name,
+      'todo_id': liTodo.dataset.todoid
+    }),
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+  .then(response => response.json())
 }
