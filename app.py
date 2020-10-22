@@ -3,7 +3,7 @@ from datetime import datetime
 import json
 from modelos import * 
 
-connection = psycopg2.connect(dbname="todosdb")
+connection = connection = psycopg2.connect(database = "todosdb", user = "postgres", password = "robior123")
 cursor = connection.cursor()
 
 # Register
@@ -170,6 +170,7 @@ def delete_todo(user_name):
 		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
 		db.session.delete(todo)
 		db.session.commit()
+		
 		return jsonify({
 			'status': 'true'
 		})
