@@ -9,14 +9,16 @@ connection = psycopg2.connect(
 
 cursor = connection.cursor()
 
-insert_profesor = 'insert into usr(username, email, password) values(%s, %s, %s);'
+insert_category = 'insert into category(id, name) values(%s, %s);'
+c1 = (1, 'general')
+cursor.execute(insert_category, c1)
+
+insert_usuario = 'insert into usr(id ,username, email, password) values(%s, %s, %s, %s);'
 
 password = 'lolxd'
 encrypt_pass = generate_password_hash(password, "sha256")
-
-u1 = ('marvin', 'prueba@gmail.com', encrypt_pass)
-
-cursor.execute(insert_profesor, u1)
+u1 = (1, 'marvin', 'prueba@gmail.com', encrypt_pass)
+cursor.execute(insert_usuario, u1)
 
 insert_todos = 'insert into todo(user_id, category_id, description, is_done) values(%s, %s, %s, %s);'
 
