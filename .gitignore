@@ -10,3 +10,5 @@ venv.bak/
 project/
 flask_session/
 .pyc
+.vscode/
+.github/
