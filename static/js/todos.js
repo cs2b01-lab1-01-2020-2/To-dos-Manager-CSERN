@@ -21,18 +21,24 @@ document.getElementById('ftodo').onsubmit = function(e){
   })
   .then(response => response.json())
   .then(res => {
-		console.log(res)
 		if(res['status'] == 'true') {
       listAll(); 
       listComplete();
       listIncomplete();
-      document.getElementById("description").value = ""
-			console.log("TODO creado!!!")
+			document.getElementById("description").value = ""
+			UIkit.notification({
+				message: 'Todo created!',
+				status: 'success',
+				timeout: 3000
+			});
 		}
   })
   .catch(function(error) {
-    //errormsg.style.display = '';
-    console.log("Error: " + error.message)
+		UIkit.notification({
+			message: 'Todo could not be created!',
+			status: 'danger',
+			timeout: 3000
+		});
   });
 }
 

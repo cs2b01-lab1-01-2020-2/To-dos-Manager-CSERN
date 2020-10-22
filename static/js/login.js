@@ -5,10 +5,9 @@ function validEmail(element) {
   if (!regex.test(text)) {
     document.getElementById("bademail_register").className = "uk-animation-shake"
     document.getElementById("bademail_register").classList.add("error")
-    //document.getElementById("bademail").classList.add("error")
   }
   else{
-    document.getElementById("bademail_register").className = "hidden"
+		document.getElementById("bademail_register").className = "hidden"
   }
 };
 
@@ -26,16 +25,19 @@ document.getElementById('login').onsubmit = function(e){
     }
   })
   .then(function(response){
-    return response.json();
+		return response.json();
   })
   .then(function(res){
-		console.log(res);
-		console.log(res['response']);
 		if (res['response'] == 'true') {
 			location.replace(window.location.href + res['user'] + "/todos")
 		}
   })
   .catch(function(error){
+		UIkit.notification({
+			message: 'User not logged in',
+			status: 'danger',
+			timeout: 3000
+		});
     document.getElementById('baduser_login').className = 'error';
   });
 }
@@ -58,14 +60,23 @@ document.getElementById('createuser').onsubmit = function(e){
     return response.json();
   })
   .then(function(res){
+		UIkit.notification({
+			message: 'User created!',
+			status: 'success',
+			timeout: 3000
+		});
     document.getElementById('sucesscreate').className = '';
     document.getElementById('baduser_register').className = 'hidden';
     document.getElementById('username_reg').value = '';
     document.getElementById('password_reg').value = '';
     document.getElementById('email').value = '';
-    console.log(res);
   })
   .catch(function(error){
+		UIkit.notification({
+			message: 'User could not be created!',
+			status: 'danger',
+			timeout: 3000
+		});
     document.getElementById('baduser_register').className = 'error';
     document.getElementById('sucesscreate').className = 'hidden';
   });
