@@ -196,13 +196,13 @@ def update_todo(user_name):
 @app.route('/<user_name>/delete/todo', methods=['POST'])
 def delete_todo(user_name):
 	try: 
-		user_id = request.get_json()['user_id']
+		user_name = request.get_json()['user_name']
 		todo_id = request.get_json()['todo_id']
-
+		user = User.query.filter_by(username=user_name).first()
 		cursor.execute(
 			"delete from todo"
 			"where id=(%s) and user_id=(%s)",
-			(todo_id, usr_id)
+			(todo_id, user.id)
 		)
 		return jsonify({
 			'status': 'true'
@@ -219,6 +219,18 @@ def delete_todo(user_name):
 def index():
 	user = User.query.all()
 	return render_template('login.html')
+
+
+#Error page
+@app.errorhandler(404)
+def page_not_found(error):
+  return render_template('page_not_found.html'), 404
+
+@app.errorhandler(500)
+def error_ocurred(error):
+  return render_template('page_not_found.html'), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
