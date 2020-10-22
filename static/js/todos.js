@@ -2,7 +2,7 @@ const form = document.getElementById('ftodo');
 const errormsg = document.getElementById('error');
 const todosElement = document.getElementById('todosli');
 
-errormsg.style.display = 'none';
+//errormsg.style.display = 'none';
 
 let user_name = ''
 
@@ -98,7 +98,7 @@ function fillTodolist(divTask, todo){
   inputTodo.classList.add("uk-form-blank");
 
   let liTodo = document.createElement('li');
-  liTodo.dataset = todo['id'];
+  liTodo.dataset.todoid = todo['id'];
   let editButton = document.createElement('button');
   editButton.innerHTML = "Edit";
 
@@ -116,8 +116,8 @@ function fillTodolist(divTask, todo){
 }
 
 function removeTodo(divAlltasks,liTodo){
-  fetch()
   divAlltasks.removeChild(liTodo);
+  fetch
 }
 function editTodo(inputTodo){
   inputTodo.disabled = !inputTodo.disabled; 
