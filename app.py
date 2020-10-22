@@ -1,10 +1,9 @@
-
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import json
 from modelos import * 
 
-connection = psycopg2.connect('dbname=todosdb')
+connection = connection = psycopg2.connect(dbname="todosdb")
 cursor = connection.cursor()
 
 # Register
