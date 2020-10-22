@@ -109,12 +109,11 @@ function fillTodolist(divTask, todo){
 
     let editButton = document.createElement('i');
     editButton.setAttribute("class", "far fa-edit");
-    editButton.style.margin = '0 5px 0 2px';
+		editButton.style.margin = '0 5px 0 2px';
 
     let removeButton = document.createElement('i');
     removeButton.setAttribute("class", "far fa-trash-alt");
-    removeButton.style.margin = '0 5px 0 2px';
-
+		removeButton.style.margin = '0 5px 0 2px';
 
     divTask.appendChild(liTodo);
     liTodo.appendChild(checkbox);

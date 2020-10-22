@@ -19,7 +19,8 @@
 	background: black;
 }
 
-.uk-button-default.susy_white, .susy_white {
+.uk-button-default.susy_white,
+.susy_white {
 	color: white;
 }
 
@@ -27,7 +28,23 @@
 	margin-top: 2rem;
 }
 
-.uk-button-default.susy_white:focus, .uk-button-default.susy_white:hover{
-    color: white;
+.uk-button-default.susy_white:focus,
+.uk-button-default.susy_white:hover {
+	color: white;
+}
 
+.far.fa-edit,
+.far.fa-trash-alt {
+	cursor: pointer;
+}
+
+.title {
+	text-align: center;
+}
+
+.ftodo,
+.error,
+.todosli,
+.b {
+	text-align: center;
 }
