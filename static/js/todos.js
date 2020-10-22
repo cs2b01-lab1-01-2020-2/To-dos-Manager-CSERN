@@ -4,10 +4,6 @@ const todosElement = document.getElementById('todosli');
 
 errormsg.style.display = 'none';
 
-// listAll();
-// listIncomplete();
-// listComplete();
-
 let user_name = ''
 
 document.getElementById('ftodo').onsubmit = function(e){
@@ -27,6 +23,9 @@ document.getElementById('ftodo').onsubmit = function(e){
   .then(res => {
 		console.log(res)
 		if(res['status'] == 'true') {
+      listAll(); 
+      listComplete();
+      listIncomplete();
       document.getElementById("description").value = ""
 			console.log("TODO creado!!!")
 		}
@@ -39,103 +38,89 @@ document.getElementById('ftodo').onsubmit = function(e){
 
 document.getElementById('all').onclick = function(e){
   e.preventDefault();
-	let user_name = document.getElementById('description').dataset.id_user;
-  fetch('/'+ user_name + '/todos/displayall')
-    .then(response => response.json())
-    .then(todos => {
-        document.getElementById("alltasks").innerHTML = ""
-        todos.forEach(todo => {
-            const li = document.createElement('li');
-            li.innerHTML = todo['description']
-            document.getElementById("alltasks").appendChild(li)
-        })
-    })
+  listAll();
 }
 
 document.getElementById('incomplete').onclick= function(e){
   e.preventDefault();
-	let user_name = document.getElementById('description').dataset.id_user;
-  fetch('/'+ user_name + '/todos/displayincompleted')
-    .then(response => response.json())
-    .then(todos => {
-        document.getElementById("incompletedtasks").innerHTML = ""
-        todos.forEach(todo => {
-            const li = document.createElement('li');
-            li.innerHTML = todo['description']
-            document.getElementById("incompletedtasks").appendChild(li)
-        })
-    })
+	listIncomplete();
 }
 
 document.getElementById('complete').onclick = function(e){
   e.preventDefault();
-	let user_name = document.getElementById('description').dataset.id_user;
-  fetch('/'+ user_name + '/todos/displaycompleted')
+	listComplete();
+}
+
+function listAll() {
+  let user_name = document.getElementById('description').dataset.id_user;
+  fetch('/'+ user_name + '/todos/displayall')
     .then(response => response.json())
     .then(todos => {
-        document.getElementById("completedtasks").innerHTML = ""
+        let divAll = document.getElementById("alltasks");
+        divAll.innerHTML = ""
         todos.forEach(todo => {
-            const li = document.createElement('li');
-            li.innerHTML = todo['description']
-            document.getElementById("completedtasks").appendChild(li)
+            fillTodolist(divAll,todo);
         })
     })
 }
 
-/*function listAll() {
-    fetch('<user_name>/todos/displayall')
-    .then(response => response.json())
-    .then(todos => {
-        console.log(todos);
-        todos.forEach(todo => {
-            const li = document.createElement('li');
-            li.innerHTML = jsonResponse['description']
-            document.getElementById("alltasks").appendChild(li)
-        })
-    })
-}
+
 
 function listIncomplete() {
-    todosElement.innerHTML = '';
-    fetch('/todos/displayincomplete')
+  let user_name = document.getElementById('description').dataset.id_user;
+  fetch('/'+ user_name + '/todos/displayincompleted')
     .then(response => response.json())
     .then(todos => {
-        console.log(todos);
+        let divIncompleted = document.getElementById("incompletedtasks");
+        divIncompleted.innerHTML = ""
         todos.forEach(todo => {
-            // const div = document.createElement('div');
-            // const name = document.createElement('h3');
-            // header.textContent = todo.description;
-            
-            // div.appendChild(name);
-
-            // todosElement.appendChild(div);
-            const li = document.createElement('li');
-            const check = document.createElement('buttom')
-            li.innerHTML = jsonResponse['description']
-            document.getElementById("alltasks").appendChild(li)
-            document.getElementById("alltasks").appendChild(check)
+            fillTodolist(divIncompleted,todo);
         })
     })
 }
 
 function listComplete() {
-    todosElement.innerHTML = '';
-    fetch('/todos/displaycomplete')
+  let user_name = document.getElementById('description').dataset.id_user;
+  fetch('/'+ user_name + '/todos/displaycompleted')
     .then(response => response.json())
     .then(todos => {
-        console.log(todos);
+        let divCompleted = document.getElementById("completedtasks");
+        divCompleted.innerHTML = ""
         todos.forEach(todo => {
-            // const div = document.createElement('div');
-            // const name = document.createElement('h3');
-            // header.textContent = todo.description;
-
-            // div.appendChild(name);
-
-            // todosElement.appendChild(div);
-            const li = document.createElement('li');
-            li.innerHTML = jsonResponse['description']
-            document.getElementById("alltasks").appendChild(li)
+            fillTodolist(divCompleted,todo);
         })
     })
 }
-*/
+
+function fillTodolist(divTask, todo){
+  let inputTodo = document.createElement('input');
+  inputTodo.value = todo['description'];
+  inputTodo.disabled = true;
+  inputTodo.type = "text"; 
+  inputTodo.classList.add("uk-form-blank");
+
+  let liTodo = document.createElement('li');
+  liTodo.dataset = todo['id'];
+  let editButton = document.createElement('button');
+  editButton.innerHTML = "Edit";
+
+  let removeButton = document.createElement('button');
+  removeButton.innerHTML = "Remove";
+
+  divTask.appendChild(liTodo);
+  liTodo.appendChild(inputTodo);
+  liTodo.appendChild(editButton);
+  liTodo.appendChild(removeButton);
+  
+
+  editButton.addEventListener('click', () => this.editTodo(inputTodo));
+  removeButton.addEventListener('click', () => this.removeTodo(divTask,liTodo));
+}
+
+function removeTodo(divAlltasks,liTodo){
+  fetch()
+  divAlltasks.removeChild(liTodo);
+}
+function editTodo(inputTodo){
+  inputTodo.disabled = !inputTodo.disabled; 
+}

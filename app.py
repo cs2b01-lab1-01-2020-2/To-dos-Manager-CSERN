@@ -54,8 +54,6 @@ class Todo(db.Model):
     is_done = db.Column(db.Boolean, default=False)
 
 
-
-
 # Register
 @app.route('/auth/signup', methods=['POST'])
 def signup():
