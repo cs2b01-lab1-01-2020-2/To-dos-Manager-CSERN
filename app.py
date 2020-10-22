@@ -190,7 +190,6 @@ def index():
 	user = User.query.all()
 	return render_template('login.html')
 
-
 #Error page
 @app.errorhandler(404)
 def page_not_found(error):
