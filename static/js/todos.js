@@ -99,11 +99,13 @@ function fillTodolist(divTask, todo){
 
   let liTodo = document.createElement('li');
   liTodo.dataset.todoid = todo['id'];
-  let editButton = document.createElement('button');
-  editButton.innerHTML = "Edit";
+  let editButton = document.createElement('i');
+	editButton.setAttribute("class", "far fa-edit");
+	editButton.style.margin = '0 5px 0 2px';
 
-  let removeButton = document.createElement('button');
-  removeButton.innerHTML = "Remove";
+  let removeButton = document.createElement('i');
+	removeButton.setAttribute("class", "far fa-trash-alt");
+	removeButton.style.margin = '0 5px 0 2px';
 
   divTask.appendChild(liTodo);
   liTodo.appendChild(inputTodo);
