@@ -16,9 +16,9 @@
   Inspirado en Google Tasks, esta herramienta fue creada para,
   obtener un producto similar sin dependencias de Google.
 
-- Misión: 
+- Misión: Facilitar el manejo de responsabilidades de los usuarios.
 
-- Visión: 
+- Visión: La visión de nuestra empresa es generar un mundo en donde todas las personas no tengan que sufrir por olvidarse de sus quehaceres del día a día.
 
 ## Tecnologías utilizadas
 
@@ -52,7 +52,7 @@
 - CSS
 
 ## Script para cargar datos a la Base de Datos
-- 
+- Ejecutar `init_data.py`
 
 ## Referencias de API
 - `/auth/signup` METHOD: POST
