@@ -1,82 +1,68 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>
-      To dos Manager
-      </title>
-      <link href="{{url_for('static', filename = 'css/styles.css')}}" rel="stylesheet"> 
-      <link href="{{url_for('static', filename = 'img/test.png')}}" rel="icon" type="image/png">
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      
-      <!-- Fonts-->
-      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
-      
-      <!-- UIkit CSS -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
-    
-      <!-- UIkit JS -->
-      <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
-			<script src="https://kit.fontawesome.com/e92fa48c98.js" crossorigin="anonymous"></script>
-    
-  </head>
-  <body class="uk-height-1-1">
-    <div class="uk-vertical-align uk-text-center uk-height-1-1">
-      <div class="uk-vertical-align uk-text-center uk-height-1-1">
-        <div class="uk-navbar-container uk-margin" uk-navbar>
-          <div class="uk-navbar-left">
-            
-            <a class="uk-navbar-item uk-logo">
-                  Your To dos!
-            </a>
-          </div>
+{% extends "layout.html" %} {% block body %}
+<body class="uk-height-1-1">
+	<div class="uk-vertical-align uk-text-center uk-height-1-1">
+		<div class="uk-vertical-align uk-text-center uk-height-1-1">
+			<div class="uk-navbar-container uk-margin" uk-navbar>
+				<div class="uk-navbar-left">
+					<a class="uk-navbar-item uk-logo"> Your To dos! </a>
+				</div>
 
-          <div class="uk-navbar-right">
-            <button class="uk-button uk-button-default">
-              Log Out
-            </button>
-          </div>
+				<div class="uk-navbar-right">
+					<button class="uk-button uk-button-default">Log Out</button>
+				</div>
+			</div>
 
+			<form class="ftodo" id="ftodo">
+				<input
+					class="uk-input uk-form-width-medium"
+					type="text"
+					id="description"
+					data-id_user="{{data}}"
+					name="description"
+					placeholder="Task"
+				/>
+				<!-- <input type="text" id="category" name="category" placeholder="Categoría"> -->
+				<!-- <input type="date" id="end_date" name="end_date"> -->
+				<input
+					id="add"
+					type="submit"
+					value="Add"
+					class="uk-button uk-button-default"
+				/>
+			</form>
 
-        </div>
+			<ul uk-switcher="animation: uk-animation-fade; toggle: > *">
+				<button class="uk-button uk-button-secondary uk-button-small" id="all">
+					All
+				</button>
+				<button
+					class="uk-button uk-button-primary uk-button-small"
+					id="incomplete"
+				>
+					Activate
+				</button>
+				<button
+					class="uk-button uk-button-danger uk-button-small"
+					id="complete"
+				>
+					Completed
+				</button>
+			</ul>
 
-        <form class="ftodo" id="ftodo">
-          <input 
-                class="uk-input uk-form-width-medium" 
-                type="text" 
-                id="description" 
-                data-id_user="{{data}}" 
-                name="description" 
-                placeholder="Task">
-          <!-- <input type="text" id="category" name="category" placeholder="Categoría"> -->
-          <!-- <input type="date" id="end_date" name="end_date"> -->
-          <input id ="add" type="submit" value="Add" class="uk-button uk-button-default">
-        </form>
-
-     
-          <ul uk-switcher="animation: uk-animation-fade; toggle: > *">
-              <button class="uk-button uk-button-secondary uk-button-small" id="all">All</button>
-              <button class="uk-button uk-button-primary uk-button-small" id="incomplete">Activate</button>
-              <button class="uk-button uk-button-danger uk-button-small" id="complete">Completed</button>
-          </ul>
-       
-        
-        <ul class="uk-switcher uk-margin">
-          <div id="alltasks">
-            <li></li>
-          </div>
-          <div id="incompletedtasks">
-            <li></li>
-          </div>
-          <div id="completedtasks">
-            <li></li>
-          </div>
-        </ul>
-        <div class = 'todosli' id='todosli'></div>
-        
-      </div>
-    </div>
-  </body>
-  <script src="{{url_for('static', filename = 'js/todos.js')}}"></script>
-</html>
+			<ul class="uk-switcher uk-margin">
+				<div id="alltasks">
+					<li></li>
+				</div>
+				<div id="incompletedtasks">
+					<li></li>
+				</div>
+				<div id="completedtasks">
+					<li></li>
+				</div>
+			</ul>
+			<div class="todosli" id="todosli"></div>
+		</div>
+	</div>
+</body>
+<script src="{{url_for('static', filename = 'js/todos.js')}}"></script>
+{% endblock %}

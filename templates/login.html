@@ -1,135 +1,127 @@
-<!DOCTYPE html>
-<html lang="en-gb" dir="ltr">
+{% extends "layout.html" %} {% block body %}
+<body class="uk-height-1-1">
+	<div class="uk-vertical-align uk-text-center uk-height-1-1">
+		<div class="uk-vertical-align uk-text-center uk-height-1-1">
+			<div class="uk-background-primary uk-light uk-padding uk-panel">
+				<p class="uk-h4"><span>To dos Manager</span></p>
+			</div>
 
-  <head>
-    <title>
-    To dos Manager
-    </title>
-    <link href="{{url_for('static', filename = 'css/styles.css')}}" rel="stylesheet">
-    <link href="{{url_for('static', filename = 'img/test.png')}}" rel="icon" type="image/png">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
-    
-    
-    <!-- Fonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
-    
-    <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/css/uikit.min.css" />
+			<div class="uk-child-width-1-2@s uk-text-center" uk-grid>
+				<div>
+					<div class="uk-background-muted uk-padding uk-panel">
+						<p class="uk-h4"><span>Login</span></p>
+					</div>
+					<form class="uk-padding" id="login">
+						<div class="uk-margin">
+							<div class="uk-inline">
+								<span class="uk-form-icon" uk-icon="icon: user"></span>
+								<input
+									id="username_login"
+									name="username_login"
+									placeholder="Nombre de Usuario"
+									class="uk-input"
+									type="text"
+								/>
+							</div>
+						</div>
 
-    <!-- UIkit JS -->
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.8/dist/js/uikit-icons.min.js"></script>
+						<div class="uk-margin">
+							<div class="uk-inline">
+								<span
+									class="uk-form-icon uk-form-icon-flip"
+									uk-icon="icon: lock"
+								></span>
+								<input
+									id="password_login"
+									name="password_login"
+									placeholder="Contraseña"
+									class="uk-input"
+									type="password"
+									autofocus
+								/>
+							</div>
+						</div>
+						<div id="baduser_login" class="hidden">
+							*O el usuario no existe o la contraseña no coincide
+						</div>
+						<!-- <div id="badpass_login" class="hidden">*Contraseña inválida</div> -->
+						<input
+							type="submit"
+							class="uk-button uk-button-secondary"
+							value="Ingresar"
+						/>
+					</form>
+				</div>
 
-  </head>
+				<div>
+					<div class="uk-background-secondary uk-light uk-padding uk-panel">
+						<p class="uk-h4"><span>¿Aún no estás registrado?</span></p>
+					</div>
+					<form class="uk-padding" id="createuser">
+						<div class="uk-margin">
+							<div class="uk-inline">
+								<span class="uk-form-icon" uk-icon="icon: user"></span>
+								<input
+									id="username_reg"
+									name="username_reg"
+									placeholder="Nombre de Usuario"
+									class="uk-input"
+									type="text"
+								/>
+							</div>
+						</div>
 
-  <body class="uk-height-1-1">
-  
-  <div class="uk-vertical-align uk-text-center uk-height-1-1">
-    <div class="uk-vertical-align uk-text-center uk-height-1-1">
-  
-  <div class="uk-background-primary uk-light uk-padding uk-panel">
-      <p class="uk-h4"><span>To dos Manager</span></p>
-    </div>
-  
-  <div class="uk-child-width-1-2@s uk-text-center" uk-grid>
-      <div>
-    
-    <div class="uk-background-muted uk-padding uk-panel">
-        <p class="uk-h4"><span>Login</span></p>
-      </div>
-      <form class="uk-padding" id="login">
-        <div class="uk-margin">
-        <div class="uk-inline">
-          <span class="uk-form-icon" uk-icon="icon: user"></span>
-          <input 
-            id="username_login" 
-            name="username_login" 
-            placeholder="Nombre de Usuario" 
-            class="uk-input" 
-            type="text"
-          >
-        </div>
-        </div>
-    
-    <div class="uk-margin">
-        <div class="uk-inline">
-          <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-          <input 
-            id="password_login" 
-            name="password_login" 
-            placeholder='Contraseña' 
-            class="uk-input" 
-            type="password" 
-            autofocus
-          />
-        </div>
-        </div> 
-        <div id="baduser_login" class="hidden">*O el usuario no existe o la contraseña no coincide</div>
-        <!-- <div id="badpass_login" class="hidden">*Contraseña inválida</div> -->
-        <input type="submit" class="uk-button uk-button-secondary" value="Ingresar"/> 
-      </form>
-      </div>
-    
-    <div>
-    <div class="uk-background-secondary uk-light uk-padding uk-panel">
-      <p class="uk-h4"><span>¿Aún no estás registrado?</span></p>
-      </div>
-      <form class="uk-padding" id="createuser">
-      <div class="uk-margin">
-      <div class="uk-inline">
-        <span class="uk-form-icon" uk-icon="icon: user"></span>
-          <input 
-          id="username_reg" 
-          name="username_reg"
-          placeholder="Nombre de Usuario" 
-          class="uk-input" 
-          type="text"
-          />
-        </div>
-      </div>
-    
-    <div class="uk-margin">
-        <div class="uk-inline">
-        <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: mail"></span>
-          <input 
-          id="email"
-          placeholder="Correo" 
-          class="uk-input" 
-          autofocus 
-          onkeyup="validEmail(this)"
-          name="email"
-          type="text" 
-            />
-        </div>
-      </div>
-    
-    <div class="uk-margin">
-        <div class="uk-inline">
-        <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-          <input 
-          id="password_reg" 
-          name="password_reg"
-          placeholder='Contraseña' 
-          class="uk-input" 
-          type="password" 
-          autofocus
-          >
-        </div>
-      </div> 
-    <div id="baduser_register" class="hidden">*Ese usuario ya existe</div>
-    <div id="bademail_register" class="hidden">*Correo inválido</div>
-      <div id="sucesscreate" class="hidden">¡Se creó el usuario satisfactoriamente!</div>
-      <input type="submit" class="uk-button uk-button-secondary" value="Registrarse"/> 
-      </form>
-    
-  </div>
-    </div>
-  </div>
-  </div>
-  </body>
+						<div class="uk-margin">
+							<div class="uk-inline">
+								<span
+									class="uk-form-icon uk-form-icon-flip"
+									uk-icon="icon: mail"
+								></span>
+								<input
+									id="email"
+									placeholder="Correo"
+									class="uk-input"
+									autofocus
+									onkeyup="validEmail(this)"
+									name="email"
+									type="text"
+								/>
+							</div>
+						</div>
 
-  <script src="{{url_for('static', filename = 'js/login.js')}}"></script>
-
-</html>
+						<div class="uk-margin">
+							<div class="uk-inline">
+								<span
+									class="uk-form-icon uk-form-icon-flip"
+									uk-icon="icon: lock"
+								></span>
+								<input
+									id="password_reg"
+									name="password_reg"
+									placeholder="Contraseña"
+									class="uk-input"
+									type="password"
+									autofocus
+								/>
+							</div>
+						</div>
+						<div id="baduser_register" class="hidden">
+							*Ese usuario ya existe
+						</div>
+						<div id="bademail_register" class="hidden">*Correo inválido</div>
+						<div id="sucesscreate" class="hidden">
+							¡Se creó el usuario satisfactoriamente!
+						</div>
+						<input
+							type="submit"
+							class="uk-button uk-button-secondary"
+							value="Registrarse"
+						/>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="{{url_for('static', filename = 'js/login.js')}}"></script>
+{% endblock %}

@@ -1,17 +1,16 @@
 .error {
-    color: red;
+	color: red;
 }
 
 .body {
-    font-family: 'Roboto', sans-serif;
+	font-family: "Roboto", sans-serif;
+	height: 100%;
 }
 
 .hidden {
-    display: none;
+	display: none;
 }
 
 .header {
-    text-align: center;
+	text-align: center;
 }
-
-
