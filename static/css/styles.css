@@ -14,3 +14,15 @@
 .header {
 	text-align: center;
 }
+
+.susy_navbar {
+	background: black;
+}
+
+.uk-button-default.susy_white, .susy_white {
+	color: white;
+}
+
+.ftodo {
+	margin-top: 2rem;
+}

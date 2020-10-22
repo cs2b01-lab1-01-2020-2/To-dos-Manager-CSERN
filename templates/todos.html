@@ -1,18 +1,25 @@
 {% extends "layout.html" %} {% block body %}
-<body class="uk-height-1-1">
+<body>
 	<div class="uk-vertical-align uk-text-center uk-height-1-1">
 		<div class="uk-vertical-align uk-text-center uk-height-1-1">
-			<div class="uk-navbar-container uk-margin" uk-navbar>
+			<nav class="uk-navbar-containe susy_navbar" uk-navbar>
 				<div class="uk-navbar-left">
-					<a class="uk-navbar-item uk-logo"> Your Susy Todos! </a>
+					<ul class="uk-navbar-nav">
+						<li class="uk-active uk-navbar-item">
+							<h3 class="uk-margin-remove  susy_white">Your Susy Todos</h3>
+						</li>
+					</ul>
 				</div>
-
 				<div class="uk-navbar-right">
-					<a href="/">
-						<button class="uk-button uk-button-default">Log Out</button>
-					</a>
+					<ul class="uk-navbar-nav">
+							<li class="uk-active">
+								<a href="/">
+									<button class="uk-button uk-button-default susy_white">Log Out</button>
+								</a>
+							</li>
+					</ul>
 				</div>
-			</div>
+			</nav>
 
 			<form class="ftodo" id="ftodo">
 				<input
