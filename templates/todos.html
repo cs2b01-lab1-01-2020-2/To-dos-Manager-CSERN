@@ -23,26 +23,45 @@
   <body class="uk-height-1-1">
     <div class="uk-vertical-align uk-text-center uk-height-1-1">
       <div class="uk-vertical-align uk-text-center uk-height-1-1">
-        <div class="uk-background-primary uk-light uk-padding uk-panel">
-          <p class="uk-h4"><span>Your To dos!</span></p>
+        <div class="uk-navbar-container uk-margin" uk-navbar>
+          <div class="uk-navbar-left">
+            
+            <a class="uk-navbar-item uk-logo">
+                  Your To dos!
+            </a>
+          </div>
+
+          <div class="uk-navbar-right">
+            <button class="uk-button uk-button-default">
+              Log Out
+            </button>
+          </div>
+
+
         </div>
-          
+
         <form class="ftodo" id="ftodo">
-          <input type="text" id="description" data-id_user="{{data}}" name="description" placeholder="Task">
+          <input 
+                class="uk-input uk-form-width-medium" 
+                type="text" 
+                id="description" 
+                data-id_user="{{data}}" 
+                name="description" 
+                placeholder="Task">
           <!-- <input type="text" id="category" name="category" placeholder="Categoría"> -->
-					<!-- <input type="date" id="end_date" name="end_date"> -->
-          <input id ="add" type="submit" value="Add">
-				</form>
-				
-        <div class="error" id="error">That TODO already exists</div>
+          <!-- <input type="date" id="end_date" name="end_date"> -->
+          <input id ="add" type="submit" value="Add" class="uk-button uk-button-default">
+        </form>
+
+     
+          <ul uk-switcher="animation: uk-animation-fade; toggle: > *">
+              <button class="uk-button uk-button-secondary uk-button-small" id="all">All</button>
+              <button class="uk-button uk-button-primary uk-button-small" id="incomplete">Activate</button>
+              <button class="uk-button uk-button-danger uk-button-small" id="complete">Completed</button>
+          </ul>
+       
         
-        <ul class="uk-subnav uk-subnav-pill" uk-switcher>
-          <li><button id="all"><a href="#">All</a></button></li>
-          <li><button id="incomplete"><a href="#">Activate</a></button></li>
-          <li><button id="complete"><a href="#">Completed</a></button></li>
-        </ul>
-        
-        <ul class="uk-switcher uk-margin header">
+        <ul class="uk-switcher uk-margin">
           <div id="alltasks">
             <li></li>
           </div>
