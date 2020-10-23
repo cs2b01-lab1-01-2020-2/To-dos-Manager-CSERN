@@ -79,7 +79,7 @@
 - La aplicación corre en el localhost `127.0.0.1`, en el puerto `5001`.
 
 ## Forma de Autenticación
-- 
+- Nuestra Login y Register cuentan con autención de usuario, email y contraseña
 
 ## Manejo de Errores
 - Manejamos dos errores:
