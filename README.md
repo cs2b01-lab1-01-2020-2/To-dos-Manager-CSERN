@@ -24,7 +24,6 @@
 
 ### Base de Datos
 - Postgres
-![alt text](./src/postgres.png)
 
 ### Backend
 - Python 3 
