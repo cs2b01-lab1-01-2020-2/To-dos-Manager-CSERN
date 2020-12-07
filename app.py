@@ -4,6 +4,7 @@ import json
 from modelos import * 
 
 connection = connection = psycopg2.connect(database = "todosdb", user = "mistyblunch", password = "pvta")
+# connection = connection = psycopg2.connect(database = "todosdb", user = "rrodriguez", password = "1234")
 cursor = connection.cursor()
 
 # Register
@@ -57,14 +58,14 @@ def login():
 			})
 
 # Display all
-@app.route('/<user_name>/todos/displayall')
+@app.route('/todos/displayall/<user_name>/')
 def display_all(user_name):
     user = User.query.filter_by(username=user_name).first()
     todo = Todo.query.filter_by(user_id=user.id).all()
     return(jsonify(todo))
 
 # Display incompleted
-@app.route('/<user_name>/todos/displayincompleted')
+@app.route('/todos/displayincompleted/<user_name>/')
 def display_imcompleted(user_name):
     user = User.query.filter_by(username=user_name).first()
     status = False
@@ -72,7 +73,7 @@ def display_imcompleted(user_name):
     return(jsonify(todo))
 
 # Display completed
-@app.route('/<user_name>/todos/displaycompleted')
+@app.route('/todos/displaycompleted/<user_name>/')
 def display_completed(user_name):
     user = User.query.filter_by(username=user_name).first()
     status = True
@@ -85,7 +86,7 @@ def todos(user_name):
 	return render_template('todos.html', data=user_name)
 
 # Add Todo - C
-@app.route('/<user_name>/add/todo', methods=['POST'])
+@app.route('/todos/add/<user_name>/', methods=['POST'])
 def add_todo(user_name):
 	try:
 		cursor.execute("select count(name) from category where name ='general'")
@@ -116,7 +117,7 @@ def add_todo(user_name):
 		db.session.close()
 
 # Update Todo -	U
-@app.route('/<user_name>/update/todo', methods=['POST'])
+@app.route('/todos/update/<user_name>/', methods=['POST'])
 def update_todo(user_name):
 	try: 
 		user_name = request.get_json()['user_name']
@@ -139,7 +140,7 @@ def update_todo(user_name):
 		db.session.close()
 
 # Update Todo is_done -	U
-@app.route('/<user_name>/update_is_done/todo', methods=['POST'])
+@app.route('/todos/update_is_done/<user_name>/', methods=['POST'])
 def update_todo_is_done(user_name):
 	try: 
 		user_name = request.get_json()['user_name']
@@ -160,7 +161,7 @@ def update_todo_is_done(user_name):
 	finally:
 		db.session.close()
 # Delete Todo -	D
-@app.route('/<user_name>/delete/todo', methods=['POST'])
+@app.route('/todos/delete/<user_name>/', methods=['POST'])
 def delete_todo(user_name):
 	try: 
 		user_name = request.get_json()['user_name']
