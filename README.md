@@ -43,21 +43,21 @@
 
 - `/auth/login` METHOD: POST
 
-- `/<user_name>/todos/displayall/`
+- `/todos/displayall/<user_name>/`
 
-- `<user_name>/todos/displaycompleted`
+- `/todos/displaycompleted<user_name>/`
 
-- `<user_name>/todos/displayincompleted`
+- `/todos/displayincompleted/<user_name>/`
 
 - `<user_name>/todos`
 
-- `<user_name>/add/todo` METHOD: POST
+- `/todos/add/<user_name>/` METHOD: POST
 
-- `<user_name>/update/todo` METHOD: POST
+- `/todos/update/<user_name>/` METHOD: POST
 
-- `/<user_name>/update_is_done/todo` METHOD: POST
+- `/todos/update_is_done/<user_name>/` METHOD: POST
 
-- `/<user_name>/delete/todo`
+- `/todos/delete/<user_name>/`
 
 ## Hosts
 - La aplicación corre en el localhost `127.0.0.1`, en el puerto `5001`.
@@ -91,23 +91,23 @@
     } ```.
     - Retorna un JSON `{ status: true }`, en caso de que hayas ingresado satisfactoriamente.
     - Retorna un JSON `{ status: false }`, en caso de que no hayas ingresado bien un campo.
-- `/<user_name>/todos/displayall/`
+- `/todos/displayall/<user_name>/`
     - Recibe el nombre del usuario.
     - Este método retorna un JSON con todos los To dos.
-- `<user_name>/todos/displaycompleted`
+- `/todos/displaycompleted/<user_name>/`
     - Recibe el nombre del usuario.
     - Este método retorna un JSON con todos los To dos que ya han sido completados.
-- `<user_name>/todos/displayincompleted`
+- `/todos/displayincompleted/<user_name>/`
     - Este método retorna un JSON con todo los To dos que ya han sido completados.
 - `<user_name>/todos`
     - Recibe el nombre de usuario.
     - Redirecciona a la página de los To dos de un usuario.
-- `<user_name>/add/todo` METHOD: POST
+- `/todos/add/<user_name>/` METHOD: POST
     - Este método nos permite añadir To dos.
     - Recibe el nombre de usuario por la URL y el To do como un JSON `{ description: value }`.
     - Retorna un JSON `{ status: true }`, en caso de que la tarea ha sido creada satisfactoriamente.
     - Retorna un JSON `{ status: false }`, en caso de que la tarea no haya sido creada.
-- `<user_name>/update/todo` METHOD: POST
+- `/todos/update/<user_name>/` METHOD: POST
     - Este método nos permite actualizar un To do.
     - Recibe el nombre de usuario por la URL y el username, id del To do y el To do  como un JSON ```{
           'user_name': username,
@@ -116,7 +116,7 @@
         }```.
     - Retorna un JSON `{ status: true }`, en caso de que la tarea ha sido actualizada satisfactoriamente.
     - Retorna un JSON `{ status: false }`, en caso de que la tarea no se haya podido actualizar.
-- `/<user_name>/update_is_done/todo` METHOD: POST
+- `/todos/update_is_done/<user_name>/` METHOD: POST
     - Este método permite actualizar una tarea de incompleta a completa.
     - Recibe el nombre del usuario, y el id del todo.``` {
         'user_name': username,
@@ -124,7 +124,7 @@
         } ```
     - Retorna un JSON `{ status: true }`, en caso de que la tarea ha sido actualizado satisfactoriamente.
     - Retorna un JSON `{ status: false }`, en caso de que la tarea no ha sido actualizado.
-- `/<user_name>/delete/todo`
+- `/todos/delete/<user_name>/`
     - Este método permite eliminar un To do.
     - Recibe el nombre del usuario, y el id del todo.``` {
         'user_name': username,
