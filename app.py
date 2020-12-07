@@ -161,7 +161,7 @@ def update_todo_is_done(user_name):
 	finally:
 		db.session.close()
 
-		
+
 # Delete Todo -	D
 @app.route('/todos/delete/<user_name>/', methods=['POST'])
 def delete_todo(user_name):
@@ -187,7 +187,6 @@ def delete_todo(user_name):
 
 @app.route('/')
 def index():
-	user = User.query.all()
 	return render_template('login.html')
 
 #Error page
@@ -200,4 +199,4 @@ def error_ocurred(error):
   return render_template('page_not_found.html'), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+	app.run(debug=True, port=5001)
