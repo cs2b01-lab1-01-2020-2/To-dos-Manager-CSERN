@@ -6,12 +6,17 @@
 				<div class="uk-navbar-left">
 					<ul class="uk-navbar-nav">
 						<li class="uk-active uk-navbar-item">
-							<h3 class="uk-margin-remove  susy_white">Your Susy Todos</h3>
+							<h3 class="uk-margin-remove susy_white">Your Susy Todos</h3>
 						</li>
 					</ul>
 				</div>
 				<div class="uk-navbar-right">
 					<ul class="uk-navbar-nav">
+							<li class="susy_white" uk-toggle="target: #offcanvas-nav">
+								<a href="#" class="uk-text-bold">
+									Categorías
+								</a>
+							</li>
 							<li class="uk-active">
 								<a href="/">
 									<button class="uk-button uk-button-default susy_white">Log Out</button>
@@ -20,6 +25,27 @@
 					</ul>
 				</div>
 			</nav>
+
+			<div id="offcanvas-nav" uk-offcanvas="overlay: true">
+				<div class="uk-offcanvas-bar">
+		
+					<ul class="uk-nav uk-nav-default">
+						<li class="uk-active"><a href="#">Active</a></li>
+						<li class="uk-parent">
+							<a href="#">Parent</a>
+							<ul class="uk-nav-sub">
+								<li><a href="#">Sub item</a></li>
+								<li><a href="#">Sub item</a></li>
+							</ul>
+						</li>
+						<li class="uk-nav-header">Header</li>
+						<li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+						<li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+						<li class="uk-nav-divider"></li>
+						<li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+					</ul>
+				</div>
+			</div>
 
 			<form class="ftodo" id="ftodo">
 				<input
