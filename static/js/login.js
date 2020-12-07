@@ -6,8 +6,7 @@ function validEmail(element) {
     document.getElementById("bademail_register").className = "uk-animation-shake"
 		document.getElementById("bademail_register").classList.add("error")
 		return false;
-  }
-  else{
+  } else{
 		document.getElementById("bademail_register").className = "hidden"
 		return true;
   }
