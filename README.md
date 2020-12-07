@@ -24,31 +24,15 @@
 
 ### Base de Datos
 - Postgres
-![alt text](./src/postgres.png)
 
 ### Backend
 - Python 3 
-<center>
-    <img src="./src/python.png" alt="drawing" width="100" />
-</center>
 - Flask 
-<center>
-    <img src="./src/flask-logo.png" alt="drawing" width="200"/>
-</center>
 - SQLAlchemy
-
-<center>
-    <img src="./src/sqlalchemy.jpg" alt="drawing" width="200"/>
-</center>
 
 ### Fronted
 - UIkit
-<center>
-    <img src="./src/uikit.png" alt="drawing" width="200"/>
-</center>
-
 - Javasript
-
 - CSS
 
 ## Script para cargar datos a la Base de Datos
