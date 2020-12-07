@@ -7,7 +7,7 @@ listAll();
 
 document.getElementById('ftodo').onsubmit = function(e){
   e.preventDefault();
-  fetch('/' + user_name + '/add/todo', {
+  fetch('/todos/add/' + user_name + '/', {
     method: 'POST',
     body: JSON.stringify({
       'description': document.getElementById('description').value
@@ -55,7 +55,7 @@ document.getElementById('complete').onclick = function(e){
 }
 
 function listAll() {
-  fetch('/'+ user_name + '/todos/displayall')
+  fetch('/todos/displayall/'+ user_name + '/')
     .then(response => response.json())
     .then(todos => {
         let divAll = document.getElementById("alltasks");
@@ -67,7 +67,7 @@ function listAll() {
 }
 
 function listIncomplete() {
-  fetch('/'+ user_name + '/todos/displayincompleted')
+  fetch('/todos/displayincompleted' + '/'+ user_name + '/')
     .then(response => response.json())
     .then(todos => {
         let divIncompleted = document.getElementById("incompletedtasks");
@@ -80,7 +80,7 @@ function listIncomplete() {
 
 function listComplete() {
   let user_name = document.getElementById('description').dataset.id_user;
-  fetch('/'+ user_name + '/todos/displaycompleted')
+  fetch('/todos/displaycompleted' + '/' + user_name + '/')
     .then(response => response.json())
     .then(todos => {
         let divCompleted = document.getElementById("completedtasks");
@@ -205,7 +205,7 @@ function fillTodoall(divTask,todo){
 }
 
 function removeTodo(divAlltasks,liTodo){
-  fetch('/' + user_name + '/delete/todo',{
+  fetch('/todos/delete/' + user_name + '/',{
     method: 'POST',
     body: JSON.stringify({
       'user_name': user_name,
@@ -226,7 +226,7 @@ function editTodo(inputTodo, liTodo){
     if(event.which == 13){
       inputTodo.disabled = !inputTodo.disabled;
       let todo_val = inputTodo.value;
-      fetch('/' + user_name + '/update/todo',{
+      fetch('/todos/update/' + user_name + '/' ,{
         method: 'POST',
         body: JSON.stringify({
           'user_name': user_name,
@@ -244,7 +244,7 @@ function editTodo(inputTodo, liTodo){
 
 function updateTodo_activated(liTodo,divTask){
     divTask.removeChild(liTodo);
-    fetch('/' + user_name + '/update_is_done/todo',{
+    fetch('/todos/update_is_done/' + user_name + '/' ,{
       method: 'POST',
       body: JSON.stringify({
         'user_name': user_name,
@@ -262,7 +262,7 @@ function updateTodo_all(liTodo,editButton,checkbox,inputTodo){
   liTodo.removeChild(editButton);
   inputTodo.classList.remove("uk-text-danger");
   inputTodo.style.textDecoration = "line-through";
-  fetch('/' + user_name + '/update_is_done/todo',{
+  fetch('/todos/update_is_done/' + user_name + '/',{
     method: 'POST',
     body: JSON.stringify({
       'user_name': user_name,
