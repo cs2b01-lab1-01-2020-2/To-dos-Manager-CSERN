@@ -81,7 +81,7 @@ def display_completed(user_name):
     return(jsonify(todo))
 
 # Todos Route
-@app.route('/<user_name>/todos')
+@app.route('/todos/<user_name>')
 def todos(user_name):
 	return render_template('todos.html', data=user_name)
 
@@ -160,6 +160,8 @@ def update_todo_is_done(user_name):
 		})
 	finally:
 		db.session.close()
+
+		
 # Delete Todo -	D
 @app.route('/todos/delete/<user_name>/', methods=['POST'])
 def delete_todo(user_name):

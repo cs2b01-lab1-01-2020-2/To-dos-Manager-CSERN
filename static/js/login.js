@@ -32,7 +32,8 @@ document.getElementById('login').onsubmit = function(e){
   })
   .then(function(res){
 		if (res['response'] == 'true') {
-			location.replace(window.location.href + res['user'] + "/todos")
+			// La wea que te redirije a todos/<user_name>
+			location.replace(window.location.href + "todos/" + res['user'])
     }
     else if(res['response'] == 'false') {
       document.getElementById("badpass_login").className = "uk-animation-shake";
