@@ -52,7 +52,7 @@ class Category(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    todos = db.relationship('Todo', backref='todo', lazy=True, cascade='delete')
+    todos = db.relationship('Todo', backref='todos', lazy=True, cascade='delete')
 
 # Todo
 @dataclass
@@ -73,17 +73,3 @@ class Todo(db.Model):
     is_done = db.Column(db.Boolean, default=False)
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     deadline = db.Column(db.DateTime)
-
-# Tablero
-@dataclass
-class Tablero(db.Model):
-    __tablename__ = 'tablero'
-    id: int
-    user_id: User
-    name: str
-    is_admin: bool
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), nullable=False)
-    is_admin = db.Column(db.Boolean, default=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'), nullable=False)
