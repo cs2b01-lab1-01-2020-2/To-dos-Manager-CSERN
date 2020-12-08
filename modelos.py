@@ -10,7 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://mistyblunch:pvta@localhost
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db)  
 
 # User
 @dataclass
@@ -25,6 +25,7 @@ class User(db.Model):
     username = db.Column(db.String(), unique=True, nullable=False)
     email = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
+    tableros = db.relationship('Tablero', backref='tablero', lazy=True, cascade='delete')
 
 # Category
 @dataclass
@@ -35,6 +36,7 @@ class Category(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    todos = db.relationship('Todo', backref='todo', lazy=True, cascade='delete')
 
 # Todo
 @dataclass
@@ -47,8 +49,21 @@ class Todo(db.Model):
     is_done: bool
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'),nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'),nullable=False, primary_key=True)
     description = db.Column(db.String(), nullable=False)
     is_done = db.Column(db.Boolean, default=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
 
+# Tablero
+@dataclass
+class Tablero(db.Model):
+    __tablename__ = 'tablero'
+    id: int
+    user_id: User
+    name: str
+    is_admin: bool
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'), nullable=False)
