@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from dataclasses import dataclass
+import datetime
 import psycopg2
 
 app = Flask(__name__)
@@ -25,7 +26,23 @@ class User(db.Model):
     username = db.Column(db.String(), unique=True, nullable=False)
     email = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
+    todos = db.relationship('Todo', backref='todo', lazy=True, cascade='delete')
+    tableros = db.relationship('Tablero', backref='tablero', lazy=True, cascade='delete')
 
+# Tablero
+@dataclass
+class Tablero(db.Model):
+    __tablename__ = 'tablero'
+    id: int
+    user_id: User
+    name: str
+    is_admin: bool
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'), nullable=False)
+    name = db.Column(db.String(), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+    
 # Category
 @dataclass
 class Category(db.Model):
@@ -35,6 +52,7 @@ class Category(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    todos = db.relationship('Todo', backref='todo', lazy=True, cascade='delete')
 
 # Todo
 @dataclass
@@ -45,10 +63,14 @@ class Todo(db.Model):
     category_id: Category
     description: str
     is_done: bool
+    created_date: datetime
+    deadline: datetime
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'),nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'),nullable=False, primary_key=True)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     description = db.Column(db.String(), nullable=False)
     is_done = db.Column(db.Boolean, default=False)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    deadline = db.Column(db.DateTime)
 
