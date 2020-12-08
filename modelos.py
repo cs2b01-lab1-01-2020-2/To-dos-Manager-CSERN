@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://rrodriguez:1234@localhost:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db)  
 
 # User
 @dataclass
@@ -74,3 +74,16 @@ class Todo(db.Model):
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     deadline = db.Column(db.DateTime)
 
+# Tablero
+@dataclass
+class Tablero(db.Model):
+    __tablename__ = 'tablero'
+    id: int
+    user_id: User
+    name: str
+    is_admin: bool
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'), nullable=False)
