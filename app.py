@@ -140,7 +140,7 @@ def update_todo(user_name):
 		db.session.close()
 
 # Update Todo is_done -	U
-@app.route('/todos/update_is_done/<user_name>/', methods=['POST'])
+@app.route('/todos/update/<user_name>/', methods=['POST'])
 def update_todo_is_done(user_name):
 	try: 
 		user_name = request.get_json()['user_name']
@@ -148,7 +148,10 @@ def update_todo_is_done(user_name):
 		user = User.query.filter_by(username=user_name).first()
 		user_id = user.id
 		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
-		todo.is_done = True
+		if(todo.is_done):
+			todo.is_done = False
+		else:
+			todo.is_done = True
 		db.session.commit()
 		return jsonify({
 			'status': 'true'

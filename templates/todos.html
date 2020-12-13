@@ -54,38 +54,26 @@
 					class="uk-button uk-button-default"
 				/>
 			</form>
+			
 
-			<ul uk-switcher="animation: uk-animation-fade; toggle: > *">
-				<button class="uk-button uk-button-secondary uk-button-small" id="all">
-					All
-				</button>
-				<button
-					class="uk-button uk-button-primary uk-button-small"
-					id="incomplete"
-				>
-					Active
-				</button>
-				<button
-					class="uk-button uk-button-danger uk-button-small"
-					id="complete"
-				>
-					Completed
-				</button>
-			</ul>
-
-			<ul class="uk-switcher uk-margin">
-				<div id="alltasks">
-					<li></li>
-				</div>
-				<div id="incompletedtasks">
-					<li></li>
-				</div>
-				<div id="completedtasks">
-					<li></li>
-				</div>
-			</ul>
-			<div class="todosli" id="todosli"></div>
-		</div>
+			<div class="uk-overflow-auto uk-padding-large uk-padding-remove-top uk-padding-remove-bottom">
+				<table class="uk-table uk-table-small uk-table-divider ">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Task</th>
+							<th>Deadline</th>
+							<th>Status</th>
+							<th>Created</th>
+							<th>Options</th>
+						</tr>
+					</thead>
+					<tbody id="tasks">
+						<tr class="row_table">
+						</tr>
+					</tbody>
+				</table>
+			</div>
 	</div>
 </body>
 <script src="{{url_for('static', filename = 'js/todos.js')}}"></script>
