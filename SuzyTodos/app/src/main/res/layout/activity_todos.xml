@@ -16,7 +16,10 @@
             android:layout_height="wrap_content"
             android:text="@string/un"
             android:gravity="center"
-            android:layout_margin="10dp"
+            style="@style/titleStyle"
+            android:padding="10dp"
+            android:background="#1e87f0"
+            android:textColor="#FFFFFF"
             android:textSize="36sp"/>
 
         <View
@@ -42,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/addtodo"
                 android:textSize="12sp"
+                style="@style/buttonStyle"
                 android:layout_marginStart="5dp"
                 android:onClick="addTodo"/>
 

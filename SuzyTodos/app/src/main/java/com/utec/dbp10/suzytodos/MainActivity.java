@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void abrirtodos(View veiw) {
+    public void abrirTodos(View veiw) {
         Intent intent = new Intent(this, todos.class);
         startActivity(intent);
     }

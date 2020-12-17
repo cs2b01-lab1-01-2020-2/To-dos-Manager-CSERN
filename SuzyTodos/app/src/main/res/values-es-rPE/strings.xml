@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SuzyTodos</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="signup">Registrate</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="email">Correo electrónico</string>
+    <string name="name">Bienvenido a Suzy Todos</string>
+    <string name="addtodo">Añade todo</string>
+    <string name="todo">Todo</string>
+    <string name="un">Bienvenido <xliff:g id="n2">%S</xliff:g></string>
+</resources>

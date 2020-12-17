@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="buttonStyle">
+        <item name="backgroundTint">#161d20</item>
+        <item name="android:textColor">#cccccc</item>
+        <item name="android:fontFamily">@font/Roboto_BoldItalic</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="titleStyle">
+        <item name="fontFamily">@font/Roboto_LightItalic</item>
+        <item name="android:textColor">#050505</item>
+    </style>
+    <style name="mainStyle">
+        <item name="fontFamily">@font/Roboto_BoldItalic</item>
+        <item name="background">#161d20</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+</resources>
