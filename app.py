@@ -98,10 +98,11 @@ def add_todo(user_name):
 			db.session.commit()
 
 		desc = request.get_json()['description']
+		dead = request.get_json()['deadline']
 		cat_id = Category.query.filter_by(name="general").first().id
 		user_id = User.query.filter_by(username=user_name).first().id
 
-		todo = Todo(user_id=user_id, description=desc, category_id=cat_id)
+		todo = Todo(user_id=user_id, description=desc, category_id=cat_id, deadline=dead)
 
 		db.session.add(todo)
 		db.session.commit()

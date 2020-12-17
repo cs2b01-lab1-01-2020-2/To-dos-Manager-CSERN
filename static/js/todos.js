@@ -3,7 +3,6 @@ const errormsg = document.getElementById('error');
 const todosElement = document.getElementById('todosli');
 const user_name = document.getElementById('description').dataset.id_user;
 
-// listAll();
 listAllTable();
 
 document.getElementById('ftodo').onsubmit = function(e){
@@ -11,7 +10,8 @@ document.getElementById('ftodo').onsubmit = function(e){
   fetch('/todos/add/' + user_name + '/', {
     method: 'POST',
     body: JSON.stringify({
-      'description': document.getElementById('description').value
+      'description': document.getElementById('description').value,
+      'deadline': document.getElementById('deadline').value
     }),
     headers: {
       'content-type': 'application/json'
@@ -21,9 +21,6 @@ document.getElementById('ftodo').onsubmit = function(e){
   .then(res => {
 		if(res['status'] == 'true') {
       listAllTable();
-      // listAll(); 
-      // listComplete();
-      // listIncomplete();
 			document.getElementById("description").value = ""
 			UIkit.notification({
 				message: 'Todo created!',
@@ -57,6 +54,7 @@ function fillRowTable(tbodyAll,todo){
     let tdCheckbox = document.createElement('td');
     let checkbox = document.createElement('input');
     checkbox.type = "checkbox";
+    checkbox.onclick = 
     checkbox.classList.add("uk-checkbox");
     tdCheckbox.appendChild(checkbox);
 
@@ -70,7 +68,8 @@ function fillRowTable(tbodyAll,todo){
 
     let tdDeadline = document.createElement('td');
     let pDeadline = document.createElement('p');
-    pDeadline.innerHTML = todo['deadline'];
+    var dead = new Date(todo['deadline']);
+    pDeadline.innerHTML = dead.toDateString();
     tdDeadline.appendChild(pDeadline);
 
     let tdStatus = document.createElement('td');
@@ -91,8 +90,11 @@ function fillRowTable(tbodyAll,todo){
 
     let tdCreatedDate = document.createElement('td');
     let pCreatedDate = document.createElement('p');
-    pCreatedDate.innerHTML = todo['created_date'];
+    var d = new Date(todo['created_date']);
+    pCreatedDate.innerHTML = d.toDateString();
     tdCreatedDate.appendChild(pCreatedDate);
+    
+    
 
     let tdOptions = document.createElement('td');
     let editButton = document.createElement('i');
@@ -116,8 +118,8 @@ function fillRowTable(tbodyAll,todo){
     trTodo.appendChild(tdCreatedDate);
     trTodo.appendChild(tdOptions);
 
-    
-    checkbox.addEventListener('click', () => this.updateTodo(trTodo,checkbox,pStatus,todo.is_done));    
+    checkbox.onclick =function() {updateTodo(todo,trTodo,checkbox,pStatus,todo.is_done)};
+    // checkbox.addEventListener('click', () => this.updateTodo(trTodo,checkbox,pStatus,todo.is_done));    
     editButton.addEventListener('click', () => this.editTodo(inputTodo,trTodo,todo.is_done));
     removeButton.addEventListener('click', () => this.removeTodo(tbodyAll,trTodo));
 }
@@ -166,20 +168,20 @@ function editTodo(inputTodo, trTodo){
 
 }
 
-function updateTodo(trTodo,checkbox,pStatus,is_done){
+function updateTodo(todo,trTodo,checkbox,pStatus,is_done){
   if(is_done){
+    todo.is_done = false;
     checkbox.checked = false;
     pStatus.innerHTML = "Incompleted";
     pStatus.classList.remove("uk-label-success");
     pStatus.classList.add("uk-label-danger");
-    console.log("is_done");
   }
   else{
+    todo.is_done = true;
     checkbox.checked = true;
     pStatus.innerHTML = "Success";
     pStatus.classList.remove("uk-label-danger");
     pStatus.classList.add("uk-label-success");
-    console.log("not_done");
   }
   fetch('/todos/update_is_done/' + user_name + '/',{
     method: 'POST',
@@ -193,3 +195,17 @@ function updateTodo(trTodo,checkbox,pStatus,is_done){
   })
   .then(response => response.json())
 }
+
+
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+var yyyy = today.getFullYear();
+if(dd<10){
+  dd='0'+dd
+} 
+if(mm<10){
+  mm='0'+mm
+}
+today = yyyy+'-'+mm+'-'+dd;
+document.getElementById("deadline").setAttribute("min", today);
