@@ -140,7 +140,7 @@ def update_todo(user_name):
 		db.session.close()
 
 # Update Todo is_done -	U
-@app.route('/todos/update/<user_name>/', methods=['POST'])
+@app.route('/todos/update_is_done/<user_name>/', methods=['POST'])
 def update_todo_is_done(user_name):
 	try: 
 		user_name = request.get_json()['user_name']

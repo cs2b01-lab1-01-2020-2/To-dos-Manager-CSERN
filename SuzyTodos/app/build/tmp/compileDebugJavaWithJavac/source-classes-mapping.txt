@@ -1,0 +1,7 @@
+com/utec/dbp10/suzytodos/MainActivity.java
+ com.utec.dbp10.suzytodos.MainActivity
+com/utec/dbp10/suzytodos/BuildConfig.java
+ com.utec.dbp10.suzytodos.BuildConfig
+com/utec/dbp10/suzytodos/todos.java
+ com.utec.dbp10.suzytodos.todos
+ com.utec.dbp10.suzytodos.todos$1

@@ -172,14 +172,16 @@ function updateTodo(trTodo,checkbox,pStatus,is_done){
     pStatus.innerHTML = "Incompleted";
     pStatus.classList.remove("uk-label-success");
     pStatus.classList.add("uk-label-danger");
+    console.log("is_done");
   }
   else{
     checkbox.checked = true;
     pStatus.innerHTML = "Success";
     pStatus.classList.remove("uk-label-danger");
     pStatus.classList.add("uk-label-success");
+    console.log("not_done");
   }
-  fetch('/todos/update/' + user_name + '/',{
+  fetch('/todos/update_is_done/' + user_name + '/',{
     method: 'POST',
     body: JSON.stringify({
       'user_name': user_name,
