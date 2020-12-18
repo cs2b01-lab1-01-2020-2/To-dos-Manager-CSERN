@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-es-rPE/values-es-rPE.xml",
+            "map": [
+                {
+                    "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/values-es-rPE/strings.xml",
+                    "from": {
+                        "startLines": "9,2,7,3,11,8,6,4,10,5",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "404,55,293,102,489,346,245,144,451,190",
+                        "endColumns": "46,46,52,41,48,57,47,45,37,54",
+                        "endOffsets": "446,97,341,139,533,399,288,185,484,240"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,102,149,202,244,293,351,399,445,483",
+                        "endColumns": "46,46,52,41,48,57,47,45,37,54",
+                        "endOffsets": "97,144,197,239,288,346,394,440,478,533"
+                    }
+                }
+            ]
+        }
+    ]
+}

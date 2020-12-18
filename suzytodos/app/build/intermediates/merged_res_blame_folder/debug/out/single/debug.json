@@ -1,0 +1,114 @@
+[
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/drawable_ic_launcher_background.xml.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_regular.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_regular.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/layout_activity_main.xml.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/generated/res/pngs/debug/drawable-anydpi-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_light.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_light.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_thin.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_thin.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_italic.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_italic.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_blackitalic.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_blackitalic.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_medium.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_medium.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_bolditalic.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_bolditalic.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/layout_activity_todos.xml.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/layout/activity_todos.xml"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_mediumitalic.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_mediumitalic.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_thinitalic.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_thinitalic.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_bold.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_bold.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_black.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_black.ttf"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/res/merged/debug/font_roboto_lightitalic.ttf.flat",
+        "source": "/home/rrodriguez/2020-2/dbp/project/suzytodos/app/src/main/res/font/roboto_lightitalic.ttf"
+    }
+]
