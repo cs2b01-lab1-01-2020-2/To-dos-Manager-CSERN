@@ -20,7 +20,7 @@
 
 ## Tecnologías utilizadas
 
-### Fronted
+### Frontend
 - Java
 - XML
 
