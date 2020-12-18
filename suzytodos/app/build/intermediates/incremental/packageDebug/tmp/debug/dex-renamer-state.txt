@@ -1,7 +1,7 @@
-#Thu Dec 17 19:05:24 PET 2020
-base.0=/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+#Thu Dec 17 19:53:00 COT 2020
+base.0=C\:\\Users\\Cabrigi\\UTEC\\DBP\\andr\\To-dos-Manager-CSERN\\suzytodos\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 path.1=classes.dex
 renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
-base.1=/home/rrodriguez/2020-2/dbp/project/suzytodos/app/build/intermediates/dex/debug/mergeProjectDexDebug/classes.dex
+base.1=C\:\\Users\\Cabrigi\\UTEC\\DBP\\andr\\To-dos-Manager-CSERN\\suzytodos\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
