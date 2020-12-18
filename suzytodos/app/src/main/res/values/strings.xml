@@ -6,7 +6,13 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="name">Welcome to Suzy Todos</string>
+    <string name="welcome">Welcome</string>
     <string name="addtodo">Add todo</string>
     <string name="todo">Todo</string>
     <string name="logout">Logout</string>
+    <string name="loginhint">Please fill in all the login fields</string>
+    <string name="signuphint">Please fill in all the signup fields</string>
+    <string name="signupsuccess">Sign up was successful</string>
+    <string name="tododesc">Todo needs a description</string>
+    <string name="tododelete">Todo deleted</string>
 </resources>

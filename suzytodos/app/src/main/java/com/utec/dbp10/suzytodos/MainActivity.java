@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         String password = lpassword.getText().toString();
 
         if(username.equals("") || password.equals("")) {
-            Toast.makeText(getApplicationContext(), "Please fill in all the login fields", Toast.LENGTH_SHORT).show();
+            String hint = getString(R.string.loginhint);
+            Toast.makeText(getApplicationContext(), hint, Toast.LENGTH_SHORT).show();
         }
         else {
             lusername.setText("");
@@ -45,13 +46,15 @@ public class MainActivity extends AppCompatActivity {
         String email = remail.getText().toString();
 
         if(username.equals("") || password.equals("") || email.equals("")) {
-            Toast.makeText(getApplicationContext(), "Please fill in all the signup fields", Toast.LENGTH_SHORT).show();
+            String hint = getString(R.string.signuphint);
+            Toast.makeText(getApplicationContext(), hint, Toast.LENGTH_SHORT).show();
         }
         else {
             rusername.setText("");
             rpassword.setText("");
             remail.setText("");
-            Toast.makeText(getApplicationContext(), "Sign up was successful", Toast.LENGTH_SHORT).show();
+            String hint = getString(R.string.signupsuccess);
+            Toast.makeText(getApplicationContext(), hint, Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -31,8 +31,9 @@ public class todos extends AppCompatActivity {
         Intent intent = getIntent();
         String username = intent.getStringExtra(MainActivity.EXTRA_TEXT);
         TextView welcome = findViewById(R.id.welcome);
-        welcome.setText(String.format("Welcome %s", username));
-
+        String welcomemsg = welcome.getText().toString();
+        welcomemsg += " " + username;
+        welcome.setText(welcomemsg);
         listView = findViewById(R.id.list);
         todos = new ArrayList<>();
         todosAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todos);
@@ -45,7 +46,8 @@ public class todos extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Context context = getApplicationContext();
-                Toast.makeText(context, "Todo deleted", Toast.LENGTH_LONG).show();
+                String hint = getString(R.string.tododelete);
+                Toast.makeText(context, hint, Toast.LENGTH_LONG).show();
 
                 todos.remove(position);
                 todosAdapter.notifyDataSetChanged();
@@ -63,7 +65,8 @@ public class todos extends AppCompatActivity {
             adder.setText("");
         }
         else {
-            Toast.makeText(getApplicationContext(), "Todo needs a description", Toast.LENGTH_LONG).show();
+            String hint = getString(R.string.tododesc);
+            Toast.makeText(getApplicationContext(), hint, Toast.LENGTH_LONG).show();
         }
     }
 
