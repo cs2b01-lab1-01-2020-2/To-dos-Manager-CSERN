@@ -6,8 +6,7 @@ function validEmail(element) {
     document.getElementById("bademail_register").className = "uk-animation-shake"
 		document.getElementById("bademail_register").classList.add("error")
 		return false;
-  }
-  else{
+  } else{
 		document.getElementById("bademail_register").className = "hidden"
 		return true;
   }
@@ -32,7 +31,8 @@ document.getElementById('login').onsubmit = function(e){
   })
   .then(function(res){
 		if (res['response'] == 'true') {
-			location.replace(window.location.href + res['user'] + "/todos")
+			// La wea que te redirije a todos/<user_name>
+			location.replace(window.location.href + "todos/" + res['user'])
     }
     else if(res['response'] == 'false') {
       document.getElementById("badpass_login").className = "uk-animation-shake";

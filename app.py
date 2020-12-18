@@ -3,6 +3,7 @@ from datetime import datetime
 import json
 from modelos import * 
 
+# connection = connection = psycopg2.connect(database = "todosdb", user = "mistyblunch", password = "pvta")
 connection = connection = psycopg2.connect(database = "todosdb", user = "rrodriguez", password = "1234")
 cursor = connection.cursor()
 
@@ -80,7 +81,7 @@ def display_completed(user_name):
     return(jsonify(todo))
 
 # Todos Route
-@app.route('/<user_name>/todos')
+@app.route('/todos/<user_name>')
 def todos(user_name):
 	return render_template('todos.html', data=user_name)
 
@@ -97,10 +98,11 @@ def add_todo(user_name):
 			db.session.commit()
 
 		desc = request.get_json()['description']
+		dead = request.get_json()['deadline']
 		cat_id = Category.query.filter_by(name="general").first().id
 		user_id = User.query.filter_by(username=user_name).first().id
 
-		todo = Todo(user_id=user_id, description=desc, category_id=cat_id)
+		todo = Todo(user_id=user_id, description=desc, category_id=cat_id, deadline=dead)
 
 		db.session.add(todo)
 		db.session.commit()
@@ -147,7 +149,10 @@ def update_todo_is_done(user_name):
 		user = User.query.filter_by(username=user_name).first()
 		user_id = user.id
 		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
-		todo.is_done = True
+		if(todo.is_done):
+			todo.is_done = False
+		else:
+			todo.is_done = True
 		db.session.commit()
 		return jsonify({
 			'status': 'true'
@@ -159,6 +164,8 @@ def update_todo_is_done(user_name):
 		})
 	finally:
 		db.session.close()
+
+
 # Delete Todo -	D
 @app.route('/todos/delete/<user_name>/', methods=['POST'])
 def delete_todo(user_name):
@@ -184,7 +191,6 @@ def delete_todo(user_name):
 
 @app.route('/')
 def index():
-	user = User.query.all()
 	return render_template('login.html')
 
 #Error page
@@ -197,4 +203,4 @@ def error_ocurred(error):
   return render_template('page_not_found.html'), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+	app.run(debug=True, port=5001)
