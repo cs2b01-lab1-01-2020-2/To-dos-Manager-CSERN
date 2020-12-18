@@ -108,7 +108,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
   </component>
   <component name="RecentsManager">
     <key name="android.template.1802674694">
@@ -239,10 +239,10 @@
       <screen x="0" y="27" width="1680" height="1023" />
     </state>
     <state x="423" y="296" width="824" height="480" key="AndroidCreateResourceFileDialog/0.27.1680.1023/1680.0.1920.1080@0.27.1680.1023" timestamp="1608248198850" />
-    <state x="1060" y="455" width="424" height="480" key="FileChooserDialogImpl" timestamp="1608255080404">
+    <state x="1060" y="455" width="424" height="480" key="FileChooserDialogImpl" timestamp="1608256378240">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1060" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1608255080404" />
+    <state x="1060" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1608256378240" />
     <state x="696" y="359" width="424" height="480" key="FileChooserDialogImpl/0.27.1680.1023/1680.0.1920.1080@0.27.1680.1023" timestamp="1608247876889" />
     <state width="1634" height="269" key="GridCell.Tab.0.bottom" timestamp="1608249996906">
       <screen x="0" y="27" width="1680" height="1023" />
