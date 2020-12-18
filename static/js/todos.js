@@ -198,8 +198,8 @@ function updateTodo(todo,trTodo,checkbox,pStatus,is_done){
 
 
 var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+var dd = today.getDate()+1;
+var mm = today.getMonth()+1; 
 var yyyy = today.getFullYear();
 if(dd<10){
   dd='0'+dd

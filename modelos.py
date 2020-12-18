@@ -27,12 +27,11 @@ class User(db.Model):
     email = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
     todos = db.relationship('Todo', backref='todo', lazy=True, cascade='delete')
-    tables = db.relationship('Table', backref='table', lazy=True, cascade='delete')
 
 # Table
 @dataclass
-class Table(db.Model):
-    __tablename__ = 'table'
+class Tablero(db.Model):
+    __tablename__ = 'tablero'
     id: int
     user_id: User
     name: str
@@ -42,7 +41,6 @@ class Table(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('usr.id'), nullable=False)
     name = db.Column(db.String(), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
-    todos = db.relationship('Todo', backref='todo', lazy=True, cascade='delete')
     
 # Category
 @dataclass
@@ -61,7 +59,6 @@ class Todo(db.Model):
     __tablename__ = 'todo'
     id: int
     user_id: User
-    table_id: Table
     category_id: Category
     description: str
     is_done: bool
@@ -70,7 +67,6 @@ class Todo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('usr.id'),nullable=False, primary_key=True)
-    table_id = db.Column(db.Integer, db.ForeignKey('table.id'),nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     description = db.Column(db.String(), nullable=False)
     is_done = db.Column(db.Boolean, default=False)
