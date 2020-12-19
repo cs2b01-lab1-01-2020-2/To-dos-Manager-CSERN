@@ -2,12 +2,16 @@ const form = document.getElementById('ftodo');
 const errormsg = document.getElementById('error');
 const todosElement = document.getElementById('todosli');
 const user_name = document.getElementById('description').dataset.id_user;
+let href = window.location.href
+let arr = href.split('/')
+let tablero_name = arr[4]
+console.log(tablero_name)
 
 listAllTable();
 
 document.getElementById('ftodo').onsubmit = function(e){
   e.preventDefault();
-  fetch('/todos/add/' + user_name + '/', {
+  fetch('/' + user_name + '/' + tablero_name + '/todos/add/', {
     method: 'POST',
     body: JSON.stringify({
       'description': document.getElementById('description').value,
@@ -19,6 +23,7 @@ document.getElementById('ftodo').onsubmit = function(e){
   })
   .then(response => response.json())
   .then(res => {
+    console.log(res)
 		if(res['status'] == 'true') {
       listAllTable();
 			document.getElementById("description").value = ""
@@ -39,9 +44,10 @@ document.getElementById('ftodo').onsubmit = function(e){
 }
 
 function listAllTable() {
-  fetch('/todos/displayall/'+ user_name + '/')
+  fetch('/' + user_name + '/' + tablero_name + '/todos/displayall/')
     .then(response => response.json())
     .then(todos => {
+      console.log(todos);
         let tbodyAll = document.getElementById("tasks");
         tbodyAll.innerHTML = "";
         todos.forEach(todo => {
@@ -69,6 +75,7 @@ function fillRowTable(tbodyAll,todo){
     let tdDeadline = document.createElement('td');
     let pDeadline = document.createElement('p');
     var dead = new Date(todo['deadline']);
+    dead.setDate(dead.getDate()+1);
     pDeadline.innerHTML = dead.toDateString();
     tdDeadline.appendChild(pDeadline);
 
@@ -118,15 +125,14 @@ function fillRowTable(tbodyAll,todo){
     trTodo.appendChild(tdCreatedDate);
     trTodo.appendChild(tdOptions);
 
-    checkbox.onclick =function() {updateTodo(todo,trTodo,checkbox,pStatus,todo.is_done)};
-    // checkbox.addEventListener('click', () => this.updateTodo(trTodo,checkbox,pStatus,todo.is_done));    
+    checkbox.onclick =function() {updateTodo(todo,trTodo,checkbox,pStatus,todo.is_done)};    
     editButton.addEventListener('click', () => this.editTodo(inputTodo,trTodo,todo.is_done));
     removeButton.addEventListener('click', () => this.removeTodo(tbodyAll,trTodo));
 }
 
 
 function removeTodo(tbody,trTodo){
-  fetch('/todos/delete/' + user_name + '/',{
+  fetch('/' + user_name + '/' + tablero_name + '/todos/delete/',{
     method: 'POST',
     body: JSON.stringify({
       'user_name': user_name,
@@ -149,8 +155,8 @@ function editTodo(inputTodo, trTodo){
 
       inputTodo.disabled = !inputTodo.disabled;
       let todo_val = inputTodo.value;
-      
-      fetch('/todos/update/' + user_name + '/' ,{
+      console.log("edit todo")
+      fetch('/' + user_name + '/' + tablero_name + '/todos/update/' ,{
         method: 'POST',
         body: JSON.stringify({
           'user_name': user_name,
@@ -183,7 +189,7 @@ function updateTodo(todo,trTodo,checkbox,pStatus,is_done){
     pStatus.classList.remove("uk-label-danger");
     pStatus.classList.add("uk-label-success");
   }
-  fetch('/todos/update_is_done/' + user_name + '/',{
+  fetch('/' + user_name + '/' + tablero_name + '/todos/update_is_done/',{
     method: 'POST',
     body: JSON.stringify({
       'user_name': user_name,
@@ -198,7 +204,7 @@ function updateTodo(todo,trTodo,checkbox,pStatus,is_done){
 
 
 var today = new Date();
-var dd = today.getDate()+1;
+var dd = today.getDate();
 var mm = today.getMonth()+1; 
 var yyyy = today.getFullYear();
 if(dd<10){
