@@ -32,7 +32,7 @@ document.getElementById('login').onsubmit = function(e){
   .then(function(res){
 		if (res['response'] == 'true') {
 			// La wea que te redirije a todos/<user_name>
-			location.replace(window.location.href + "todos/" + res['user'])
+			location.replace(window.location.href + res['user'] + '/' + res['tablero_name'] + '/'+ "todos/" )
     }
     else if(res['response'] == 'false') {
       document.getElementById("badpass_login").className = "uk-animation-shake";
@@ -70,16 +70,25 @@ document.getElementById('createuser').onsubmit = function(e){
 			return response.json();
 		})
 		.then(function(res){
-			UIkit.notification({
-				message: 'User created!',
-				status: 'success',
-				timeout: 3000
-			});
-			document.getElementById('sucesscreate').className = '';
-			document.getElementById('baduser_register').className = 'hidden';
-			document.getElementById('username_reg').value = '';
-			document.getElementById('password_reg').value = '';
-			document.getElementById('email').value = '';
+			console.log(res);
+			if (res['status'] == 'true') {
+				UIkit.notification({
+					message: 'User created!',
+					status: 'success',
+					timeout: 3000
+				});
+				document.getElementById('sucesscreate').className = '';
+				document.getElementById('baduser_register').className = 'hidden';
+				document.getElementById('username_reg').value = '';
+				document.getElementById('password_reg').value = '';
+				document.getElementById('email').value = '';
+			} else {
+				UIkit.notification({
+					message: 'User could not be created!',
+					status: 'danger',
+					timeout: 3000
+				});
+			}
 		})
 		.catch(function(error){
 			UIkit.notification({

@@ -77,3 +77,8 @@ input[type="date"], focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
 } */
+
+.back_black_imp {
+	background: #000 !important;
+	color: #fff;
+}

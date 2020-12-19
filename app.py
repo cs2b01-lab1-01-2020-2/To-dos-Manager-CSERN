@@ -1,10 +1,10 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
 import json
 from modelos import * 
+import psycopg2
 
-# connection = connection = psycopg2.connect(database = "todosdb", user = "mistyblunch", password = "pvta")
-connection = connection = psycopg2.connect(database = "todosdb", user = "rrodriguez", password = "1234")
+connection = connection = psycopg2.connect(database = "todosdb", user = "postgres", password = "pvta")
+# connection = connection = psycopg2.connect(database = "todosdb", user = "rrodriguez", password = "1234")
 cursor = connection.cursor()
 
 # Register
@@ -15,24 +15,46 @@ def signup():
 		email = request.get_json()['email']
 		password = request.get_json()['password']
 
-		usxr = User.query.filter_by(username=username).first()
-		eml = User.query.filter_by(email=email).first()
+		cursor.execute("select count(username) from usr where username='%s';" % (username))
+		usxr_count = cursor.fetchone()[0]
+
+		cursor.execute("select count(email) from usr where email='%s';" % (email))
+		eml_count = cursor.fetchone()[0]
 	
-		if usxr:
+		if usxr_count > 0:
 			return render_template('login.html')
-		elif eml:
+		elif eml_count > 0:
 			return render_template('login.html')
 		else:
 			encrypt_pass = generate_password_hash(password, "sha256")
-			user = User(username=username, email=email, password=encrypt_pass)
+
+			cursor.execute("select max(id) from usr;")
+			id_max = cursor.fetchone()[0]
+			id_max = id_max if (id_max != None) else 0
+
+			user = User(id=id_max+1, username=username, email=email, password=encrypt_pass)
 			db.session.add(user)
 			db.session.commit()
+
+			cursor.execute("select id from usr where username='%s'" %user.username)
+			user_id = cursor.fetchone()[0]
+
+			table = Tablero(name="default", user_id=user_id, is_admin=True)
+
+			db.session.add(table)
+			db.session.commit()
+
 			return jsonify({
 				'username': user.username,
-				'email': user.email
+				'email': user.email,
+				'status': 'true',
+				'table': table.name
 			})
 	except Exception as e:
 		db.session.rollback()
+		return jsonify({
+			'status': 'false'
+		})
 	finally:
 		db.session.close()
 
@@ -48,9 +70,16 @@ def login():
 		passwd_validate = check_password_hash(usxr.password, password)
 
 		if usxr.username == username and passwd_validate:
+			cursor.execute("select id from usr where username='%s'" %usxr.username)
+			user_id = cursor.fetchone()[0]
+
+			cursor.execute("select name from tablero where user_id='%s'" %user_id)
+			tablero_name = cursor.fetchone()[0]
+
 			return jsonify({
 				'response': 'true',
-				'user': usxr.username
+				'user': usxr.username,
+				'tablero_name': tablero_name
 			})
 		else:
 			return jsonify({
@@ -58,14 +87,26 @@ def login():
 			})
 
 # Display all
-@app.route('/todos/displayall/<user_name>/')
-def display_all(user_name):
-    user = User.query.filter_by(username=user_name).first()
-    todo = Todo.query.filter_by(user_id=user.id).all()
-    return(jsonify(todo))
+@app.route('/<user_name>/<table_name>/todos/displayall/')
+def display_all(user_name, table_name):
+	user = User.query.filter_by(username=user_name).first()
+	print("USER", user)
+	table = Tablero.query.filter((Tablero.user_id == user.id) & (Tablero.name == table_name)).first()
+	print("TABLE", table)
+	todo = Todo.query.filter((Todo.user_id==user.id) & (Todo.tablero_id==table.id)).all()
+	print("TODO display all", todo)
+	return(jsonify(todo))
+
+# Todos Route
+@app.route('/<user_name>/<table_name>/todos/')
+def todos(user_name, table_name):
+	user = User.query.filter_by(username=user_name).first()
+	tables = Tablero.query.filter(Tablero.user_id == user.id)
+	return render_template('todos.html', data=user_name, tables=tables)
+
 
 # Display incompleted
-@app.route('/todos/displayincompleted/<user_name>/')
+@app.route('/<user_name>/<table_name>/todos/displayincompleted/')
 def display_imcompleted(user_name):
     user = User.query.filter_by(username=user_name).first()
     status = False
@@ -73,21 +114,17 @@ def display_imcompleted(user_name):
     return(jsonify(todo))
 
 # Display completed
-@app.route('/todos/displaycompleted/<user_name>/')
+@app.route('/<user_name>/<table_name>/todos/displaycompleted/')
 def display_completed(user_name):
     user = User.query.filter_by(username=user_name).first()
     status = True
     todo = Todo.query.filter((Todo.user_id == user.id) & (Todo.is_done == status)).all()
     return(jsonify(todo))
 
-# Todos Route
-@app.route('/todos/<user_name>')
-def todos(user_name):
-	return render_template('todos.html', data=user_name)
 
 # Add Todo - C
-@app.route('/todos/add/<user_name>/', methods=['POST'])
-def add_todo(user_name):
+@app.route('/<user_name>/<table_name>/todos/add/', methods=['POST'])
+def add_todo(user_name, table_name):
 	try:
 		cursor.execute("select count(name) from category where name ='general'")
 		contGenCat = cursor.fetchone()[0]
@@ -102,10 +139,19 @@ def add_todo(user_name):
 		cat_id = Category.query.filter_by(name="general").first().id
 		user_id = User.query.filter_by(username=user_name).first().id
 
-		todo = Todo(user_id=user_id, description=desc, category_id=cat_id, deadline=dead)
+		cursor.execute("select id from tablero where name='%s';" % (table_name))
+		tablero_id = cursor.fetchone()[0]
+
+		cursor.execute("select max(id) from usr;")
+		id_max = cursor.fetchone()[0]
+		id_max = id_max if (id_max != None) else 0
+
+		todo = Todo(id=id_max+1, user_id=user_id, tablero_id=tablero_id, description=desc, category_id=cat_id, deadline=dead)
+		print("TODOWO", todo)
 
 		db.session.add(todo)
 		db.session.commit()
+		print("comiteoo")
 		return jsonify({
 			'status': 'true'
 		})
@@ -118,7 +164,7 @@ def add_todo(user_name):
 		db.session.close()
 
 # Update Todo -	U
-@app.route('/todos/update/<user_name>/', methods=['POST'])
+@app.route('/<user_name>/<table_name>/todos/update/', methods=['POST'])
 def update_todo(user_name):
 	try: 
 		user_name = request.get_json()['user_name']
@@ -141,7 +187,7 @@ def update_todo(user_name):
 		db.session.close()
 
 # Update Todo is_done -	U
-@app.route('/todos/update_is_done/<user_name>/', methods=['POST'])
+@app.route('/<user_name>/<table_name>/todos/update_is_done/', methods=['POST'])
 def update_todo_is_done(user_name):
 	try: 
 		user_name = request.get_json()['user_name']
@@ -167,7 +213,7 @@ def update_todo_is_done(user_name):
 
 
 # Delete Todo -	D
-@app.route('/todos/delete/<user_name>/', methods=['POST'])
+@app.route('/<user_name>/<table_name>/todos/delete/', methods=['POST'])
 def delete_todo(user_name):
 	try: 
 		user_name = request.get_json()['user_name']
@@ -180,6 +226,45 @@ def delete_todo(user_name):
 		
 		return jsonify({
 			'status': 'true'
+		})
+	except Exception as e:
+		db.session.rollback()
+		return jsonify({
+			'status': 'false'
+		})
+	finally:
+		db.session.close()
+
+
+@app.route('/table/create', methods=['GET'])
+def create_table1():
+	print("create")
+	table_name = request.args.get('name', '')
+	owner_name = request.args.get('owner', '')
+	is_admin = request.args.get('admin', '')
+
+	owner_id = User.query.filter_by(username=owner_name).first().id
+	
+	table = Tablero(name=table_name, user_id=owner_id, is_admin=is_admin)
+	db.session.add(table)
+	db.session.commit()
+	return todos(owner_name, table_name)
+
+@app.route('/table/create', methods=['POST'])
+def create_table2():
+	print("post")
+	try:
+		table_name = request.get_json()['name']
+		owner_name = request.get_json()['owner']
+		is_admin = request.get_json()['admin']
+
+		owner_id = User.query.filter_by(username=owner_name).first().id
+
+		table = Tablero(name=table_name, user_id=owner_id, is_admin=is_admin)
+		db.session.add(table)
+		db.session.commit()
+		return jsonify({
+			'name': table.name
 		})
 	except Exception as e:
 		db.session.rollback()

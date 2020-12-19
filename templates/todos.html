@@ -14,7 +14,7 @@
 					<ul class="uk-navbar-nav">
 							<li class="susy_white" uk-toggle="target: #offcanvas-nav">
 								<a class="uk-text-bold">
-									Tablero
+									Tables
 								</a>
 							</li>
 							<li class="uk-active">
@@ -28,11 +28,22 @@
 
 			<div id="offcanvas-nav" uk-offcanvas="overlay: true">
 				<div class="uk-offcanvas-bar">
-		
 					<ul class="uk-nav uk-nav-default">
-						<li class="uk-nav-header">Tableros</li>
+						<li class="uk-nav-header">Tables</li>
+						<form id="form_table">
+							<input type="text" id="table" name="table" data-id_user="{{data}}" />
+							<input type="submit" value="Create a table" class="uk-button uk-button-small back_black_imp uk-margin-small-top" />
+						</form>
 						<li class="uk-nav-divider"></li>
-						<li><a href="#"><span class="uk-margin-small-right"></span>cat 1</a></li>
+						{% for table in tables %}
+						<li>
+							<a href="/{{data}}/{{table.name}}/todos">
+								<span class="uk-margin-small-right">
+									{{ table.name }}
+								</span>
+							</a>
+						</li>
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
@@ -88,4 +99,5 @@
 	</div>
 </body>
 <script src="{{url_for('static', filename = 'js/todos.js')}}"></script>
+<script src="{{url_for('static', filename = 'js/tablero.js')}}"></script>
 {% endblock %}

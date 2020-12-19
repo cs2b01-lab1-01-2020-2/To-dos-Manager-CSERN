@@ -2,12 +2,16 @@ const form = document.getElementById('ftodo');
 const errormsg = document.getElementById('error');
 const todosElement = document.getElementById('todosli');
 const user_name = document.getElementById('description').dataset.id_user;
+let href = window.location.href
+let arr = href.split('/')
+let tablero_name = arr[4]
+console.log(tablero_name)
 
 listAllTable();
 
 document.getElementById('ftodo').onsubmit = function(e){
   e.preventDefault();
-  fetch('/todos/add/' + user_name + '/', {
+  fetch('/' + user_name + '/' + tablero_name + '/todos/add/', {
     method: 'POST',
     body: JSON.stringify({
       'description': document.getElementById('description').value,
@@ -19,6 +23,7 @@ document.getElementById('ftodo').onsubmit = function(e){
   })
   .then(response => response.json())
   .then(res => {
+    console.log(res)
 		if(res['status'] == 'true') {
       listAllTable();
 			document.getElementById("description").value = ""
@@ -39,9 +44,10 @@ document.getElementById('ftodo').onsubmit = function(e){
 }
 
 function listAllTable() {
-  fetch('/todos/displayall/'+ user_name + '/')
+  fetch('/' + user_name + '/' + tablero_name + '/todos/displayall/')
     .then(response => response.json())
     .then(todos => {
+      console.log(todos);
         let tbodyAll = document.getElementById("tasks");
         tbodyAll.innerHTML = "";
         todos.forEach(todo => {
@@ -126,7 +132,7 @@ function fillRowTable(tbodyAll,todo){
 
 
 function removeTodo(tbody,trTodo){
-  fetch('/todos/delete/' + user_name + '/',{
+  fetch('/' + user_name + '/' + tablero_name + '/todos/delete/',{
     method: 'POST',
     body: JSON.stringify({
       'user_name': user_name,
@@ -150,7 +156,7 @@ function editTodo(inputTodo, trTodo){
       inputTodo.disabled = !inputTodo.disabled;
       let todo_val = inputTodo.value;
       
-      fetch('/todos/update/' + user_name + '/' ,{
+      fetch('/' + user_name + '/' + tablero_name + '/todos/update/' ,{
         method: 'POST',
         body: JSON.stringify({
           'user_name': user_name,
@@ -183,7 +189,7 @@ function updateTodo(todo,trTodo,checkbox,pStatus,is_done){
     pStatus.classList.remove("uk-label-danger");
     pStatus.classList.add("uk-label-success");
   }
-  fetch('/todos/update_is_done/' + user_name + '/',{
+  fetch('/' + user_name + '/' + tablero_name + '/todos/update_is_done/',{
     method: 'POST',
     body: JSON.stringify({
       'user_name': user_name,
