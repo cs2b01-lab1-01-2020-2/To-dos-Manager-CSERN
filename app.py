@@ -3,8 +3,8 @@ import json
 from modelos import * 
 import psycopg2
 
-# connection = connection = psycop	g2.connect(database = "todosdb", user = "postgres", password = "pvta")
-connection = connection = psycopg2.connect(database = "todosdb", user = "rrodriguez", password = "1234")
+connection = connection = psycopg2.connect(database = "todosdb", user = "postgres", password = "pvta")
+# connection = connection = psycopg2.connect(database = "todosdb", user = "rrodriguez", password = "1234")
 cursor = connection.cursor()
 
 # Register
@@ -90,8 +90,8 @@ def login():
 @app.route('/<user_name>/<table_name>/todos/displayall/')
 def display_all(user_name, table_name):
 	user = User.query.filter_by(username=user_name).first()
-	# print("USER", user)
-	table = Tablero.query.filter((Tablero.user_id == user.id) & (Tablero.name == table_name)).first()
+	print("USER", user)
+	table = Tablero.query.filter(Tablero.user_id == user.id).first()
 	print("TABLE", table)
 	todo = Todo.query.filter((Todo.user_id==user.id) & (Todo.tablero_id==table.id)).all()
 	print("TODO display all", todo)
@@ -128,7 +128,7 @@ def add_todo(user_name, table_name):
 	try:
 		cursor.execute("select count(name) from category where name ='general'")
 		contGenCat = cursor.fetchone()[0]
-		print(contGenCat)
+
 		if(contGenCat == 0):
 			cat = Category(name="general")
 			db.session.add(cat)
@@ -136,10 +136,11 @@ def add_todo(user_name, table_name):
 
 		desc = request.get_json()['description']
 		dead = request.get_json()['deadline']
+		
 		cat_id = Category.query.filter_by(name="general").first().id
 		user_id = User.query.filter_by(username=user_name).first().id
 
-		cursor.execute("select id from tablero where name='%s';" % (table_name))
+		cursor.execute("select id from tablero where name='%s' and user_id='%s';" % (table_name, user_id))
 		tablero_id = cursor.fetchone()[0]
 
 		cursor.execute("select max(id) from todo;")
@@ -147,7 +148,7 @@ def add_todo(user_name, table_name):
 		id_max = id_max if (id_max != None) else 0
 
 		todo = Todo(id=id_max+1, user_id=user_id, tablero_id=tablero_id, description=desc, category_id=cat_id, deadline=dead)
-		# print("TODOWO", todo)
+		print("TODOWO", todo)
 
 		db.session.add(todo)
 		db.session.commit()
