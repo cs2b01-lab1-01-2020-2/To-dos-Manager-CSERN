@@ -19,6 +19,10 @@ document.getElementById('form_table').onsubmit = function(e) {
     window.location.reload();
   })
   .catch(function(error){
-    document.getElementById('error').className = '';
+    UIkit.notification({
+			message: 'Table was not created',
+			status: 'danger',
+			timeout: 3000
+		});
   });
 }

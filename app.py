@@ -90,11 +90,8 @@ def login():
 @app.route('/<user_name>/<table_name>/todos/displayall/')
 def display_all(user_name, table_name):
 	user = User.query.filter_by(username=user_name).first()
-	print("USER", user)
-	table = Tablero.query.filter(Tablero.user_id == user.id).first()
-	print("TABLE", table)
+	table = Tablero.query.filter((Tablero.user_id == user.id) & (Tablero.name == table_name)).first()
 	todo = Todo.query.filter((Todo.user_id==user.id) & (Todo.tablero_id==table.id)).all()
-	print("TODO display all", todo)
 	return(jsonify(todo))
 
 # Todos Route
@@ -136,7 +133,7 @@ def add_todo(user_name, table_name):
 
 		desc = request.get_json()['description']
 		dead = request.get_json()['deadline']
-		
+
 		cat_id = Category.query.filter_by(name="general").first().id
 		user_id = User.query.filter_by(username=user_name).first().id
 
@@ -148,11 +145,9 @@ def add_todo(user_name, table_name):
 		id_max = id_max if (id_max != None) else 0
 
 		todo = Todo(id=id_max+1, user_id=user_id, tablero_id=tablero_id, description=desc, category_id=cat_id, deadline=dead)
-		print("TODOWO", todo)
 
 		db.session.add(todo)
 		db.session.commit()
-		# print("comiteoo")
 		return jsonify({
 			'status': 'true'
 		})
@@ -175,7 +170,7 @@ def update_todo(user_name,table_name):
 		user_id = user.id
 		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
 		todo.description = desc
-		print(desc)
+		
 		db.session.commit()
 		return jsonify({
 			'status': 'true'
@@ -237,10 +232,9 @@ def delete_todo(user_name,table_name):
 	finally:
 		db.session.close()
 
-
 @app.route('/table/create', methods=['GET'])
 def create_table1():
-	# print("create")
+	print("create")
 	table_name = request.args.get('name', '')
 	owner_name = request.args.get('owner', '')
 	is_admin = request.args.get('admin', '')
@@ -254,7 +248,7 @@ def create_table1():
 
 @app.route('/table/create', methods=['POST'])
 def create_table2():
-	# print("post")
+	print("post")
 	try:
 		table_name = request.get_json()['name']
 		owner_name = request.get_json()['owner']
