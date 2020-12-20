@@ -60,7 +60,6 @@ function fillRowTable(tbodyAll,todo){
     let tdCheckbox = document.createElement('td');
     let checkbox = document.createElement('input');
     checkbox.type = "checkbox";
-    checkbox.onclick = 
     checkbox.classList.add("uk-checkbox");
     tdCheckbox.appendChild(checkbox);
 
@@ -130,7 +129,6 @@ function fillRowTable(tbodyAll,todo){
     removeButton.addEventListener('click', () => this.removeTodo(tbodyAll,trTodo));
 }
 
-
 function removeTodo(tbody,trTodo){
   fetch('/' + user_name + '/' + tablero_name + '/todos/delete/',{
     method: 'POST',
@@ -147,6 +145,8 @@ function removeTodo(tbody,trTodo){
     tbody.removeChild(trTodo);
   })
 }
+
+
 function editTodo(inputTodo, trTodo){
   inputTodo.disabled = !inputTodo.disabled; 
   inputTodo.addEventListener('keydown', function(event){

@@ -246,6 +246,7 @@ def create_table1():
 	db.session.commit()
 	return todos(owner_name, table_name)
 
+# Create Table -	D
 @app.route('/table/create', methods=['POST'])
 def create_table2():
 	print("post")
@@ -269,6 +270,33 @@ def create_table2():
 		})
 	finally:
 		db.session.close()
+
+# Delete Table - D
+@app.route('/<user_name>/<table_name>/tablero/delete/', methods=['POST'])
+def delete_tablero(user_name,table_name):
+	try: 
+		user_name = request.get_json()['owner_name']
+		table_name = request.get_json()['tablero_name']
+
+		user = User.query.filter_by(username=user_name).first()
+		user_id = user.id
+
+		tablero = Tablero.query.filter((Tablero.user_id == user_id) & (Tablero.name == table_name)).first()
+
+		db.session.delete(tablero)
+		db.session.commit()
+		
+		return jsonify({
+			'status': 'true'
+		})
+	except Exception as e:
+		db.session.rollback()
+		return jsonify({
+			'status': 'false'
+		})
+	finally:
+		db.session.close()
+
 
 @app.route('/')
 def index():

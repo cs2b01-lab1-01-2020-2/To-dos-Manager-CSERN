@@ -36,12 +36,15 @@
 						</form>
 						<li class="uk-nav-divider"></li>
 						{% for table in tables %}
-						<li>
+						<li class="uk-flex uk-flex-center uk-flex-middle">
 							<a href="/{{data}}/{{table.name}}/todos">
 								<span class="uk-margin-small-right">
 									{{ table.name }}
 								</span>
 							</a>
+							<div class="table_options">
+								<i class="fas fa-times table_remove" data-id_tablename="{{table.name}}"></i>
+							</div>
 						</li>
 						{% endfor %}
 					</ul>
@@ -80,7 +83,7 @@
 				</div>
 				
 				<div>
-					<form class="ftodo uk-padding-large" id="share">
+					<form class="ftodo uk-padding-large" id="form_share">
 						<input
 							class="uk-input uk-form-width-medium"
 							type="text"

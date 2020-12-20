@@ -53,8 +53,17 @@
 	text-align: left;
 }
 
-
 .back_black_imp {
 	background: #000 !important;
 	color: #fff;
+}
+
+.table_options {
+	position: absolute;
+	right: 0;
+	padding-right: 4rem;
+}
+
+.table_options i {
+	margin: 2px;
 }
