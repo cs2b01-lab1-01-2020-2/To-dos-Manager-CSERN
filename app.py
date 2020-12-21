@@ -3,8 +3,8 @@ import json
 from modelos import * 
 import psycopg2
 
-connection = connection = psycopg2.connect(database = "todosdb", user = "postgres", password = "pvta")
-# connection = connection = psycopg2.connect(database = "todosdb", user = "rrodriguez", password = "1234")
+# connection = connection = psycopg2.connect(database = "todosdb", user = "postgres", password = "pvta")
+connection = connection = psycopg2.connect(database = "todosdb", user = "rrodriguez", password = "1234")
 cursor = connection.cursor()
 
 # Register
@@ -170,6 +170,30 @@ def update_todo(user_name,table_name):
 		user_id = user.id
 		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
 		todo.description = desc
+		
+		db.session.commit()
+		return jsonify({
+			'status': 'true'
+		})
+	except Exception as e:
+		db.session.rollback()
+		return jsonify({
+			'status': 'false'
+		})
+	finally:
+		db.session.close()
+
+# Update Deadline -	U
+@app.route('/<user_name>/<table_name>/todos/editdeadline/', methods=['POST'])
+def editdeadline_todo(user_name,table_name):
+	try: 
+		user_name = request.get_json()['user_name']
+		todo_id = request.get_json()['todo_id']
+		dead_line = request.get_json()['deadline']
+		user = User.query.filter_by(username=user_name).first()
+		user_id = user.id
+		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
+		todo.deadline = dead_line
 		
 		db.session.commit()
 		return jsonify({
