@@ -74,7 +74,7 @@ public class tables extends AppCompatActivity {
 
     }
 
-    
+
     public void addtable(View view) {
         EditText adder = findViewById(R.id.adder);
         String tableName = adder.getText().toString();
@@ -82,6 +82,7 @@ public class tables extends AppCompatActivity {
             if(x.equals(tableName)) {
                 String hint = getString(R.string.addrep);
                 Toast.makeText(getApplicationContext(), hint, Toast.LENGTH_LONG).show();
+                adder.setText("");
                 return;
             }
         }
