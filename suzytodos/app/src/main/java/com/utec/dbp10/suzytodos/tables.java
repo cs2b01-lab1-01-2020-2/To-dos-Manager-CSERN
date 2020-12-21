@@ -94,6 +94,7 @@ public class tables extends AppCompatActivity {
             String hint = getString(R.string.tablename);
             Toast.makeText(getApplicationContext(), hint, Toast.LENGTH_LONG).show();
         }
+
     }
 
 
