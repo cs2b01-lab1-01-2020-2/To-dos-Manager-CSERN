@@ -1,6 +1,5 @@
 document.getElementById('form_share').onsubmit = function(e){
   e.preventDefault();
-  console.log(document.getElementById('shared_username'));
   fetch('/' + user_name + '/' + tablero_name + '/tablero/share/',{
     method: 'POST',
     body: JSON.stringify({
