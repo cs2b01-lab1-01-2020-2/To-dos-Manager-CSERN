@@ -74,6 +74,7 @@ public class tables extends AppCompatActivity {
 
     }
 
+    
     public void addtable(View view) {
         EditText adder = findViewById(R.id.adder);
         String tableName = adder.getText().toString();
