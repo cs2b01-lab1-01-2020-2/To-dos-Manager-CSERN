@@ -31,6 +31,8 @@
 
 ## Manejo de Errores
 - Manejamos errores de falta de data en los EditText
+- Creacion duplicada de tableros
+- Borrado de tablero general
 
 ## Nivel de api
 - Version 6.0 (Marshmellow)
