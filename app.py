@@ -85,7 +85,7 @@ def login():
 			return jsonify({
 				'response': 'true',
 				'user': usxr.username,
-				'tablero_name': 'default'	,
+				'tablero_name': 'default',
 				'table_id': tablero_id
 			})
 		else:

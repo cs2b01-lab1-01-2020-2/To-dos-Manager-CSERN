@@ -23,7 +23,7 @@
 ## Tecnologías utilizadas
 
 ### Base de Datos
-- Postgres
+- Postgresql
 
 ### Backend
 - Python 3 
@@ -40,30 +40,24 @@
 
 ## Referencias de API
 - `/auth/signup` METHOD: POST
-
 - `/auth/login` METHOD: POST
-
-- `/<user_name>/todos/displayall/`
-
-- `<user_name>/todos/displaycompleted`
-
-- `<user_name>/todos/displayincompleted`
-
-- `<user_name>/todos`
-
-- `<user_name>/add/todo` METHOD: POST
-
-- `<user_name>/update/todo` METHOD: POST
-
-- `/<user_name>/update_is_done/todo` METHOD: POST
-
-- `/<user_name>/delete/todo`
+- `/<user_name>/<table_name>/todos/displayall/`
+- `/<user_name>/<table_name>/todos/displaycompleted`
+- `/<user_name>/<table_name>/todos/displayincompleted`
+- `/<user_name>/<table_name>/<table_id>/todos/`
+- `/<user_name>/<table_name>/todos/add/` METHOD: POST
+- `/<user_name>/<table_name>/todos/update/` METHOD: POST
+- `/<user_name>/<table_name>/todos/editdeadline/` METHOD: POST
+- `/<user_name>/<table_name>/todos/update_is_done/` METHOD: POST
+- `/<user_name>/<table_name>/todos/delete/` METHOD: POST
+- `/<user_name>/<table_name>/tablero/delete/ ` METHOD: POST
+- `/<user_name>/<table_name>/tablero/share/ ` METHOD: POST
 
 ## Hosts
 - La aplicación corre en el localhost `127.0.0.1`, en el puerto `5001`.
 
 ## Forma de Autenticación
-- Nuestra Login y Register cuentan con autención de usuario, email y contraseña
+- No tenemos forma de autenticación.
 
 ## Manejo de Errores
 - Manejamos dos errores:
@@ -76,7 +70,8 @@
     - Debe enviar un JSON ```{
       'username': username,
       'email': email,
-      'password': password
+      'status': 'true',
+      'table': table.name
     } ```.
     - Retorna el username y el email del usuario creado.```{
         'username': username,
@@ -86,53 +81,68 @@
 - `/auth/login` METHOD: POST
     - Este método nos permite ingresar a nuestro Dashboard.
     - Debe enviar un JSON ```{
-      'username': username,
-      'password': password
+      'response': 'true',
+      'user': usxr.username,
+      'tablero_name': 'default',
+      'table_id': tablero_id
     } ```.
-    - Retorna un JSON `{ status: true }`, en caso de que hayas ingresado satisfactoriamente.
-    - Retorna un JSON `{ status: false }`, en caso de que no hayas ingresado bien un campo.
+    - Retorna un JSON `{ response: true }`, en caso de que hayas ingresado satisfactoriamente.
+    - Retorna un JSON `{ response: false }`, en caso de que no hayas ingresado bien un campo.
 - `/<user_name>/todos/displayall/`
     - Recibe el nombre del usuario.
-    - Este método retorna un JSON con todos los To dos.
+    - Este método retorna un JSON con todos los Todos.
 - `<user_name>/todos/displaycompleted`
     - Recibe el nombre del usuario.
-    - Este método retorna un JSON con todos los To dos que ya han sido completados.
+    - Este método retorna un JSON con todos los Todos que ya han sido completados.
 - `<user_name>/todos/displayincompleted`
-    - Este método retorna un JSON con todo los To dos que ya han sido completados.
-- `<user_name>/todos`
+    - Este método retorna un JSON con todo los Todos que ya han sido completados.
+- `/<user_name>/<table_name>/<table_id>/todos/`
     - Recibe el nombre de usuario.
-    - Redirecciona a la página de los To dos de un usuario.
-- `<user_name>/add/todo` METHOD: POST
-    - Este método nos permite añadir To dos.
-    - Recibe el nombre de usuario por la URL y el To do como un JSON `{ description: value }`.
+    - Recibe el nombre de la tablero y el id de la tablero.
+    - Redirecciona a la página de los Todos de un usuario.
+- `/<user_name>/<table_name>/todos/add/` METHOD: POST
+    - Este método nos permite añadir Todos.
+    - Recibe el nombre de usuario por la URL y el Todo como un JSON `{ description: value }`.
+    - Recibe el nombre de la tablero y el id de la tablero.
     - Retorna un JSON `{ status: true }`, en caso de que la tarea ha sido creada satisfactoriamente.
     - Retorna un JSON `{ status: false }`, en caso de que la tarea no haya sido creada.
-- `<user_name>/update/todo` METHOD: POST
-    - Este método nos permite actualizar un To do.
-    - Recibe el nombre de usuario por la URL y el username, id del To do y el To do  como un JSON ```{
-          'user_name': username,
-          'todo_id': idtodo,
-          'description': value
-        }```.
+- `/<user_name>/<table_name>/todos/update/` METHOD: POST
+    - Este método nos permite actualizar un Todo.
+    - Recibe el username por la URL y el nombre de la tablero.
     - Retorna un JSON `{ status: true }`, en caso de que la tarea ha sido actualizada satisfactoriamente.
     - Retorna un JSON `{ status: false }`, en caso de que la tarea no se haya podido actualizar.
-- `/<user_name>/update_is_done/todo` METHOD: POST
+- `/<user_name>/<table_name>/todos/editdeadline/` METHOD: POST
+    - Este método nos permite actualizar el deadline de un Todo.
+    - Recibe el username por la URL y el nombre de la tablero.
+    - Retorna un JSON `{ status: true }`, en caso de que el deadline de la tarea ha sido actualizada satisfactoriamente.
+    - Retorna un JSON `{ status: false }`, en caso de que el deadline de la tarea no se haya podido actualizar.
+- `/<user_name>/<table_name>/todos/update_is_done/` METHOD: POST
     - Este método permite actualizar una tarea de incompleta a completa.
-    - Recibe el nombre del usuario, y el id del todo.``` {
-        'user_name': username,
-        'todo_id': idtodo
-        } ```
+    - Recibe el username por la URL y el nombre de la tablero.
     - Retorna un JSON `{ status: true }`, en caso de que la tarea ha sido actualizado satisfactoriamente.
     - Retorna un JSON `{ status: false }`, en caso de que la tarea no ha sido actualizado.
-- `/<user_name>/delete/todo`
-    - Este método permite eliminar un To do.
-    - Recibe el nombre del usuario, y el id del todo.``` {
-        'user_name': username,
-        'todo_id': idtodo
-        } ```.
+- `/<user_name>/<table_name>/todos/delete/`
+    - Este método permite eliminar un Todo.
+    - Recibe el username por la URL y el nombre de la tablero.
     - Retorna un JSON `{ status: true }`, en caso de que la tarea ha sido eliminado satisfactoriamente.
     - Retorna un JSON `{ status: false }`, en caso de que la tarea no ha sido eliminado.
-
+- `/table/create` METHOD: POST
+    - Este método nos permite crear un nuevo Tablero.
+    - Traerá desde los inputs de nuestro form el nombre del tablero, el dueño del tablero y un booleano para saber si es admin.
+    - Debe retornar un JSON para saber si se creó correctamente ```{
+      'name': table.name,
+      'status': 'true'
+    } ```.
+- `/<user_name>/<table_name>/tablero/delete/` METHOD: POST
+    - Este método nos permite eliminar un Tablero.
+    - Recibe el dueño del tablero y el nombre del tablero.
+    - Retorna un JSON `{ status: true }`, en caso de que  el tablero haya sido eliminado satisfactoriamente.
+    - Retorna un JSON `{ status: false }`, en caso de que el tablero no haya sido eliminado.
+- `/<user_name>/<table_name>/tablero/share/` METHOD: POST
+    - Este método nos permite compartir un Tablero.
+    - Recibe el dueño del tablero y el nombre del usuario a quién deseo compartir.
+    - Retorna un JSON `{ status: true }`, en caso de que  el tablero haya sido eliminado satisfactoriamente.
+    - Retorna un JSON `{ status: false }`, en caso de que el tablero no haya sido eliminado.
 ## Deployment scripts
 - En primer lugar, debemos crear la base de datos de la aplicación. La base de datos debe ser PostgresSQL. 
 ``` 
