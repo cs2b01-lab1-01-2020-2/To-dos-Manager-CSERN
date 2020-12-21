@@ -61,7 +61,7 @@ for (let i = 0; i < table_remove.length; i++) {
         status: 'success',
         timeout: 3000
       });
-      window.location.assign(localhost + owner_name + "/default/todos/");
+      window.location.assign(localhost + owner_name + "/default/" + res['table_id'] + "/todos/");
     })
   });
 }

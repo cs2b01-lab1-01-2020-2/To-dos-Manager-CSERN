@@ -305,27 +305,37 @@ def create_table2():
 @app.route('/<user_name>/<table_name>/tablero/delete/', methods=['POST'])
 def delete_tablero(user_name,table_name):
 	try: 
-		print('delete')
+		tablero_id = request.get_json()['table_id']
 		user_name_ = request.get_json()['owner_name']
+		
 
 		user = User.query.filter_by(username=user_name).first()
 		user_id = user.id
-		print(user)
-		user_tablero = Tablero.query.filter((Tablero.user_id == user_id) & (Tablero.name == table_name)).first()
-		print(user_tablero)
-		tablero = Tablero.query.filter(id=tablero.id).all()
-
+		
+		# id_default = Tablero.query.filter((Tablero.name == 'default') & (Tablero.user_id == user_id))
+		# print(id_default)
+		cursor.execute("select id from tablero where user_id=%s and name='default';" %user_id)
+		id_default = cursor.fetchone()[0]
+		
+		tablero = Tablero.query.filter((Tablero.user_id == user_id) & (Tablero.name == table_name)).first()
+		cursor.execute("select * from tablero where id=%s;" %tablero_id)
+		tableros = cursor.fetchall()
+		print(tableros)
 		if(tablero.is_admin == True):
-			print('hi')
-			db.session.delete(tablero)
+			# # delete_q = Tablero.__table__.delete().where(Tablero.id == tablero_id)
+			# # delete_q = db.session.query(Tablero).filter(Tablero.id == tablero_id)
+			# # db.session.delete(delete_q)
+			# cursor.execute("DELETE FROM tablero WHERE id=%s;" %tablero_id)
 			db.session.commit()
 			return jsonify({
-			'status': 'true'
-		})
+			'status': 'true',
+			'table_id': id_default
+			})
 		else:
 			db.session.rollback()
 			return jsonify({
-				'status': 'false'
+				'status': 'false',
+				'table_id': id_default 
 			})
 		
 	except Exception as e:
