@@ -70,7 +70,6 @@ document.getElementById('createuser').onsubmit = function(e){
 			return response.json();
 		})
 		.then(function(res){
-			console.log(res);
 			if (res['status'] == 'true') {
 				UIkit.notification({
 					message: 'User created!',

@@ -42,8 +42,6 @@ document.getElementById('form_table').onsubmit = function(e) {
 
 for (let i = 0; i < table_remove.length; i++) {
   table_remove[i].addEventListener('click',  function tableRemove() {
-    console.log("asd asdasdy owner", owner_name)
-    console.log("asd asdasdy tablero", table_remove[i].dataset.table_id)
     fetch('/' + user_name + '/' + tablero_name + '/tablero/delete/',{
       method: 'POST',
       body: JSON.stringify({

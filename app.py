@@ -6,8 +6,8 @@ from flask_migrate import Migrate
 from modelos import * 
 import psycopg2
 
-# connection = connection = psycopg2.connect(database = "todosdb", user = "postgres", password = "pvta")
-connection = connection = psycopg2.connect(database = "todosdb", user = "rrodriguez", password = "1234")
+connection = connection = psycopg2.connect(database = "todosdb", user = "postgres", password = "pvta")
+# connection = connection = psycopg2.connect(database = "todosdb", user = "rrodriguez", password = "1234")
 cursor = connection.cursor()
 
 # Register
@@ -85,7 +85,7 @@ def login():
 			return jsonify({
 				'response': 'true',
 				'user': usxr.username,
-				'tablero_name': 'default'	,
+				'tablero_name': 'default',
 				'table_id': tablero_id
 			})
 		else:
@@ -103,13 +103,13 @@ def display_all(user_name, table_name):
 	todo = Todo.query.filter(Todo.tablero_id==table_id).all()
 	return(jsonify(todo))
 
-# Todos Route
-@app.route('/<user_name>/<table_name>/<table_id>/todos/')
-def todos(user_name, table_id,table_name):
-	user = User.query.filter_by(username=user_name).first()
-	tables = Tablero.query.filter(Tablero.user_id == user.id)
-	return render_template('todos.html', data=user_name, tables=tables, tableid=table_id)
-
+# Display completed
+@app.route('/<user_name>/<table_name>/todos/displaycompleted/')
+def display_completed(user_name):
+    user = User.query.filter_by(username=user_name).first()
+    status = True
+    todo = Todo.query.filter((Todo.user_id == user.id) & (Todo.is_done == status)).all()
+    return(jsonify(todo))
 
 # Display incompleted
 @app.route('/<user_name>/<table_name>/todos/displayincompleted/')
@@ -119,14 +119,12 @@ def display_imcompleted(user_name):
     todo = Todo.query.filter((Todo.user_id == user.id) & (Todo.is_done == status)).all()
     return(jsonify(todo))
 
-# Display completed
-@app.route('/<user_name>/<table_name>/todos/displaycompleted/')
-def display_completed(user_name):
-    user = User.query.filter_by(username=user_name).first()
-    status = True
-    todo = Todo.query.filter((Todo.user_id == user.id) & (Todo.is_done == status)).all()
-    return(jsonify(todo))
-
+# Todos Route
+@app.route('/<user_name>/<table_name>/<table_id>/todos/')
+def todos(user_name, table_id,table_name):
+	user = User.query.filter_by(username=user_name).first()
+	tables = Tablero.query.filter(Tablero.user_id == user.id)
+	return render_template('todos.html', data=user_name, tables=tables, tableid=table_id)
 
 # Add Todo - C
 @app.route('/<user_name>/<table_name>/todos/add/', methods=['POST'])
@@ -145,9 +143,6 @@ def add_todo(user_name, table_name):
 		tablero_id = request.get_json()['table_id']
 		cat_id = Category.query.filter_by(name="general").first().id
 		user_id = User.query.filter_by(username=user_name).first().id
-
-		# cursor.execute("select id from tablero where name='%s' and user_id='%s';" % (table_name, user_id))
-		# tablero_id = cursor.fetchone()[0]
 
 		cursor.execute("select max(id) from todo;")	
 		id_max = cursor.fetchone()[0]
@@ -253,20 +248,6 @@ def delete_todo(user_name,table_name):
 	finally:
 		db.session.close()
 
-@app.route('/table/create', methods=['GET'])
-def create_table1():
-	print("create")
-	table_name = request.args.get('name', '')
-	owner_name = request.args.get('owner', '')
-	is_admin = request.args.get('admin', '')
-
-	owner_id = User.query.filter_by(username=owner_name).first().id
-	
-	table = Tablero(name=table_name, user_id=owner_id, is_admin=is_admin)
-	db.session.add(table)
-	db.session.commit()
-	return todos(owner_name, table_name)
-
 # Create Table -	D
 @app.route('/table/create', methods=['POST'])
 def create_table2():
@@ -361,9 +342,7 @@ def share_tablero(user_name,table_name):
 
 		user_id = user.id
 		tablero = Tablero.query.filter((Tablero.user_id == user_id) & (Tablero.name == table_name)).first()
-		print("username",user_name)
-		print(owner_name)
-		print(user.username)
+		
 		if(tablero.name != "default" and owner_name == user.username):
 			share_tablero = Tablero(id=tablero.id, user_id=sh_user_id,name=tablero.name, is_admin=False)
 
