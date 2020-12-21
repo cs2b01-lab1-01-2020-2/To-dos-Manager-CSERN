@@ -21,8 +21,10 @@
 ## Tecnologías utilizadas
 
 ### Frontend
+- Android
+
+### Backend
 - Java
-- XML
 
 ## Forma de Autenticación
 - Nuestra Login y Register cuentan con autención de usuario, email y contraseña
