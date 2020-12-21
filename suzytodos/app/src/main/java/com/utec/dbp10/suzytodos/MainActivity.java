@@ -1,16 +1,23 @@
 package com.utec.dbp10.suzytodos;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_TEXT = "com.utec.dbp10.suzytodos.EXTRA_TEXT";
+    public static final String EXTRA_ARRAY = "com.utec.dbp10.suzytodos.EXTRA_ARRAY";
+    public static final String EXTRA_KEY = "com.utec.dbp10.suzytodos.EXTRA_POS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
         String username = lusername.getText().toString();
         EditText lpassword = findViewById(R.id.lp);
         String password = lpassword.getText().toString();
-
+        String word = getString(R.string.general);
+        HashMap<String, ArrayList<String>> tables = new HashMap<String, ArrayList<String>>();
+        tables.put(word, new ArrayList<String>());
+        String key = word;
         if(username.equals("") || password.equals("")) {
             String hint = getString(R.string.loginhint);
             Toast.makeText(getApplicationContext(), hint, Toast.LENGTH_SHORT).show();
@@ -33,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
             lpassword.setText("");
             Intent intent = new Intent(this, todos.class);
             intent.putExtra(EXTRA_TEXT, username);
+            intent.putExtra(EXTRA_ARRAY, tables);
+            intent.putExtra(EXTRA_KEY, key);
             startActivity(intent);
         }
     }
