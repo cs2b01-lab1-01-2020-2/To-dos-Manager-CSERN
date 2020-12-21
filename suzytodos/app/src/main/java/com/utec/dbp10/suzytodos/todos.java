@@ -89,7 +89,6 @@ public class todos extends AppCompatActivity {
         Intent intent = new Intent(this, tables.class);
         intent.putExtra(EXTRA_TEXT, username);
         intent.putExtra(EXTRA_ARRAY, table);
-        intent.putExtra(EXTRA_KEY, key);
         startActivity(intent);
     }
 

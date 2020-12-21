@@ -36,7 +36,6 @@ public class tables extends AppCompatActivity {
         Intent intent = getIntent();
         username = intent.getStringExtra(MainActivity.EXTRA_TEXT);
         table = (HashMap<String, ArrayList<String>>) intent.getSerializableExtra(MainActivity.EXTRA_ARRAY);
-        key = intent.getStringExtra(MainActivity.EXTRA_KEY);
         tabless.addAll(table.keySet());
         listView = findViewById(R.id.list);
         tableAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tabless);
