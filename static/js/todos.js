@@ -183,7 +183,6 @@ function removeTodo(tbody,trTodo){
   fetch('/' + user_name + '/' + tablero_name + '/todos/delete/',{
     method: 'POST',
     body: JSON.stringify({
-      'user_name': user_name,
       'todo_id': trTodo.dataset.todoid
     }),
     headers: {
@@ -209,7 +208,6 @@ function editDeadline(inputDeadline, trTodo,divAnimation){
       fetch('/' + user_name + '/' + tablero_name + '/todos/editdeadline/' ,{
         method: 'POST',
         body: JSON.stringify({
-          'user_name': user_name, 
           'todo_id': trTodo.dataset.todoid,
           'deadline': deadline_val
         }),
@@ -236,7 +234,6 @@ function editTodo(inputTodo, trTodo){
       fetch('/' + user_name + '/' + tablero_name + '/todos/update/' ,{
         method: 'POST',
         body: JSON.stringify({
-          'user_name': user_name,
           'todo_id': trTodo.dataset.todoid,
           'description': todo_val
         }),
@@ -270,7 +267,6 @@ function updateTodo(todo,trTodo,checkbox,pStatus,is_done,inputDeadline){
   fetch('/' + user_name + '/' + tablero_name + '/todos/update_is_done/',{
     method: 'POST',
     body: JSON.stringify({
-      'user_name': user_name,
       'todo_id': trTodo.dataset.todoid
     }),
     headers: {
