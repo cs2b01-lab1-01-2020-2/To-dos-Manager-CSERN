@@ -20,7 +20,16 @@ document.getElementById('form_table').onsubmit = function(e) {
     return response.json();
   })
   .then(function(jsonResponse) {
-    window.location.reload();
+    if(jsonResponse['status']=='true'){
+      window.location.reload();
+    }
+    else{
+      UIkit.notification({
+        message: "You can't create a table with the name default!",
+        status: 'default',
+        timeout: 3000
+      });
+    }
   })
   .catch(function(error){
     UIkit.notification({
@@ -34,12 +43,12 @@ document.getElementById('form_table').onsubmit = function(e) {
 for (let i = 0; i < table_remove.length; i++) {
   table_remove[i].addEventListener('click',  function tableRemove() {
     console.log("asd asdasdy owner", owner_name)
-    console.log("asd asdasdy tablero", table_remove[i].dataset.id_tablename)
+    console.log("asd asdasdy tablero", table_remove[i].dataset.table_id)
     fetch('/' + user_name + '/' + tablero_name + '/tablero/delete/',{
       method: 'POST',
       body: JSON.stringify({
         'owner_name': owner_name,
-        'tablero_name': tablero_name
+        'table_id': table_remove[i].dataset.table_id
       }),
       headers: {
         'content-type': 'application/json'

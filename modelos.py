@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)  
-
+# c9e891672c09
 # User
 @dataclass
 class User(db.Model):
@@ -26,7 +26,7 @@ class User(db.Model):
     username = db.Column(db.String(), unique=True, nullable=False)
     email = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
-    todos = db.relationship('Todo', backref='usr', lazy=True)
+    # todos = db.relationship('Todo', backref='usr', lazy=True)
     tableros = db.relationship('Tablero', backref='usr', lazy=True, cascade='delete')
 
 # Tablero
@@ -39,10 +39,11 @@ class Tablero(db.Model):
     is_admin: bool
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'), nullable=False)
+    user_id = db.Column(db.Integer,db.ForeignKey('usr.id'),primary_key=True)
     name = db.Column(db.String(), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     todos = db.relationship('Todo', backref='tablero', lazy=True, cascade='delete')
+    # tableroid = db.relationship('Todo', backref='userid', lazy=True, cascade='delete', foreign_keys=["user_id"])
     
 # Category
 @dataclass
@@ -59,6 +60,9 @@ class Category(db.Model):
 @dataclass
 class Todo(db.Model):
     __tablename__ = 'todo'
+    __table_args__ = (
+        db.ForeignKeyConstraint(['tablero_id','user_id'],['tablero.id','tablero.user_id'], name='uniquetodo'),
+    )
     id: int
     user_id: User
     tablero_id: Tablero
@@ -69,10 +73,12 @@ class Todo(db.Model):
     deadline: datetime
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('usr.id'),nullable=False, primary_key=True)
-    tablero_id = db.Column(db.Integer, db.ForeignKey('tablero.id'),nullable=False)
+    tablero_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     description = db.Column(db.String(), nullable=False)
     is_done = db.Column(db.Boolean, default=False)
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     deadline = db.Column(db.DateTime)
+    
+

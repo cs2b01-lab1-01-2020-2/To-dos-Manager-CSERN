@@ -8,6 +8,8 @@ let tablero_name = arr[4]
 
 listAllTable();
 
+
+
 document.getElementById('ftodo').onsubmit = function(e){
   e.preventDefault();
 
@@ -21,7 +23,8 @@ document.getElementById('ftodo').onsubmit = function(e){
     method: 'POST',
     body: JSON.stringify({
       'description': document.getElementById('description').value,
-      'deadline': valDeadline
+      'deadline': valDeadline,
+      'table_id': document.getElementById('table_id').dataset.curr_table_id
     }),
     headers: {
       'content-type': 'application/json'
@@ -50,15 +53,23 @@ document.getElementById('ftodo').onsubmit = function(e){
 }
 
 function listAllTable() {
-  fetch('/' + user_name + '/' + tablero_name + '/todos/displayall/')
-    .then(response => response.json())
-    .then(todos => {
-        let tbodyAll = document.getElementById("tasks");
-        tbodyAll.innerHTML = "";
-        todos.forEach(todo => {
-            fillRowTable(tbodyAll,todo);
-        })
-    })
+  fetch('/' + user_name + '/' + tablero_name + '/todos/displayall/',{
+    method: 'POST',
+    body: JSON.stringify({
+      'table_id': document.getElementById('table_id').dataset.curr_table_id
+    }),
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(todos => {
+      let tbodyAll = document.getElementById("tasks");
+      tbodyAll.innerHTML = "";
+      todos.forEach(todo => {
+          fillRowTable(tbodyAll,todo);
+      })
+  })
 }
 
 function fillRowTable(tbodyAll,todo){

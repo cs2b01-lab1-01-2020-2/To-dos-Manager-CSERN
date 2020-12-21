@@ -6,7 +6,7 @@
 				<div class="uk-navbar-left">
 					<ul class="uk-navbar-nav">
 						<li class="uk-active uk-navbar-item">
-							<h3 class="uk-margin-remove susy_white">Your Susy Todos</h3>
+							<h3 id="table_id" class="uk-margin-remove susy_white" data-curr_table_id={{tableid}}>Your Susy Todos</h3>
 						</li>
 					</ul>
 				</div>
@@ -37,13 +37,13 @@
 						<li class="uk-nav-divider"></li>
 						{% for table in tables %}
 						<li class="uk-flex uk-flex-center uk-flex-middle">
-							<a href="/{{data}}/{{table.name}}/todos">
-								<span class="uk-margin-small-right">
-									{{ table.name }}
+							<a href="/{{data}}/{{table.name}}/{{table.id}}/todos/">
+								<span class="uk-margin-small-right" data-id_table="{{table.id}}">
+									{{ table.name }}  
 								</span>
 							</a>
 							<div class="table_options">
-								<i class="fas fa-times table_remove" data-id_tablename="{{table.name}}"></i>
+								<i class="fas fa-times table_remove" data-table_id="{{table.id}}"></i>
 							</div>
 						</li>
 						{% endfor %}
@@ -86,7 +86,7 @@
 						<input
 							class="uk-input uk-form-width-medium"
 							type="text"
-							id="username"
+							id="shared_username"
 							data-id_user="{{data}}"
 							name="username"
 							placeholder="username"
@@ -125,4 +125,5 @@
 </body>
 <script src="{{url_for('static', filename = 'js/todos.js')}}"></script>
 <script src="{{url_for('static', filename = 'js/tablero.js')}}"></script>
+<script src="{{url_for('static', filename = 'js/share.js')}}"></script>
 {% endblock %}

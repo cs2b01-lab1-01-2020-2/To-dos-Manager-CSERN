@@ -1,5 +1,8 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from modelos import * 
 import psycopg2
 
@@ -39,7 +42,10 @@ def signup():
 			cursor.execute("select id from usr where username='%s'" %user.username)
 			user_id = cursor.fetchone()[0]
 
-			table = Tablero(name="default", user_id=user_id, is_admin=True)
+			cursor.execute("select max(id) from tablero;")
+			id_tab_max = cursor.fetchone()[0]
+			id_tab_max = id_tab_max if (id_tab_max != None) else 0
+			table = Tablero(id=id_tab_max+1,name="default", user_id=user_id, is_admin=True)
 
 			db.session.add(table)
 			db.session.commit()
@@ -64,22 +70,23 @@ def login():
 	if request.method == 'POST':
 		username = request.get_json()['username']
 		password = request.get_json()['password']
-
+		print(password)
 		usxr = User.query.filter_by(username=username).first()
-
+		print(usxr)
 		passwd_validate = check_password_hash(usxr.password, password)
-
+		
 		if usxr.username == username and passwd_validate:
 			cursor.execute("select id from usr where username='%s'" %usxr.username)
 			user_id = cursor.fetchone()[0]
 
-			cursor.execute("select name from tablero where user_id='%s'" %user_id)
-			tablero_name = cursor.fetchone()[0]
-
+			cursor.execute("select id from tablero where user_id='%s' and name='default'" %user_id)
+			tablero_id = cursor.fetchone()[0]
+			
 			return jsonify({
 				'response': 'true',
 				'user': usxr.username,
-				'tablero_name': tablero_name
+				'tablero_name': 'default'	,
+				'table_id': tablero_id
 			})
 		else:
 			return jsonify({
@@ -87,19 +94,21 @@ def login():
 			})
 
 # Display all
-@app.route('/<user_name>/<table_name>/todos/displayall/')
+@app.route('/<user_name>/<table_name>/todos/displayall/', methods=['POST'])
 def display_all(user_name, table_name):
+	table_id = request.get_json()['table_id']
 	user = User.query.filter_by(username=user_name).first()
-	table = Tablero.query.filter((Tablero.user_id == user.id) & (Tablero.name == table_name)).first()
-	todo = Todo.query.filter((Todo.user_id==user.id) & (Todo.tablero_id==table.id)).all()
+	# Se filtra por id porque lo unico que importa es mostrar la informacion de la tabla
+	table = Tablero.query.filter(Tablero.id == table_id).first()
+	todo = Todo.query.filter(Todo.tablero_id==table_id).all()
 	return(jsonify(todo))
 
 # Todos Route
-@app.route('/<user_name>/<table_name>/todos/')
-def todos(user_name, table_name):
+@app.route('/<user_name>/<table_name>/<table_id>/todos/')
+def todos(user_name, table_id,table_name):
 	user = User.query.filter_by(username=user_name).first()
 	tables = Tablero.query.filter(Tablero.user_id == user.id)
-	return render_template('todos.html', data=user_name, tables=tables)
+	return render_template('todos.html', data=user_name, tables=tables, tableid=table_id)
 
 
 # Display incompleted
@@ -133,14 +142,14 @@ def add_todo(user_name, table_name):
 
 		desc = request.get_json()['description']
 		dead = request.get_json()['deadline']
-
+		tablero_id = request.get_json()['table_id']
 		cat_id = Category.query.filter_by(name="general").first().id
 		user_id = User.query.filter_by(username=user_name).first().id
 
-		cursor.execute("select id from tablero where name='%s' and user_id='%s';" % (table_name, user_id))
-		tablero_id = cursor.fetchone()[0]
+		# cursor.execute("select id from tablero where name='%s' and user_id='%s';" % (table_name, user_id))
+		# tablero_id = cursor.fetchone()[0]
 
-		cursor.execute("select max(id) from todo;")
+		cursor.execute("select max(id) from todo;")	
 		id_max = cursor.fetchone()[0]
 		id_max = id_max if (id_max != None) else 0
 
@@ -280,13 +289,22 @@ def create_table2():
 		is_admin = request.get_json()['admin']
 
 		owner_id = User.query.filter_by(username=owner_name).first().id
-
-		table = Tablero(name=table_name, user_id=owner_id, is_admin=is_admin)
-		db.session.add(table)
-		db.session.commit()
-		return jsonify({
-			'name': table.name
-		})
+		
+		if(table_name != 'default'):
+			cursor.execute("select max(id) from tablero;")
+			id_tab_max = cursor.fetchone()[0]
+			id_tab_max = id_tab_max if (id_tab_max != None) else 0
+			table = Tablero(id=id_tab_max+1,name=table_name, user_id=owner_id, is_admin=is_admin)
+			db.session.add(table)
+			db.session.commit()
+			return jsonify({
+				'name': table.name,
+				'status': 'true'
+			})
+		else:
+			return jsonify({
+				'status': 'false'
+			})
 	except Exception as e:
 		db.session.rollback()
 		return jsonify({
@@ -299,20 +317,29 @@ def create_table2():
 @app.route('/<user_name>/<table_name>/tablero/delete/', methods=['POST'])
 def delete_tablero(user_name,table_name):
 	try: 
-		user_name = request.get_json()['owner_name']
-		table_name = request.get_json()['tablero_name']
+		print('delete')
+		user_name_ = request.get_json()['owner_name']
 
 		user = User.query.filter_by(username=user_name).first()
 		user_id = user.id
+		print(user)
+		user_tablero = Tablero.query.filter((Tablero.user_id == user_id) & (Tablero.name == table_name)).first()
+		print(user_tablero)
+		tablero = Tablero.query.filter(id=tablero.id).all()
 
-		tablero = Tablero.query.filter((Tablero.user_id == user_id) & (Tablero.name == table_name)).first()
-
-		db.session.delete(tablero)
-		db.session.commit()
-		
-		return jsonify({
+		if(tablero.is_admin == True):
+			print('hi')
+			db.session.delete(tablero)
+			db.session.commit()
+			return jsonify({
 			'status': 'true'
 		})
+		else:
+			db.session.rollback()
+			return jsonify({
+				'status': 'false'
+			})
+		
 	except Exception as e:
 		db.session.rollback()
 		return jsonify({
@@ -321,7 +348,42 @@ def delete_tablero(user_name,table_name):
 	finally:
 		db.session.close()
 
+# Share Table
+@app.route('/<user_name>/<table_name>/tablero/share/', methods=['POST'])
+def share_tablero(user_name,table_name):
+	try: 
+		
+		shared_user = request.get_json()['shared_user']
+		owner_name = request.get_json()['owner_name']
+		sh_user = User.query.filter_by(username=shared_user).first()
+		
+		sh_user_id = sh_user.id
+		
+		user = User.query.filter_by(username=user_name).first()
+		user_id = user.id
+		tablero = Tablero.query.filter((Tablero.user_id == user_id) & (Tablero.name == table_name)).first()
+		
+		if(tablero.name != "default" and owner_name == user.name):
+			share_tablero = Tablero(id=tablero.id, user_id=sh_user_id,name=tablero.name, is_admin=False)
 
+			db.session.add(share_tablero)
+			db.session.commit()
+		
+			return jsonify({
+				'status': 'true'
+			})
+		else:
+			return jsonify({
+				'status': 'false'
+			})
+	except Exception as e:
+		db.session.rollback()
+		return jsonify({
+			'status': 'false'
+		})
+	finally:
+		db.session.close()
+		
 @app.route('/')
 def index():
 	return render_template('login.html')

@@ -1,25 +1,38 @@
-document.getElementById('form_share').onsubmit = function(e) {
-  e.preventDefault();  
-  fetch('/table/share', {
+document.getElementById('form_share').onsubmit = function(e){
+  e.preventDefault();
+  console.log(document.getElementById('shared_username'));
+  fetch('/' + user_name + '/' + tablero_name + '/tablero/share/',{
     method: 'POST',
     body: JSON.stringify({
-      'name': document.getElementById('table').value,
-      'owner': owner_name,
-      'admin': true
+      shared_user: document.getElementById('shared_username').value,
+      owner_user: owner_name
     }),
     headers: {
-      'Content-Type': 'application/json'
+      'content-type': 'application/json'
     }
   })
-  .then(function(response){
-    return response.json();
+  .then(response => response.json())
+  .then(res =>{
+    if(res['status'] == 'true') {
+      listAllTable();
+      document.getElementById("description").value = ""
+			UIkit.notification({
+				message: 'Table shared whit ' +  document.getElementById('shared_username').value,
+				status: 'success',
+				timeout: 3000
+			});
+    }
+    else{
+      UIkit.notification({
+        message: "You can't share this table!",
+        status: 'default',
+        timeout: 3000
+      });
+    } 
   })
-  .then(function(jsonResponse) {
-    window.location.reload();
-  })
-  .catch(function(error){
-    UIkit.notification({
-			message: 'Table was not created',
+  .catch(function(error) {
+		UIkit.notification({
+			message: 'Table not shared',
 			status: 'danger',
 			timeout: 3000
 		});
