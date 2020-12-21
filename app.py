@@ -172,14 +172,10 @@ def add_todo(user_name, table_name):
 @app.route('/<user_name>/<table_name>/todos/update/', methods=['POST'])
 def update_todo(user_name,table_name):
 	try: 
-		user_name = request.get_json()['user_name']
 		todo_id = request.get_json()['todo_id']
 		desc = request.get_json()['description']
-		user = User.query.filter_by(username=user_name).first()
-		user_id = user.id
-		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
+		todo = Todo.query.filter(Todo.id == todo_id).first()
 		todo.description = desc
-		
 		db.session.commit()
 		return jsonify({
 			'status': 'true'
@@ -196,12 +192,9 @@ def update_todo(user_name,table_name):
 @app.route('/<user_name>/<table_name>/todos/editdeadline/', methods=['POST'])
 def editdeadline_todo(user_name,table_name):
 	try: 
-		user_name = request.get_json()['user_name']
 		todo_id = request.get_json()['todo_id']
 		dead_line = request.get_json()['deadline']
-		user = User.query.filter_by(username=user_name).first()
-		user_id = user.id
-		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
+		todo = Todo.query.filter(Todo.id == todo_id).first()
 		todo.deadline = dead_line
 		
 		db.session.commit()
@@ -220,11 +213,8 @@ def editdeadline_todo(user_name,table_name):
 @app.route('/<user_name>/<table_name>/todos/update_is_done/', methods=['POST'])
 def update_todo_is_done(user_name,table_name):
 	try: 
-		user_name = request.get_json()['user_name']
 		todo_id = request.get_json()['todo_id']
-		user = User.query.filter_by(username=user_name).first()
-		user_id = user.id
-		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
+		todo = Todo.query.filter(Todo.id == todo_id).first()
 		if(todo.is_done):
 			todo.is_done = False
 		else:
@@ -246,11 +236,9 @@ def update_todo_is_done(user_name,table_name):
 @app.route('/<user_name>/<table_name>/todos/delete/', methods=['POST'])
 def delete_todo(user_name,table_name):
 	try: 
-		user_name = request.get_json()['user_name']
 		todo_id = request.get_json()['todo_id']
-		user = User.query.filter_by(username=user_name).first()
-		user_id = user.id
-		todo = Todo.query.filter((Todo.user_id == user_id) & (Todo.id == todo_id)).first()
+		todo = Todo.query.filter(Todo.id == todo_id).first()
+		
 		db.session.delete(todo)
 		db.session.commit()
 		
@@ -354,16 +342,19 @@ def share_tablero(user_name,table_name):
 	try: 
 		
 		shared_user = request.get_json()['shared_user']
-		owner_name = request.get_json()['owner_name']
-		sh_user = User.query.filter_by(username=shared_user).first()
+		owner_name = request.get_json()['owner_user']
 		
+		sh_user = User.query.filter_by(username=shared_user).first()
 		sh_user_id = sh_user.id
 		
 		user = User.query.filter_by(username=user_name).first()
+
 		user_id = user.id
 		tablero = Tablero.query.filter((Tablero.user_id == user_id) & (Tablero.name == table_name)).first()
-		
-		if(tablero.name != "default" and owner_name == user.name):
+		print("username",user_name)
+		print(owner_name)
+		print(user.username)
+		if(tablero.name != "default" and owner_name == user.username):
 			share_tablero = Tablero(id=tablero.id, user_id=sh_user_id,name=tablero.name, is_admin=False)
 
 			db.session.add(share_tablero)
