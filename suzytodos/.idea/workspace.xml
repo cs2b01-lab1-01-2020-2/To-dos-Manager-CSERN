@@ -37,6 +37,7 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +101,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
   </component>
   <component name="RecentsManager">
     <key name="android.template.-1741335218">
@@ -245,30 +246,30 @@
       <screen x="0" y="27" width="1680" height="1023" />
     </state>
     <state x="423" y="296" width="824" height="480" key="AndroidCreateResourceFileDialog/0.27.1680.1023/1680.0.1920.1080@0.27.1680.1023" timestamp="1608248198850" />
-    <state x="1060" y="455" width="424" height="480" key="FileChooserDialogImpl" timestamp="1608590549691">
+    <state x="1060" y="455" width="424" height="480" key="FileChooserDialogImpl" timestamp="1608592777108">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1060" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1608590549691" />
+    <state x="1060" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1608592777108" />
     <state x="696" y="359" width="424" height="480" key="FileChooserDialogImpl/0.27.1680.1023/1680.0.1920.1080@0.27.1680.1023" timestamp="1608247876889" />
-    <state width="2516" height="400" key="GridCell.Tab.0.bottom" timestamp="1608581496031">
+    <state width="2516" height="400" key="GridCell.Tab.0.bottom" timestamp="1608592412632">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2516" height="400" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1608581496031" />
+    <state width="2516" height="400" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1608592412632" />
     <state width="1634" height="269" key="GridCell.Tab.0.bottom/0.27.1680.1023/1680.0.1920.1080@0.27.1680.1023" timestamp="1608249996906" />
-    <state width="2516" height="400" key="GridCell.Tab.0.center" timestamp="1608581496030">
+    <state width="2516" height="400" key="GridCell.Tab.0.center" timestamp="1608592412631">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2516" height="400" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1608581496030" />
+    <state width="2516" height="400" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1608592412631" />
     <state width="1634" height="269" key="GridCell.Tab.0.center/0.27.1680.1023/1680.0.1920.1080@0.27.1680.1023" timestamp="1608249996906" />
-    <state width="2516" height="400" key="GridCell.Tab.0.left" timestamp="1608581496030">
+    <state width="2516" height="400" key="GridCell.Tab.0.left" timestamp="1608592412631">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2516" height="400" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1608581496030" />
+    <state width="2516" height="400" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1608592412631" />
     <state width="1634" height="269" key="GridCell.Tab.0.left/0.27.1680.1023/1680.0.1920.1080@0.27.1680.1023" timestamp="1608249996905" />
-    <state width="2516" height="400" key="GridCell.Tab.0.right" timestamp="1608581496030">
+    <state width="2516" height="400" key="GridCell.Tab.0.right" timestamp="1608592412631">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2516" height="400" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1608581496030" />
+    <state width="2516" height="400" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1608592412631" />
     <state width="1634" height="269" key="GridCell.Tab.0.right/0.27.1680.1023/1680.0.1920.1080@0.27.1680.1023" timestamp="1608249996906" />
     <state x="806" y="164" width="947" height="1072" key="find.popup" timestamp="1608587620599">
       <screen x="0" y="0" width="2560" height="1400" />
