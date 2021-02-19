@@ -1,0 +1,79 @@
+.error {
+	color: red;
+}
+
+.body {
+	font-family: "Roboto", sans-serif;
+	height: 100%;
+}
+
+.hidden {
+	display: none;
+}
+
+.header {
+	text-align: center;
+}
+
+.susy_navbar {
+	background: black;
+}
+
+.uk-button-default.susy_white,
+.susy_white {
+	color: white;
+}
+
+.ftodo {
+	margin-top: 2rem;
+}
+
+.uk-button-default.susy_white:focus,
+.uk-button-default.susy_white:hover {
+	color: white;
+}
+
+.far.fa-edit,
+.far.fa-trash-alt {
+	cursor: pointer;
+}
+
+.title {
+	text-align: center;
+}
+
+.ftodo,
+.error,
+.todosli,
+.b {
+	text-align: center;
+}
+
+.row_table{
+	text-align: left;
+}
+
+/* input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #2c3e50;
+}
+
+
+input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    color: #95a5a6;
+    font-family: "Helvetica", arial, sans-serif;
+    font-size: 18px;
+    border:1px solid #ecf0f1;
+    background:#ecf0f1;
+    padding:5px;
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+input[type="date"], focus {
+    color: #95a5a6;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+} */

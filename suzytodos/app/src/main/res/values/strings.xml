@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">SuzyTodos</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="name">Welcome to Suzy Todos</string>
+    <string name="welcome">Welcome</string>
+    <string name="addtodo">Add todo</string>
+    <string name="addtable">Add table</string>
+    <string name="todo">Todo</string>
+    <string name="todos">Todos</string>
+    <string name="logout">Logout</string>
+    <string name="tables">Tables</string>
+    <string name="table">Table</string>
+    <string name="loginhint">Please fill in all the login fields</string>
+    <string name="signuphint">Please fill in all the signup fields</string>
+    <string name="signupsuccess">Sign up was successful</string>
+    <string name="tododesc">Todo needs a description</string>
+    <string name="tododelete">Todo deleted</string>
+    <string name="tablename">Table needs a name</string>
+    <string name="tabledelete">Table deleted</string>
+    <string name="general">General</string>
+    <string name="delgen">Cannot delete general table</string>
+    <string name="addrep">Cannot add a duplicate table</string>
+</resources>

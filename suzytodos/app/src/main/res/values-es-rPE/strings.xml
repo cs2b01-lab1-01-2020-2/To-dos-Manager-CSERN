@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SuzyTodos</string>
+    <string name="login">Ingreso</string>
+    <string name="signup">Registrate</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="email">Correo electrónico</string>
+    <string name="name">Bienvenido a Suzy Todos</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="addtodo">Añade todo</string>
+    <string name="addtable">Añade Tablero</string>
+    <string name="todo">Todo</string>
+    <string name="todos">Todos</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="tables">Tableros</string>
+    <string name="table">Tablero</string>
+    <string name="loginhint">Porfavor llene todos los campos del login</string>
+    <string name="signuphint">Porfavor llene todos los campos del registro</string>
+    <string name="signupsuccess">El registro fue exitoso</string>
+    <string name="tododesc">Todo necesita una descripción</string>
+    <string name="tododelete">Todo eliminado</string>
+    <string name="tablename">Tablero necesita un nombre</string>
+    <string name="tabledelete">Tablero eliminada</string>
+    <string name="general">General</string>
+    <string name="delgen">No se puede borrar el tablero general</string>
+    <string name="addrep">No se puede agregar un tablero con nombre repetido</string>
+</resources>
